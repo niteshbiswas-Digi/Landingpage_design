@@ -17,6 +17,9 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
   title: 'UpCodo Digital — Custom Mobile & Web App Solutions',
   description: 'Transform your ideas into cutting-edge mobile and web applications. Expert app development in Noida.',
+  icons: {
+    icon: '/favicon.svg',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
