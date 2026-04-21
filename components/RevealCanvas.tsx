@@ -100,6 +100,13 @@ export default function RevealCanvas() {
     let n = 0;
     const imgs: HTMLImageElement[] = [];
     let hasError = false;
+    let timeoutId: NodeJS.Timeout;
+
+    // Set a timeout - if images don't load in 8 seconds, show content anyway
+    timeoutId = setTimeout(() => {
+      console.warn(`Image loading timeout: ${n}/${FRAME_COUNT} images loaded`);
+      setIsLoaded(true);
+    }, 8000);
 
     for (let i = 0; i < FRAME_COUNT; i++) {
       const img = new Image();
@@ -107,7 +114,10 @@ export default function RevealCanvas() {
       img.onload = () => {
         n++;
         setLoadedCount(n);
-        if (n === FRAME_COUNT) setIsLoaded(true);
+        if (n === FRAME_COUNT) {
+          clearTimeout(timeoutId);
+          setIsLoaded(true);
+        }
       };
       img.onerror = () => {
         console.warn(`Failed to load frame_${i}.webp`);
@@ -115,16 +125,16 @@ export default function RevealCanvas() {
         n++;
         setLoadedCount(n);
         if (n === FRAME_COUNT) {
-          if (!hasError) setIsLoaded(true);
-          else {
-            // Still show content even if some images fail
-            setTimeout(() => setIsLoaded(true), 1000);
-          }
+          clearTimeout(timeoutId);
+          // Still show content even if images fail
+          setIsLoaded(true);
         }
       };
       imgs.push(img);
     }
     imagesRef.current = imgs;
+
+    return () => clearTimeout(timeoutId);
   }, []);
 
   /* ── Scroll Logic ── */
