@@ -228,7 +228,7 @@ export default function RevealCanvas() {
         position: 'sticky',
         top: 0,
         left: 0,
-        height: isMobile ? 'auto' : '100vh',
+        height: '100vh',
         width: '100%',
         display: 'flex',
         flexDirection: isMobile ? 'column' : 'row',
