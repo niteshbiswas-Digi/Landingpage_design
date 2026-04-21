@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(taste-skill)",
+      "Bash(npx tsc:*)",
+      "Bash(claude init:*)"
+    ]
+  }
+}
