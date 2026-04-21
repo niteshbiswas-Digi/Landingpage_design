@@ -1,7 +1,7 @@
 'use client';
-import { useRef, useEffect, useState, useCallback } from 'react';
+import { useRef, useEffect, useState, useCallback, useMemo } from 'react';
 import {
-  useScroll, useTransform, useSpring, useMotionValueEvent, AnimatePresence, motion
+  useScroll, useTransform, useMotionValueEvent, AnimatePresence, motion, MotionValue
 } from 'framer-motion';
 
 const FRAME_COUNT = 120;
@@ -94,6 +94,10 @@ export default function RevealCanvas() {
   const [loadedCount, setLoadedCount] = useState(0);
   const [isLoaded,    setIsLoaded]    = useState(false);
   const [progress,    setProgress]    = useState(0);
+  const [animationComplete, setAnimationComplete] = useState(false);
+
+  const cumulativeScrollRef = useRef(0);
+  const animationProgress = useMemo(() => new MotionValue(0), []);
 
   /* ── Preload ── */
   useEffect(() => {
@@ -102,30 +106,82 @@ export default function RevealCanvas() {
     for (let i = 0; i < FRAME_COUNT; i++) {
       const img = new Image();
       img.src = `/sequence/frame_${i}.webp`;
-      img.onload = () => { 
-        n++; 
-        setLoadedCount(n); 
-        if (n === FRAME_COUNT) setIsLoaded(true); 
+      img.onload = () => {
+        n++;
+        setLoadedCount(n);
+        if (n === FRAME_COUNT) setIsLoaded(true);
       };
       imgs.push(img);
     }
     imagesRef.current = imgs;
   }, []);
 
-  /* ── Scroll Logic ── */
-  const { scrollYProgress } = useScroll({ 
-    target: containerRef, 
-    offset: ['start start', 'end end'] 
-  });
-  
-  const smooth = useSpring(scrollYProgress, {
-    stiffness: 60,
-    damping: 40,
-    restDelta: 0.001
-  });
-  
-  const sequenceProgress = useTransform(smooth, [0, 0.85], [0, 1]);
-  const frameIdx = useTransform(sequenceProgress, [0, 1], [0, FRAME_COUNT - 1], { clamp: true });
+  /* ── Scroll-Lock Logic ── */
+  useEffect(() => {
+    if (!isLoaded) return;
+
+    const ANIMATION_DISTANCE = 3000;
+
+    const handleWheel = (e: WheelEvent) => {
+      const delta = e.deltaY;
+      const currentScroll = cumulativeScrollRef.current;
+
+      // SCROLLING DOWN
+      if (delta > 0) {
+        // If animation still playing, lock it
+        if (currentScroll < ANIMATION_DISTANCE) {
+          e.preventDefault();
+          const newScroll = Math.min(currentScroll + delta, ANIMATION_DISTANCE);
+          cumulativeScrollRef.current = newScroll;
+          animationProgress.set(newScroll / ANIMATION_DISTANCE);
+          setProgress(newScroll / ANIMATION_DISTANCE);
+
+          if (newScroll >= ANIMATION_DISTANCE && !animationComplete) {
+            setAnimationComplete(true);
+          }
+        }
+        // Animation complete, allow page scroll
+        else {
+          return; // Natural scroll
+        }
+      }
+
+      // SCROLLING UP
+      else if (delta < 0) {
+        // Always lock scroll if we're at or past animation end (scrolling back into animation)
+        if (currentScroll >= ANIMATION_DISTANCE) {
+          e.preventDefault();
+          const newScroll = Math.max(currentScroll + delta, 0);
+          cumulativeScrollRef.current = newScroll;
+          animationProgress.set(newScroll / ANIMATION_DISTANCE);
+          setProgress(newScroll / ANIMATION_DISTANCE);
+
+          if (newScroll < ANIMATION_DISTANCE && animationComplete) {
+            setAnimationComplete(false);
+          }
+        }
+        // During animation, always lock
+        else if (currentScroll > 0) {
+          e.preventDefault();
+          const newScroll = Math.max(currentScroll + delta, 0);
+          cumulativeScrollRef.current = newScroll;
+          animationProgress.set(newScroll / ANIMATION_DISTANCE);
+          setProgress(newScroll / ANIMATION_DISTANCE);
+        }
+        // At start (scroll = 0), allow normal scroll up
+        else {
+          return; // Natural scroll
+        }
+      }
+    };
+
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    return () => window.removeEventListener('wheel', handleWheel);
+  }, [isLoaded, animationProgress, animationComplete]);
+
+  // Direct 1:1 scroll-to-animation mapping - no smoothing for true sync
+  const sequenceProgress = useTransform(animationProgress, [0, 1], [0, 1]);
+  const frameIdx = useTransform(animationProgress, [0, 1], [0, FRAME_COUNT - 1], { clamp: true });
 
   /* ── Draw ── */
   const draw = useCallback((idx: number) => {
@@ -189,21 +245,22 @@ export default function RevealCanvas() {
   };
 
   return (
-    <div 
-      ref={containerRef} 
-      style={{ 
-        position: 'relative', 
-        height: '600vh', 
+    <div
+      ref={containerRef}
+      style={{
+        position: 'relative',
+        height: '100vh',
         width: '100%',
         background: '#000',
-        zIndex: 1
+        zIndex: 1,
+        overflow: 'hidden',
       }}
     >
       <div style={{
-        position: 'sticky',
+        position: 'absolute',
         top: 0,
         left: 0,
-        height: isMobile ? 'auto' : '100vh',
+        height: '100vh',
         width: '100%',
         display: 'flex',
         flexDirection: isMobile ? 'column' : 'row',
