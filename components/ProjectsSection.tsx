@@ -103,6 +103,8 @@ function ProjectCard({ project }: { project: typeof PROJECTS[0] }) {
       onMouseMove={handleMove}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={handleLeave}
+      whileHover={{ y: -8, boxShadow: `0 30px 60px ${project.accent}15` }}
+      transition={{ type: 'spring', stiffness: 300, damping: 25 }}
       style={{
         rotateX: rotX, rotateY: rotY,
         transformStyle: 'preserve-3d',
@@ -112,7 +114,7 @@ function ProjectCard({ project }: { project: typeof PROJECTS[0] }) {
         borderRadius: 20,
         padding: project.large ? '40px' : '28px',
         overflow: 'hidden',
-        border: `1px solid ${hovered ? project.accent + '40' : 'rgba(255,255,255,0.05)'}`,
+        border: `1px solid ${hovered ? project.accent + '50' : 'rgba(255,255,255,0.05)'}`,
         height: '100%',
         minHeight: project.large ? 360 : 240,
         display: 'flex',
@@ -213,13 +215,14 @@ function ProjectCard({ project }: { project: typeof PROJECTS[0] }) {
               initial={{ opacity: 0, scale: 0.85 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.4, delay: ti * 0.06 }}
-              whileHover={{ scale: 1.08, borderColor: `${project.accent}55`, color: project.accent }}
+              whileHover={{ scale: 1.12, borderColor: `${project.accent}88`, color: project.accent, boxShadow: `0 0 12px ${project.accent}30` }}
+              transition={{ duration: 0.2 }}
               style={{
                 fontSize: 10, fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase',
-                color: '#555', background: 'rgba(255,255,255,0.04)',
+                color: '#777', background: 'rgba(255,255,255,0.04)',
                 border: '1px solid rgba(255,255,255,0.07)',
                 padding: '4px 10px', borderRadius: 6,
-                transition: 'color 0.2s ease, border-color 0.2s ease',
+                transition: 'color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease',
               }}
             >
               {tech}
@@ -240,7 +243,7 @@ function ProjectCard({ project }: { project: typeof PROJECTS[0] }) {
           >
             {project.metric}
           </motion.span>
-          <span style={{ fontSize: 11, color: '#3a3a3a', letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 700 }}>
+          <span style={{ fontSize: 11, color: '#666', letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 700 }}>
             {project.metricLabel}
           </span>
         </div>
@@ -271,7 +274,7 @@ function HeaderWord({ text, inView, delay = 0, dim }: { text: string; inView: bo
   return (
     <span style={{ display: 'inline-block', overflow: 'hidden', verticalAlign: 'bottom' }}>
       <motion.span
-        style={{ display: 'inline-block', color: dim ? '#252525' : '#f0f0f0' }}
+        style={{ display: 'inline-block', color: dim ? '#404040' : '#f0f0f0' }}
         initial={{ y: '110%', opacity: 0 }}
         animate={inView ? { y: 0, opacity: 1 } : {}}
         transition={{ duration: 0.75, delay, ease: [0.16, 1, 0.3, 1] }}
@@ -323,7 +326,7 @@ export default function ProjectsSection() {
           animate={inView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.65, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
         >
-          <p style={{ fontSize: 13, color: '#444', lineHeight: 1.65, maxWidth: 260, margin: '0 0 20px 0' }}>
+          <p style={{ fontSize: 13, color: '#777', lineHeight: 1.65, maxWidth: 260, margin: '0 0 20px 0' }}>
             From seed-stage startups to Fortune 500 infrastructure. Every engagement ships on time.
           </p>
           <motion.button

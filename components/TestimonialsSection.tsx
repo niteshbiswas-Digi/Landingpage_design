@@ -197,7 +197,7 @@ export default function TestimonialsSection() {
 
         {/* Featured — animated glow border + 3D tilt */}
         <TiltCard strength={4}>
-          <motion.div {...cardIn(0.1)} style={{ position: 'relative' }}>
+          <motion.div {...cardIn(0.1)} whileHover={{ y: -6 }} style={{ position: 'relative' }}>
             {/* Pulsing gradient border ring */}
             <motion.div
               className="border-glow-anim"
@@ -297,6 +297,8 @@ export default function TestimonialsSection() {
             <TiltCard key={t.id} style={{ flex: 1 }}>
               <motion.div
                 {...cardIn(0.2 + i * 0.1)}
+                whileHover={{ y: -6, boxShadow: '0 20px 50px rgba(255,255,255,0.08)' }}
+                transition={{ type: 'spring', stiffness: 280, damping: 20 }}
                 style={{
                   background: '#0d0d0d',
                   border: '1px solid rgba(255,255,255,0.05)',
@@ -344,6 +346,8 @@ export default function TestimonialsSection() {
           <TiltCard key={t.id}>
             <motion.div
               {...cardIn(0.3 + i * 0.09)}
+              whileHover={{ y: -6, boxShadow: '0 20px 50px rgba(255,255,255,0.08)' }}
+              transition={{ type: 'spring', stiffness: 280, damping: 20 }}
               style={{
                 background: '#0d0d0d',
                 border: '1px solid rgba(255,255,255,0.05)',

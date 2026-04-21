@@ -148,6 +148,8 @@ export default function RevealCanvas() {
 
   useEffect(() => {
     if (!isLoaded) return;
+    // Scroll to top when loading completes
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     draw(0);
     const onResize = () => {
       if (canvasRef.current) { 
@@ -331,7 +333,14 @@ export default function RevealCanvas() {
               </svg>
             </motion.div>
             <div style={{ textAlign: 'center' }}>
-              <p style={{ fontSize: 11, letterSpacing: '0.4em', textTransform: 'uppercase', color: '#f5a623', fontWeight: 900 }}>Engaging Systems</p>
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: 'easeOut' }}
+                style={{ fontSize: 11, letterSpacing: '0.4em', textTransform: 'uppercase', color: '#f5a623', fontWeight: 900, margin: 0 }}
+              >
+                UPCODO Digital
+              </motion.p>
               <div style={{ width: 260, height: 2, background: '#111', borderRadius: 99, overflow: 'hidden', marginTop: 12 }}>
                 <motion.div initial={{ width: 0 }} animate={{ width: `${pct}%` }} style={{ height: '100%', background: '#f5a623' }} />
               </div>

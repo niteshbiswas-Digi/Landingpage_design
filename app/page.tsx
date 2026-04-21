@@ -129,10 +129,10 @@ function StatItem({ stat, index, inView }: { stat: typeof STATS[0]; index: numbe
   const display = useCountUp(stat.value, inView);
   return (
     <motion.div
-      initial={{ opacity: 0, y: 28 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
+      initial={{ opacity: 0, y: 28, scale: 0.95 }}
+      animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
       transition={{ duration: 0.8, delay: index * 0.12, ease: [0.16, 1, 0.3, 1] }}
-      whileHover={{ y: -5 }}
+      whileHover={{ y: -8, scale: 1.05 }}
       style={{
         borderLeft: index > 0 ? '1px solid rgba(255,255,255,0.04)' : 'none',
         paddingLeft: index > 0 ? 'clamp(24px, 3vw, 52px)' : 0,
@@ -216,7 +216,7 @@ const CTAOrbs = memo(function CTAOrbs() {
 
 function CTASection() {
   const ref    = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: true, margin: '-10%' });
+  const inView = useInView(ref, { margin: '-10%' });
 
   return (
     <section
@@ -257,8 +257,9 @@ function CTASection() {
         UPCODO
       </motion.div>
 
-      <div style={{ position: 'relative', zIndex: 10, maxWidth: 940 }}>
+      <div style={{ position: 'relative', zIndex: 10, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'clamp(40px, 5vw, 80px)', alignItems: 'center' }}>
 
+        <div>
         {/* Eyebrow */}
         <motion.div
           initial={{ opacity: 0, x: -16 }}
@@ -338,6 +339,287 @@ function CTASection() {
             <MagneticBtn>View Portfolio</MagneticBtn>
           </motion.div>
         </div>
+        </div>
+
+        {/* Right side: App Mockup */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9, rotateY: 30 }}
+          animate={inView ? { opacity: 1, scale: 1, rotateY: 0 } : {}}
+          transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          style={{
+            perspective: 1200,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            position: 'relative',
+            height: '100%',
+            minHeight: 500,
+          }}
+        >
+          {/* Floating glow orbs */}
+          <motion.div
+            animate={{ y: [0, -15, 0], opacity: [0.4, 0.8, 0.4] }}
+            transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+            style={{
+              position: 'absolute',
+              top: '5%',
+              right: '-10%',
+              width: 200,
+              height: 200,
+              borderRadius: '50%',
+              background: 'radial-gradient(circle, rgba(245,166,35,0.15) 0%, transparent 70%)',
+              filter: 'blur(40px)',
+              zIndex: 0,
+            }}
+          />
+
+          {/* Phone Mockup */}
+          <motion.div
+            whileHover={{ y: -10, rotateX: 5 }}
+            style={{
+              position: 'relative',
+              zIndex: 2,
+              width: 'clamp(240px, 100%, 340px)',
+              aspectRatio: '9 / 18',
+              background: '#0a0a0a',
+              borderRadius: 40,
+              border: '8px solid #1a1a1a',
+              boxShadow: '0 0 60px rgba(245,166,35,0.2), inset 0 0 60px rgba(245,166,35,0.05)',
+              overflow: 'hidden',
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
+            {/* Phone notch */}
+            <div style={{
+              height: 28,
+              background: '#000',
+              borderBottom: '1px solid rgba(255,255,255,0.05)',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+              <div style={{
+                width: 120,
+                height: 20,
+                background: '#000',
+                borderRadius: 10,
+              }} />
+            </div>
+
+            {/* App Content */}
+            <div style={{
+              flex: 1,
+              background: 'linear-gradient(180deg, #0d0d0d 0%, #050505 100%)',
+              padding: 20,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 16,
+              overflow: 'hidden',
+            }}>
+              {/* App header with insights */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.7, delay: 0.5 }}
+                style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}
+              >
+                <div style={{ fontSize: 10, fontWeight: 700, color: '#f5a623', letterSpacing: '0.2em', textTransform: 'uppercase' }}>UpCodo</div>
+                <div style={{ width: 20, height: 20, borderRadius: '50%', background: 'rgba(245,166,35,0.2)', border: '1px solid #f5a623' }} />
+              </motion.div>
+
+              {/* Insight metrics - animated reveal */}
+              <motion.div
+                initial={{ opacity: 0, y: 15, scale: 0.95 }}
+                animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+                transition={{ duration: 0.7, delay: 0.65 }}
+                style={{
+                  background: 'linear-gradient(135deg, rgba(245,166,35,0.08) 0%, rgba(167,139,250,0.04) 100%)',
+                  border: '1px solid rgba(245,166,35,0.1)',
+                  borderRadius: 8,
+                  padding: '8px 10px',
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: 8,
+                  marginBottom: 4,
+                }}
+              >
+                {[
+                  { label: 'Users', value: '10K+' },
+                  { label: 'Active', value: '98%' }
+                ].map((metric, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={inView ? { opacity: 1, scale: 1 } : {}}
+                    transition={{ duration: 0.5, delay: 0.8 + i * 0.1 }}
+                  >
+                    <div style={{ fontSize: 8, color: '#888', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 2 }}>
+                      {metric.label}
+                    </div>
+                    <div style={{ fontSize: 11, fontWeight: 700, color: '#f5a623' }}>
+                      {metric.value}
+                    </div>
+                  </motion.div>
+                ))}
+              </motion.div>
+
+              {/* Divider line - draws on reveal */}
+              <motion.div
+                initial={{ scaleX: 0 }}
+                animate={inView ? { scaleX: 1 } : {}}
+                transition={{ duration: 0.8, delay: 0.75, ease: 'easeOut' }}
+                style={{
+                  height: 1,
+                  background: 'linear-gradient(90deg, rgba(245,166,35,0.2) 0%, transparent 100%)',
+                  transformOrigin: 'left',
+                }}
+              />
+
+              {/* App cards - animated reveal with insights */}
+              {[0, 1, 2].map((i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: 30 }}
+                  animate={inView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.6, delay: 0.6 + i * 0.1 }}
+                  style={{
+                    background: 'rgba(255,255,255,0.04)',
+                    border: '1px solid rgba(245,166,35,0.15)',
+                    borderRadius: 12,
+                    padding: 12,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 8,
+                    overflow: 'hidden',
+                  }}
+                  whileHover={{
+                    backgroundColor: 'rgba(255,255,255,0.08)',
+                    borderColor: 'rgba(245,166,35,0.35)',
+                    y: -2,
+                  }}
+                >
+                  {/* Top row with icon and title */}
+                  <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={inView ? { scale: 1 } : {}}
+                      transition={{ duration: 0.5, delay: 0.7 + i * 0.1, type: 'spring' }}
+                      style={{
+                        width: 28,
+                        height: 28,
+                        borderRadius: 6,
+                        background: `rgba(245,166,35,${0.1 + i * 0.05})`,
+                        border: '1px solid rgba(245,166,35,0.2)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: 14,
+                        fontWeight: 700,
+                        color: '#f5a623',
+                      }}
+                    >
+                      {i + 1}
+                    </motion.div>
+                    <div style={{ flex: 1 }}>
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={inView ? { opacity: 1, y: 0 } : {}}
+                        transition={{ duration: 0.5, delay: 0.75 + i * 0.1 }}
+                        style={{ fontSize: 11, fontWeight: 600, color: '#e0e0e0' }}
+                      >
+                        Feature {i + 1}
+                      </motion.div>
+                    </div>
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 8, repeat: Infinity, ease: 'linear', delay: i * 0.2 }}
+                      style={{
+                        width: 4,
+                        height: 4,
+                        borderRadius: '50%',
+                        background: '#f5a623',
+                      }}
+                    />
+                  </div>
+
+                  {/* Insight bar - animated fill */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                    <div style={{ fontSize: 8, color: '#888', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+                      Performance
+                    </div>
+                    <div style={{
+                      height: 4,
+                      background: 'rgba(255,255,255,0.05)',
+                      borderRadius: 2,
+                      overflow: 'hidden',
+                    }}>
+                      <motion.div
+                        initial={{ width: 0 }}
+                        animate={inView ? { width: `${60 + i * 15}%` } : {}}
+                        transition={{ duration: 1, delay: 0.8 + i * 0.12, ease: 'easeOut' }}
+                        style={{
+                          height: '100%',
+                          background: `linear-gradient(90deg, #f5a623 0%, rgba(245,166,35,0.5) 100%)`,
+                          borderRadius: 2,
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Details reveal */}
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={inView ? { opacity: 1 } : {}}
+                    transition={{ duration: 0.5, delay: 1 + i * 0.1 }}
+                    style={{ fontSize: 9, color: '#666', letterSpacing: '-0.01em', lineHeight: 1.4 }}
+                  >
+                    Premium quality & optimized
+                  </motion.div>
+                </motion.div>
+              ))}
+
+              {/* CTA in app */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.9 }}
+                style={{
+                  marginTop: 'auto',
+                  padding: '10px 12px',
+                  background: '#f5a623',
+                  color: '#000',
+                  borderRadius: 10,
+                  textAlign: 'center',
+                  fontSize: 10,
+                  fontWeight: 700,
+                  letterSpacing: '0.05em',
+                  cursor: 'pointer',
+                }}
+                whileHover={{ scale: 1.05 }}
+              >
+                Get Started
+              </motion.div>
+            </div>
+          </motion.div>
+
+          {/* Accent shapes behind phone */}
+          <motion.div
+            animate={{ y: [0, 20, 0] }}
+            transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut', delay: 0.3 }}
+            style={{
+              position: 'absolute',
+              bottom: '-5%',
+              left: '-15%',
+              width: 180,
+              height: 180,
+              borderRadius: '50%',
+              background: 'radial-gradient(circle, rgba(167,139,250,0.1) 0%, transparent 70%)',
+              filter: 'blur(50px)',
+              zIndex: 1,
+            }}
+          />
+        </motion.div>
       </div>
     </section>
   );
@@ -399,8 +681,9 @@ function Footer() {
             Services
           </p>
           {['Mobile Apps', 'Web Development', 'AI Solutions', 'UI/UX Design'].map(link => (
-            <a
+            <motion.a
               key={link} href="#"
+              whileHover={{ x: 4, color: '#f5a623' }}
               style={{
                 display: 'block', fontSize: 13, color: '#666', fontWeight: 500,
                 textDecoration: 'none', marginBottom: 11, letterSpacing: '-0.01em',
@@ -410,7 +693,7 @@ function Footer() {
               onMouseLeave={e => (e.currentTarget.style.color = '#666')}
             >
               {link}
-            </a>
+            </motion.a>
           ))}
         </div>
 
@@ -423,8 +706,9 @@ function Footer() {
             Company
           </p>
           {['About', 'Work', 'Process', 'Contact', 'GitHub'].map(link => (
-            <a
+            <motion.a
               key={link} href="#"
+              whileHover={{ x: 4, color: '#f5a623' }}
               style={{
                 display: 'block', fontSize: 13, color: '#666', fontWeight: 500,
                 textDecoration: 'none', marginBottom: 11, letterSpacing: '-0.01em',
@@ -434,7 +718,7 @@ function Footer() {
               onMouseLeave={e => (e.currentTarget.style.color = '#666')}
             >
               {link}
-            </a>
+            </motion.a>
           ))}
         </div>
       </div>
@@ -521,10 +805,12 @@ export default function Home() {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 + i * 0.07, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -2, color: '#f0f0f0' }}
               style={{
                 fontSize: 12, fontWeight: 600, color: '#888',
                 textDecoration: 'none', letterSpacing: '0.02em',
                 transition: 'color 0.2s ease',
+                position: 'relative',
               }}
               onMouseEnter={e => (e.currentTarget.style.color = '#f0f0f0')}
               onMouseLeave={e => (e.currentTarget.style.color = '#888')}
@@ -537,14 +823,15 @@ export default function Home() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
-            whileHover={{ scale: 1.05, boxShadow: '0 0 24px rgba(245,166,35,0.35)' }}
-            whileTap={{ scale: 0.95, y: 1 }}
+            whileHover={{ scale: 1.08, boxShadow: '0 12px 40px rgba(245,166,35,0.4)', y: -3 }}
+            whileTap={{ scale: 0.92 }}
             style={{
               padding: '9px 20px', borderRadius: 7,
               background: '#f5a623', color: '#050505',
               fontSize: 11, fontWeight: 800, textDecoration: 'none',
               letterSpacing: '0.08em', textTransform: 'uppercase',
               display: 'inline-block', position: 'relative', overflow: 'hidden',
+              cursor: 'pointer',
             }}
           >
             <motion.span
