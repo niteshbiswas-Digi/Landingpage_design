@@ -1,6 +1,17 @@
 'use client';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, useInView, useMotionValue, useSpring, useTransform } from 'framer-motion';
+
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+  return isMobile;
+}
 
 const PROJECTS = [
   {
@@ -75,7 +86,7 @@ const itemVariants = {
 };
 
 /* ── 3-D tilt card ── */
-function ProjectCard({ project }: { project: typeof PROJECTS[0] }) {
+function ProjectCard({ project, isMobile }: { project: typeof PROJECTS[0]; isMobile: boolean }) {
   const cardRef  = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState(false);
 
@@ -85,7 +96,7 @@ function ProjectCard({ project }: { project: typeof PROJECTS[0] }) {
   const rotY = useSpring(useTransform(rawX, [-0.5, 0.5], [-6, 6]),  { stiffness: 160, damping: 24 });
 
   const handleMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
+    if (!cardRef.current || isMobile) return;
     const r = cardRef.current.getBoundingClientRect();
     rawX.set((e.clientX - r.left) / r.width  - 0.5);
     rawY.set((e.clientY - r.top)  / r.height - 0.5);
@@ -103,7 +114,7 @@ function ProjectCard({ project }: { project: typeof PROJECTS[0] }) {
       onMouseMove={handleMove}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={handleLeave}
-      whileHover={{ y: -8, boxShadow: `0 30px 60px ${project.accent}15` }}
+      whileHover={!isMobile ? { y: -8, boxShadow: `0 30px 60px ${project.accent}15` } : {}}
       transition={{ type: "spring", stiffness: 300, damping: 25 }}
       style={{
         rotateX: rotX,
@@ -113,13 +124,13 @@ function ProjectCard({ project }: { project: typeof PROJECTS[0] }) {
         position: "relative",
         background: project.bg,
         borderRadius: 20,
-        padding: project.large ? "40px" : "28px",
+        padding: isMobile ? "20px" : (project.large ? "40px" : "28px"),
         overflow: "hidden",
         border: `1px solid ${
           hovered ? project.accent + "50" : "rgba(255,255,255,0.05)"
         }`,
         height: "100%",
-        minHeight: project.large ? 360 : 240,
+        minHeight: isMobile ? 200 : (project.large ? 360 : 240),
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
@@ -396,6 +407,7 @@ function HeaderWord({ text, inView, delay = 0, dim }: { text: string; inView: bo
 export default function ProjectsSection() {
   const ref    = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: '-8%' });
+  const isMobile = useIsMobile();
 
   return (
     <section
@@ -462,22 +474,22 @@ export default function ProjectsSection() {
         animate={inView ? 'show' : 'hidden'}
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
+          gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
           gridTemplateRows: 'auto auto',
-          gap: 12,
+          gap: isMobile ? 16 : 12,
         }}
       >
-        <div style={{ gridColumn: '1 / 3', gridRow: '1' }}>
-          <ProjectCard project={PROJECTS[0]} />
+        <div style={{ gridColumn: isMobile ? '1' : '1 / 3', gridRow: isMobile ? 'auto' : '1' }}>
+          <ProjectCard project={PROJECTS[0]} isMobile={isMobile} />
         </div>
-        <div style={{ gridColumn: '3', gridRow: '1' }}>
-          <ProjectCard project={PROJECTS[1]} />
+        <div style={{ gridColumn: isMobile ? '1' : '3', gridRow: isMobile ? 'auto' : '1' }}>
+          <ProjectCard project={PROJECTS[1]} isMobile={isMobile} />
         </div>
-        <div style={{ gridColumn: '1', gridRow: '2' }}>
-          <ProjectCard project={PROJECTS[2]} />
+        <div style={{ gridColumn: isMobile ? '1' : '1', gridRow: isMobile ? 'auto' : '2' }}>
+          <ProjectCard project={PROJECTS[2]} isMobile={isMobile} />
         </div>
-        <div style={{ gridColumn: '2 / 4', gridRow: '2' }}>
-          <ProjectCard project={PROJECTS[3]} />
+        <div style={{ gridColumn: isMobile ? '1' : '2 / 4', gridRow: isMobile ? 'auto' : '2' }}>
+          <ProjectCard project={PROJECTS[3]} isMobile={isMobile} />
         </div>
       </motion.div>
     </section>

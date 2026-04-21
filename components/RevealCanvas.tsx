@@ -13,7 +13,7 @@ const BEATS = [
     title: 'Transforming\nIdeas into Apps.',
     sub: 'We turn your innovative ideas into cutting-edge mobile and web applications that propel your business to new digital heights.',
     cta: null,
-    range: [0, 0.35] as [number, number],
+    range: [0, 0.28] as [number, number],
   },
   {
     id: 'B',
@@ -21,7 +21,7 @@ const BEATS = [
     title: 'Strategic App\nDevelopment.',
     sub: 'From custom mobile apps to robust web solutions, we deliver scalable applications designed to meet your unique business needs.',
     cta: null,
-    range: [0.25, 0.6] as [number, number],
+    range: [0.32, 0.53] as [number, number],
   },
   {
     id: 'C',
@@ -29,7 +29,7 @@ const BEATS = [
     title: 'AI-Powered\nSolutions.',
     sub: 'Leverage our expertise in AI development, chatbots, and intelligent design to build next-generation applications.',
     cta: null,
-    range: [0.5, 0.85] as [number, number],
+    range: [0.57, 0.78] as [number, number],
   },
   {
     id: 'D',
@@ -37,7 +37,7 @@ const BEATS = [
     title: 'Let\'s Build\nYour Vision.',
     sub: 'Our team of expert developers and designers collaborate to deliver customized solutions tailored to your business goals. Start your transformation today.',
     cta: 'Start Your Project',
-    range: [0.75, 1.0] as [number, number],
+    range: [0.82, 1.0] as [number, number],
   },
 ];
 
@@ -47,12 +47,12 @@ function clamp(v: number, min: number, max: number) {
 
 function beatOpacity(p: number, range: [number, number], isFirst: boolean, isLast: boolean): number {
   const [start, end] = range;
-  const fadeCurve = 0.25; 
+  const fadeCurve = 0.35;
   const fadeLen = (end - start) * fadeCurve;
 
   if (isFirst && p <= start) return 1;
   if (isLast && p >= end) return 1;
-  
+
   if (p < start) return 0;
   if (p < start + fadeLen) return clamp((p - start) / fadeLen, 0, 1);
   if (p < end - fadeLen) return 1;
@@ -62,7 +62,7 @@ function beatOpacity(p: number, range: [number, number], isFirst: boolean, isLas
 
 function beatY(p: number, range: [number, number], isFirst: boolean, isLast: boolean): number {
   const [start, end] = range;
-  const fadeLen = (end - start) * 0.25;
+  const fadeLen = (end - start) * 0.35;
 
   if (isFirst && p <= start) return 0;
   if (isLast && p >= end) return 0;
@@ -74,10 +74,22 @@ function beatY(p: number, range: [number, number], isFirst: boolean, isLast: boo
   return -20;
 }
 
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+  return isMobile;
+}
+
 export default function RevealCanvas() {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef    = useRef<HTMLCanvasElement>(null);
   const imagesRef    = useRef<HTMLImageElement[]>([]);
+  const isMobile = useIsMobile();
 
   const [loadedCount, setLoadedCount] = useState(0);
   const [isLoaded,    setIsLoaded]    = useState(false);
@@ -106,10 +118,10 @@ export default function RevealCanvas() {
     offset: ['start start', 'end end'] 
   });
   
-  const smooth = useSpring(scrollYProgress, { 
-    stiffness: 100, 
-    damping: 30,    
-    restDelta: 0.001 
+  const smooth = useSpring(scrollYProgress, {
+    stiffness: 60,
+    damping: 40,
+    restDelta: 0.001
   });
   
   const sequenceProgress = useTransform(smooth, [0, 0.85], [0, 1]);
@@ -165,6 +177,17 @@ export default function RevealCanvas() {
   const pct = Math.round((loadedCount / FRAME_COUNT) * 100);
   const activeBeat = BEATS.findIndex(b => progress >= b.range[0] && progress < b.range[1]);
 
+  // Mobile background color per beat
+  const getBeatBgColor = () => {
+    if (!isMobile) return '#000';
+    switch (activeBeat) {
+      case 1: return 'radial-gradient(ellipse at 50% 50%, rgba(96,165,250,0.08) 0%, #050505 60%)';
+      case 2: return 'radial-gradient(ellipse at 30% 50%, rgba(167,139,250,0.07) 0%, #050505 65%)';
+      case 3: return 'radial-gradient(ellipse at 70% 50%, rgba(245,166,35,0.08) 0%, #050505 60%)';
+      default: return 'radial-gradient(ellipse at 20% 50%, rgba(245,166,35,0.06) 0%, transparent 55%), radial-gradient(ellipse at 80% 20%, rgba(167,139,250,0.05) 0%, transparent 50%), #050505';
+    }
+  };
+
   return (
     <div 
       ref={containerRef} 
@@ -177,38 +200,129 @@ export default function RevealCanvas() {
       }}
     >
       <div style={{
-        position: 'sticky', 
-        top: 0, 
+        position: 'sticky',
+        top: 0,
         left: 0,
-        height: '100vh',
+        height: isMobile ? 'auto' : '100vh',
         width: '100%',
-        display: 'flex', 
+        display: 'flex',
+        flexDirection: isMobile ? 'column' : 'row',
         alignItems: 'stretch',
-        background: '#000', 
-        overflow: 'hidden',
+        background: isMobile ? getBeatBgColor() : '#000',
+        transition: isMobile ? 'background 1s ease-in-out' : 'none',
+        overflow: isMobile ? 'visible' : 'hidden',
         zIndex: 50,
       }}>
+        {/* Mobile background orbs */}
+        {isMobile && (
+          <>
+            <div className="orb-a" style={{
+              position: 'absolute', top: '-15%', left: '-20%',
+              width: 280, height: 280, borderRadius: '50%',
+              background: 'radial-gradient(circle, rgba(245,166,35,0.12) 0%, transparent 70%)',
+              filter: 'blur(60px)',
+              pointerEvents: 'none', zIndex: 0,
+            }} />
+            <div className="orb-b" style={{
+              position: 'absolute', bottom: '-10%', right: '-15%',
+              width: 220, height: 220, borderRadius: '50%',
+              background: 'radial-gradient(circle, rgba(167,139,250,0.1) 0%, transparent 70%)',
+              filter: 'blur(50px)',
+              pointerEvents: 'none', zIndex: 0,
+            }} />
+            {/* Dot grid overlay */}
+            <div style={{
+              position: 'absolute', inset: 0, pointerEvents: 'none',
+              backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.015) 1px, transparent 1px)',
+              backgroundSize: '36px 36px',
+              opacity: 0.6,
+              zIndex: 1,
+            }} />
+          </>
+        )}
 
         {/* ── LEFT: Storytelling ── */}
         <div style={{
-          flex: 1, position: 'relative',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          padding: '0 80px', overflow: 'hidden', background: 'rgba(5,5,5,0.7)',
+          flex: isMobile ? 'none' : 1,
+          position: 'relative',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: isMobile ? '80px 24px' : '0 80px',
+          minHeight: isMobile ? '100vh' : 'auto',
+          overflow: 'hidden',
+          background: isMobile ? 'transparent' : 'rgba(5,5,5,0.7)',
+          zIndex: 2,
         }}>
+          {/* Mobile step indicator dots */}
+          {isMobile && (
+            <div style={{
+              position: 'absolute', top: 64, left: 24,
+              display: 'flex', gap: 12, alignItems: 'center',
+              zIndex: 10,
+            }}>
+              {BEATS.map((_, i) => (
+                <motion.div
+                  key={i}
+                  animate={{
+                    width: i === activeBeat ? 24 : 6,
+                    background: i === activeBeat ? '#f5a623' : '#1a1a1c',
+                  }}
+                  transition={{ duration: 0.5 }}
+                  style={{
+                    height: 6,
+                    borderRadius: 99,
+                  }}
+                />
+              ))}
+            </div>
+          )}
 
-          <div style={{
-            position: 'absolute', top: 48, left: 48,
-            display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'flex-start',
-          }}>
-            {BEATS.map((b, i) => (
-              <div key={b.id} style={{
-                width: 2, borderRadius: 2,
-                background: i === activeBeat ? '#f5a623' : '#1a1a1c',
-                height: i === activeBeat ? 40 : 10,
-                transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
+          {/* Mobile floating particles */}
+          {isMobile && (
+            <>
+              <div style={{
+                position: 'absolute', top: '20%', left: '15%',
+                width: 4, height: 4, borderRadius: '50%',
+                background: 'rgba(245,166,35,0.5)',
+                pointerEvents: 'none',
+                animation: 'float-up 3s ease-in-out infinite',
+                zIndex: 1,
               }} />
-            ))}
-          </div>
+              <div style={{
+                position: 'absolute', top: '60%', right: '12%',
+                width: 3, height: 3, borderRadius: '50%',
+                background: 'rgba(245,166,35,0.4)',
+                pointerEvents: 'none',
+                animation: 'float-up 4s ease-in-out infinite 1.4s',
+                zIndex: 1,
+              }} />
+              <div style={{
+                position: 'absolute', bottom: '30%', left: '20%',
+                width: 4, height: 4, borderRadius: '50%',
+                background: 'rgba(245,166,35,0.35)',
+                pointerEvents: 'none',
+                animation: 'float-up 5s ease-in-out infinite 2.8s',
+                zIndex: 1,
+              }} />
+            </>
+          )}
+
+          {!isMobile && (
+            <div style={{
+              position: 'absolute', top: 48, left: 48,
+              display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'flex-start',
+            }}>
+              {BEATS.map((b, i) => (
+                <div key={b.id} style={{
+                  width: 2, borderRadius: 2,
+                  background: i === activeBeat ? '#f5a623' : '#1a1a1c',
+                  height: i === activeBeat ? 40 : 10,
+                  transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
+                }} />
+              ))}
+            </div>
+          )}
 
           {BEATS.map((beat, i) => {
             const isFirst = i === 0;
@@ -218,19 +332,39 @@ export default function RevealCanvas() {
             if (op < 0.005) return null;
             return (
               <div key={beat.id} style={{
-                position: 'absolute', padding: '0 80px', opacity: op,
+                position: 'absolute', padding: isMobile ? '0 24px' : '0 80px', opacity: op,
                 transform: `translateY(${y}px)`, textAlign: 'left', width: '100%',
                 zIndex: isFirst ? 5 : 4,
+                transition: 'opacity 0.3s ease-out, transform 0.3s ease-out',
+                willChange: 'opacity, transform',
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
-                  <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.4em', textTransform: 'uppercase', color: '#f5a623' }}>
-                    {beat.eyebrow}
-                  </span>
-                  <div style={{ flex: 1, height: 1, background: 'rgba(245,166,35,0.2)' }} />
+                  {isMobile ? (
+                    <>
+                      <motion.div
+                        animate={{ scale: [1, 1.4, 1], opacity: [0.6, 1, 0.6] }}
+                        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                        style={{
+                          width: 4, height: 4, borderRadius: '50%',
+                          background: '#f5a623', flexShrink: 0,
+                        }}
+                      />
+                      <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.4em', textTransform: 'uppercase', color: '#f5a623' }}>
+                        {beat.eyebrow}
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.4em', textTransform: 'uppercase', color: '#f5a623' }}>
+                        {beat.eyebrow}
+                      </span>
+                      <div style={{ flex: 1, height: 1, background: 'rgba(245,166,35,0.2)' }} />
+                    </>
+                  )}
                 </div>
 
                 <h2 style={{
-                  fontSize: 'clamp(48px, 6vw, 96px)',
+                  fontSize: isMobile ? 'clamp(32px, 7vw, 96px)' : 'clamp(48px, 6vw, 96px)',
                   fontWeight: 900, letterSpacing: '-0.05em', lineHeight: 0.9,
                   color: '#fff', whiteSpace: 'pre-line', marginBottom: 32,
                   textShadow: '0 0 100px rgba(255,255,255,0.1)',
@@ -239,9 +373,9 @@ export default function RevealCanvas() {
                 </h2>
 
                 <p style={{
-                  fontSize: 'clamp(18px, 1.8vw, 24px)',
+                  fontSize: isMobile ? 'clamp(14px, 1.6vw, 24px)' : 'clamp(18px, 1.8vw, 24px)',
                   color: '#a1a1a6', lineHeight: 1.6, letterSpacing: '-0.02em',
-                  maxWidth: 520, marginBottom: beat.cta ? 48 : 0,
+                  maxWidth: isMobile ? '100%' : 520, marginBottom: beat.cta ? 48 : 0,
                 }}>
                   {beat.sub}
                 </p>
@@ -251,9 +385,9 @@ export default function RevealCanvas() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.92 }}
                     style={{
-                      padding: '22px 52px', borderRadius: 14,
+                      padding: isMobile ? '16px 32px' : '22px 52px', borderRadius: 14,
                       background: '#fff', color: '#000',
-                      fontWeight: 800, fontSize: 17,
+                      fontWeight: 800, fontSize: isMobile ? 14 : 17,
                       letterSpacing: '-0.02em', border: 'none',
                       cursor: 'pointer', display: 'inline-flex',
                       alignItems: 'center', gap: 12,
@@ -270,19 +404,40 @@ export default function RevealCanvas() {
             );
           })}
 
-          <div style={{
-            position: 'absolute', bottom: 60, right: 80,
-            fontSize: 11, color: '#333', fontWeight: 900,
-            letterSpacing: '0.4em', textTransform: 'uppercase',
-          }}>
-            REVELATION / {activeBeat >= 0 ? `0${activeBeat + 1}` : 'FINALE'}
-          </div>
+          {!isMobile && (
+            <div style={{
+              position: 'absolute', bottom: 60, right: 80,
+              fontSize: 11, color: '#333', fontWeight: 900,
+              letterSpacing: '0.4em', textTransform: 'uppercase',
+            }}>
+              REVELATION / {activeBeat >= 0 ? `0${activeBeat + 1}` : 'FINALE'}
+            </div>
+          )}
+
+          {/* Mobile scroll progress bar */}
+          {isMobile && (
+            <div style={{
+              position: 'absolute', bottom: 0, left: 0, right: 0,
+              height: 2,
+              background: 'linear-gradient(90deg, #f5a623 0%, rgba(245,166,35,0.3) 100%)',
+              width: `${progress * 100}%`,
+              transition: 'width 0.1s linear',
+              zIndex: 10,
+            }} />
+          )}
         </div>
 
 
 
         {/* ── RIGHT: Visuals ── */}
-        <div style={{ position: 'relative', width: '50%', flexShrink: 0, overflow: 'hidden' }}>
+        {!isMobile && (
+        <div style={{
+          position: 'relative',
+          width: '50%',
+          height: 'auto',
+          flexShrink: 0,
+          overflow: 'hidden',
+        }}>
           <div style={{
             position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none',
             background: `radial-gradient(circle at 50% 60%, rgba(245,166,35,${(0.06 + progress * 0.2).toFixed(3)}) 0%, transparent 65%)`,
@@ -304,6 +459,7 @@ export default function RevealCanvas() {
             pointerEvents: 'none',
           }} />
         </div>
+        )}
       </div>
 
       <AnimatePresence>

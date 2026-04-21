@@ -8,12 +8,14 @@ html, body {
   font-family: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: clip;
+  overflow-x: hidden;
   scroll-behavior: smooth;
-  cursor: none;
 }
 
-a, button { cursor: none; }
+@media (pointer: fine) {
+  html, body { cursor: none; }
+  a, button { cursor: none; }
+}
 
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: #050505; }

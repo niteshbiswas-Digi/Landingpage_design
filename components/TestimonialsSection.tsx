@@ -1,6 +1,17 @@
 'use client';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, useInView, useMotionValue, useSpring, useTransform } from 'framer-motion';
+
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+  return isMobile;
+}
 
 const TESTIMONIALS = [
   {
@@ -132,6 +143,7 @@ const cardIn = (delay: number) => ({
 export default function TestimonialsSection() {
   const ref        = useRef<HTMLElement>(null);
   const inView     = useInView(ref, { once: true, margin: '-8%' });
+  const isMobile = useIsMobile();
   const featured   = TESTIMONIALS[0];
   const sideCards  = TESTIMONIALS.slice(1, 3);
   const bottomCards = TESTIMONIALS.slice(3);
@@ -193,7 +205,7 @@ export default function TestimonialsSection() {
       </div>
 
       {/* Top row: featured + 2 side cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1.45fr 1fr', gap: 12, marginBottom: 12 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1.45fr 1fr', gap: 12, marginBottom: 12 }}>
 
         {/* Featured — animated glow border + 3D tilt */}
         <TiltCard strength={4}>
@@ -341,7 +353,7 @@ export default function TestimonialsSection() {
       </div>
 
       {/* Bottom row — 3 tilt cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: 12 }}>
         {bottomCards.map((t, i) => (
           <TiltCard key={t.id}>
             <motion.div
