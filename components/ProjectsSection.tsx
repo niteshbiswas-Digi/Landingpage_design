@@ -104,24 +104,27 @@ function ProjectCard({ project }: { project: typeof PROJECTS[0] }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={handleLeave}
       whileHover={{ y: -8, boxShadow: `0 30px 60px ${project.accent}15` }}
-      transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+      transition={{ type: "spring", stiffness: 300, damping: 25 }}
       style={{
-        rotateX: rotX, rotateY: rotY,
-        transformStyle: 'preserve-3d',
+        rotateX: rotX,
+        rotateY: rotY,
+        transformStyle: "preserve-3d",
         transformPerspective: 900,
-        position: 'relative',
+        position: "relative",
         background: project.bg,
         borderRadius: 20,
-        padding: project.large ? '40px' : '28px',
-        overflow: 'hidden',
-        border: `1px solid ${hovered ? project.accent + '50' : 'rgba(255,255,255,0.05)'}`,
-        height: '100%',
+        padding: project.large ? "40px" : "28px",
+        overflow: "hidden",
+        border: `1px solid ${
+          hovered ? project.accent + "50" : "rgba(255,255,255,0.05)"
+        }`,
+        height: "100%",
         minHeight: project.large ? 360 : 240,
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        transition: 'border-color 0.3s ease',
-        willChange: 'transform',
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        transition: "border-color 0.3s ease",
+        willChange: "transform",
       }}
     >
       {/* Radial glow on hover */}
@@ -129,100 +132,167 @@ function ProjectCard({ project }: { project: typeof PROJECTS[0] }) {
         animate={{ opacity: hovered ? 1 : 0 }}
         transition={{ duration: 0.35 }}
         style={{
-          position: 'absolute', inset: 0, pointerEvents: 'none',
+          position: "absolute",
+          inset: 0,
+          pointerEvents: "none",
           background: `radial-gradient(ellipse 65% 55% at 25% 25%, ${project.accent}22 0%, transparent 65%)`,
         }}
       />
 
       {/* Shimmer sweep on enter */}
       <motion.div
-        initial={{ x: '-110%' }}
-        animate={{ x: hovered ? '220%' : '-110%' }}
-        transition={{ duration: hovered ? 0.72 : 0, ease: [0.25, 0.46, 0.45, 0.94] }}
+        initial={{ x: "-110%" }}
+        animate={{ x: hovered ? "220%" : "-110%" }}
+        transition={{
+          duration: hovered ? 0.72 : 0,
+          ease: [0.25, 0.46, 0.45, 0.94],
+        }}
         style={{
-          position: 'absolute', inset: 0, zIndex: 3, pointerEvents: 'none',
+          position: "absolute",
+          inset: 0,
+          zIndex: 3,
+          pointerEvents: "none",
           background: `linear-gradient(108deg, transparent 20%, ${project.accent}1a 50%, transparent 80%)`,
-          transform: 'skewX(-8deg)',
+          transform: "skewX(-8deg)",
         }}
       />
 
       {/* Top */}
       <div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "flex-start",
+            marginBottom: 16,
+          }}
+        >
           <div>
             <motion.span
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
               style={{
-                fontSize: 10, fontWeight: 700, letterSpacing: '0.3em', textTransform: 'uppercase',
-                color: project.accent, display: 'block', marginBottom: 8,
+                fontSize: 10,
+                fontWeight: 700,
+                letterSpacing: "0.3em",
+                textTransform: "uppercase",
+                color: project.accent,
+                display: "block",
+                marginBottom: 8,
               }}
             >
               {project.tag}
             </motion.span>
-            <h3 style={{
-              fontSize: project.large ? 'clamp(28px, 2.8vw, 44px)' : 'clamp(20px, 2.2vw, 30px)',
-              fontWeight: 800, letterSpacing: '-0.04em', color: '#f0f0f0',
-              margin: 0, lineHeight: 1,
-            }}>
+            <h3
+              style={{
+                fontSize: project.large
+                  ? "clamp(28px, 2.8vw, 44px)"
+                  : "clamp(20px, 2.2vw, 30px)",
+                fontWeight: 800,
+                letterSpacing: "-0.04em",
+                color: "#f0f0f0",
+                margin: 0,
+                lineHeight: 1,
+              }}
+            >
               {project.name}
             </h3>
           </div>
           {/* Pulsing status badge */}
-          <div style={{ position: 'relative', flexShrink: 0 }}>
+          <div style={{ position: "relative", flexShrink: 0 }}>
             <motion.div
               animate={{ scale: [1, 1.15, 1], opacity: [0.6, 0.3, 0.6] }}
-              transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
+              transition={{
+                duration: 2.2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
               style={{
-                position: 'absolute', inset: -4, borderRadius: 99,
+                position: "absolute",
+                inset: -4,
+                borderRadius: 99,
                 background: `${project.statusColor}22`,
               }}
             />
-            <span style={{
-              fontSize: 10, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase',
-              color: project.statusColor,
-              background: `${project.statusColor}16`,
-              border: `1px solid ${project.statusColor}36`,
-              padding: '4px 10px', borderRadius: 99,
-              position: 'relative',
-              display: 'inline-flex', alignItems: 'center', gap: 5,
-            }}>
-              <span style={{
-                width: 5, height: 5, borderRadius: '50%',
-                background: project.statusColor, display: 'inline-block',
-              }} />
+            <span
+              style={{
+                fontSize: 10,
+                fontWeight: 700,
+                letterSpacing: "0.15em",
+                textTransform: "uppercase",
+                color: project.statusColor,
+                background: `${project.statusColor}16`,
+                border: `1px solid ${project.statusColor}36`,
+                padding: "4px 10px",
+                borderRadius: 99,
+                position: "relative",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 5,
+              }}
+            >
+              <span
+                style={{
+                  width: 5,
+                  height: 5,
+                  borderRadius: "50%",
+                  background: project.statusColor,
+                  display: "inline-block",
+                }}
+              />
               {project.status}
             </span>
           </div>
         </div>
 
-        <p style={{
-          fontSize: project.large ? 14 : 13,
-          color: '#666', lineHeight: 1.7, letterSpacing: '-0.01em',
-          maxWidth: 480,
-        }}>
+        <p
+          style={{
+            fontSize: project.large ? 14 : 13,
+            color: "#666",
+            lineHeight: 1.7,
+            letterSpacing: "-0.01em",
+            maxWidth: 480,
+          }}
+        >
           {project.desc}
         </p>
       </div>
 
       {/* Bottom */}
       <div>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, margin: '20px 0' }}>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: 6,
+            margin: "20px 0",
+          }}
+        >
           {project.stack.map((tech, ti) => (
             <motion.span
               key={tech}
               initial={{ opacity: 0, scale: 0.85 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.4, delay: ti * 0.06 }}
-              whileHover={{ scale: 1.12, borderColor: `${project.accent}88`, color: project.accent, boxShadow: `0 0 12px ${project.accent}30` }}
-              transition={{ duration: 0.2 }}
+              whileHover={{
+                scale: 1.12,
+                borderColor: `${project.accent}88`,
+                color: project.accent,
+                boxShadow: `0 0 12px ${project.accent}30`,
+              }}
               style={{
-                fontSize: 10, fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase',
-                color: '#777', background: 'rgba(255,255,255,0.04)',
-                border: '1px solid rgba(255,255,255,0.07)',
-                padding: '4px 10px', borderRadius: 6,
-                transition: 'color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease',
+                fontSize: 10,
+                fontWeight: 600,
+                letterSpacing: "0.06em",
+                textTransform: "uppercase",
+                color: "#777",
+                background: "rgba(255,255,255,0.04)",
+                border: "1px solid rgba(255,255,255,0.07)",
+                padding: "4px 10px",
+                borderRadius: 6,
+                transition:
+                  "color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease",
               }}
             >
               {tech}
@@ -230,20 +300,37 @@ function ProjectCard({ project }: { project: typeof PROJECTS[0] }) {
           ))}
         </div>
 
-        <div style={{
-          display: 'flex', alignItems: 'baseline', gap: 8,
-          borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: 20,
-        }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "baseline",
+            gap: 8,
+            borderTop: "1px solid rgba(255,255,255,0.05)",
+            paddingTop: 20,
+          }}
+        >
           <motion.span
             animate={{ color: hovered ? project.accent : project.accent }}
             style={{
-              fontSize: project.large ? 'clamp(26px, 2.6vw, 38px)' : 'clamp(20px, 2vw, 28px)',
-              fontWeight: 900, letterSpacing: '-0.04em', color: project.accent,
+              fontSize: project.large
+                ? "clamp(26px, 2.6vw, 38px)"
+                : "clamp(20px, 2vw, 28px)",
+              fontWeight: 900,
+              letterSpacing: "-0.04em",
+              color: project.accent,
             }}
           >
             {project.metric}
           </motion.span>
-          <span style={{ fontSize: 11, color: '#666', letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 700 }}>
+          <span
+            style={{
+              fontSize: 11,
+              color: "#666",
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              fontWeight: 700,
+            }}
+          >
             {project.metricLabel}
           </span>
         </div>
@@ -251,22 +338,43 @@ function ProjectCard({ project }: { project: typeof PROJECTS[0] }) {
 
       {/* Hover arrow */}
       <motion.div
-        animate={{ x: hovered ? 0 : 14, opacity: hovered ? 1 : 0, rotate: hovered ? 0 : -10 }}
-        transition={{ duration: 0.25, ease: 'easeOut' }}
+        animate={{
+          x: hovered ? 0 : 14,
+          opacity: hovered ? 1 : 0,
+          rotate: hovered ? 0 : -10,
+        }}
+        transition={{ duration: 0.25, ease: "easeOut" }}
         style={{
-          position: 'absolute', bottom: project.large ? 40 : 28, right: project.large ? 40 : 28,
-          width: 34, height: 34, borderRadius: '50%',
+          position: "absolute",
+          bottom: project.large ? 40 : 28,
+          right: project.large ? 40 : 28,
+          width: 34,
+          height: 34,
+          borderRadius: "50%",
           background: project.accent,
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
           boxShadow: `0 0 20px ${project.accent}55`,
         }}
       >
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="3">
-          <path d="M7 17L17 7M17 7H7M17 7v10" strokeLinecap="round" strokeLinejoin="round" />
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#000"
+          strokeWidth="3"
+        >
+          <path
+            d="M7 17L17 7M17 7H7M17 7v10"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
       </motion.div>
     </motion.div>
-  );
+  )
 }
 
 /* ── Section header word-reveal ── */
