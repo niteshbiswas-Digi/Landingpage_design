@@ -99,13 +99,28 @@ export default function RevealCanvas() {
   useEffect(() => {
     let n = 0;
     const imgs: HTMLImageElement[] = [];
+    let hasError = false;
+
     for (let i = 0; i < FRAME_COUNT; i++) {
       const img = new Image();
       img.src = `/sequence/frame_${i}.webp`;
-      img.onload = () => { 
-        n++; 
-        setLoadedCount(n); 
-        if (n === FRAME_COUNT) setIsLoaded(true); 
+      img.onload = () => {
+        n++;
+        setLoadedCount(n);
+        if (n === FRAME_COUNT) setIsLoaded(true);
+      };
+      img.onerror = () => {
+        console.warn(`Failed to load frame_${i}.webp`);
+        hasError = true;
+        n++;
+        setLoadedCount(n);
+        if (n === FRAME_COUNT) {
+          if (!hasError) setIsLoaded(true);
+          else {
+            // Still show content even if some images fail
+            setTimeout(() => setIsLoaded(true), 1000);
+          }
+        }
       };
       imgs.push(img);
     }
