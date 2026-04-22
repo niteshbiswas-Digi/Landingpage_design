@@ -2,11 +2,14 @@
 import { useRef, useEffect, useState } from 'react';
 import { motion, useInView, useMotionValue, useSpring } from 'framer-motion';
 import RevealCanvas from '../components/RevealCanvas';
+import ServicesSection from '../components/ServicesSection';
 import ProjectsSection from '../components/ProjectsSection';
 import TestimonialsSection from '../components/TestimonialsSection';
+import CustomerReviewsSection from '../components/CustomerReviewsSection';
+import BlogSection from '../components/BlogSection';
 import AnimatedCursor from '../components/AnimatedCursor';
 
-const NAV_LINKS = ['Services', 'Work', 'Process', 'About'];
+const NAV_LINKS = ['Home', 'About Us', 'Services', 'Portfolio', 'Blog'];
 
 const STATS = [
   { value: '50+',   label: 'Projects Delivered'       },
@@ -967,11 +970,20 @@ export default function Home() {
       {/* ── Stats Bar with count-up ── */}
       <StatsBar />
 
+      {/* ── Services ── */}
+      <ServicesSection />
+
       {/* ── Projects Bento Grid ── */}
       <ProjectsSection />
 
       {/* ── Client Testimonials ── */}
       <TestimonialsSection />
+
+      {/* ── Customer Reviews ── */}
+      <CustomerReviewsSection />
+
+      {/* ── Recent Blog Posts ── */}
+      <BlogSection />
 
       {/* ── Final CTA ── */}
       <CTASection />

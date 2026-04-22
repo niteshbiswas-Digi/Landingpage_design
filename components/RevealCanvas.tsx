@@ -1,7 +1,7 @@
 'use client';
 import { useRef, useEffect, useState, useCallback, useMemo } from 'react';
 import {
-  useScroll, useTransform, useMotionValueEvent, AnimatePresence, motion, MotionValue
+  useScroll, useTransform, useMotionValueEvent, AnimatePresence, motion, MotionValue, useSpring
 } from 'framer-motion';
 
 const FRAME_COUNT = 120;
@@ -98,6 +98,12 @@ export default function RevealCanvas() {
 
   const cumulativeScrollRef = useRef(0)
   const animationProgress = useMemo(() => new MotionValue(0), [])
+  const smoothedProgress = useSpring(animationProgress, {
+    stiffness: 120,
+    damping: 26,
+    mass: 0.5,
+    restDelta: 0.0005,
+  })
 
   /* ── Preload ── */
   useEffect(() => {
@@ -150,6 +156,10 @@ export default function RevealCanvas() {
       else if (delta < 0) {
         // Always lock scroll if we're at or past animation end (scrolling back into animation)
         if (currentScroll >= ANIMATION_DISTANCE) {
+          // If page has scrolled down past the hero, let natural scroll bring user back first
+          if (window.scrollY > 0) {
+            return
+          }
           e.preventDefault()
           const newScroll = Math.max(currentScroll + delta, 0)
           cumulativeScrollRef.current = newScroll
@@ -179,10 +189,8 @@ export default function RevealCanvas() {
     return () => window.removeEventListener("wheel", handleWheel)
   }, [isLoaded, animationProgress, animationComplete])
 
-  // Direct 1:1 scroll-to-animation mapping - no smoothing for true sync
-  const sequenceProgress = useTransform(animationProgress, [0, 1], [0, 1])
   const frameIdx = useTransform(
-    animationProgress,
+    smoothedProgress,
     [0, 1],
     [0, FRAME_COUNT - 1],
     { clamp: true }
@@ -235,7 +243,7 @@ export default function RevealCanvas() {
   useMotionValueEvent(frameIdx, "change", (v) =>
     draw(Math.round(clamp(v, 0, FRAME_COUNT - 1)))
   )
-  useMotionValueEvent(sequenceProgress, "change", (v) => setProgress(v))
+  useMotionValueEvent(smoothedProgress, "change", (v) => setProgress(clamp(v as number, 0, 1)))
 
   // useEffect to handle initial draw and window resize
 

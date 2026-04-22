@@ -399,51 +399,185 @@ export default function TestimonialsSection() {
         ))}
       </div>
 
-      {/* Client marquee */}
+      {/* ── Spline Hero Strip ── */}
       <div style={{
-        marginTop: 52, paddingTop: 36,
+        position: 'relative',
+        marginTop: 52,
         borderTop: '1px solid rgba(255,255,255,0.03)',
+        overflow: 'hidden',
+        minHeight: 440,
       }}>
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6, delay: 0.5 }}
+        {/* Spline iframe — fills the lower visual area */}
+        <iframe
+          src="https://my.spline.design/claritystream-A6s6qfCZjwijbspR7VFjfgWO/"
+          loading="lazy"
           style={{
-            fontSize: 9, fontWeight: 700, letterSpacing: '0.45em', textTransform: 'uppercase',
-            color: '#555', marginBottom: 22, textAlign: 'center',
+            position: 'absolute',
+            width: '110%',
+            height: '720px',
+            left: '-5%',
+            bottom: '-220px',
+            border: 'none',
+            opacity: 0.82,
+            transform: 'scale(1.25)',
+            transformOrigin: 'center bottom',
+            pointerEvents: 'none',
           }}
-        >
-          Trusted by builders at
-        </motion.p>
+        />
 
-        {/* Marquee with gradient edge masks */}
-        <div style={{ position: 'relative', overflow: 'hidden' }}>
-          <div style={{
-            position: 'absolute', left: 0, top: 0, bottom: 0, width: 120, zIndex: 1,
-            background: 'linear-gradient(90deg, #080808 0%, transparent 100%)',
-            pointerEvents: 'none',
-          }} />
-          <div style={{
-            position: 'absolute', right: 0, top: 0, bottom: 0, width: 120, zIndex: 1,
-            background: 'linear-gradient(270deg, #080808 0%, transparent 100%)',
-            pointerEvents: 'none',
-          }} />
-          <div className="marquee-track" style={{ gap: 0 }}>
-            {[...CLIENTS, ...CLIENTS].map((client, i) => (
-              <span key={i} style={{ display: 'inline-flex', alignItems: 'center' }}>
-                <span style={{
-                  fontSize: 11, fontWeight: 700, letterSpacing: '0.28em',
-                  textTransform: 'uppercase', color: '#777', whiteSpace: 'nowrap',
-                  padding: '0 28px',
-                }}>
-                  {client}
-                </span>
-                <span style={{
-                  width: 1, height: 9, background: 'rgba(255,255,255,0.07)', flexShrink: 0,
-                }} />
+        {/* Left/right side fades */}
+        <div style={{
+          position: 'absolute', left: 0, top: 0, bottom: 0, width: 100, zIndex: 1,
+          background: 'linear-gradient(90deg, #080808 0%, transparent 100%)',
+          pointerEvents: 'none',
+        }} />
+        <div style={{
+          position: 'absolute', right: 0, top: 0, bottom: 0, width: 100, zIndex: 1,
+          background: 'linear-gradient(270deg, #080808 0%, transparent 100%)',
+          pointerEvents: 'none',
+        }} />
+
+        {/* Top fade — makes heading sit on clean dark bg */}
+        <div style={{
+          position: 'absolute', top: 0, left: 0, right: 0, height: 220, zIndex: 1,
+          background: 'linear-gradient(to bottom, #080808 30%, transparent 100%)',
+          pointerEvents: 'none',
+        }} />
+
+        {/* Bottom fade */}
+        <div style={{
+          position: 'absolute', bottom: 0, left: 0, right: 0, height: 80, zIndex: 1,
+          background: 'linear-gradient(to top, #080808 0%, transparent 100%)',
+          pointerEvents: 'none',
+        }} />
+
+        {/* ── Heading overlay ── */}
+        <div style={{
+          position: 'relative', zIndex: 2,
+          textAlign: 'center',
+          paddingTop: 52,
+          paddingBottom: 0,
+        }}>
+          {/* Small eyebrow */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              display: 'inline-flex', alignItems: 'center',
+              gap: 12, marginBottom: 20,
+            }}
+          >
+            <div style={{
+              width: 28, height: 1,
+              background: 'linear-gradient(90deg, transparent, rgba(245,158,11,0.6))',
+            }} />
+            <span style={{
+              fontSize: 10, fontWeight: 700, letterSpacing: '0.5em',
+              textTransform: 'uppercase', color: '#f5a623',
+            }}>
+              Trusted by builders at
+            </span>
+            <div style={{
+              width: 28, height: 1,
+              background: 'linear-gradient(270deg, transparent, rgba(245,158,11,0.6))',
+            }} />
+          </motion.div>
+
+          {/* Large display heading */}
+          <motion.h2
+            initial={{ opacity: 0, y: 28 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.82, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              fontSize: isMobile ? 'clamp(40px, 10vw, 60px)' : 'clamp(56px, 6.5vw, 88px)',
+              fontWeight: 900,
+              letterSpacing: '-0.055em',
+              lineHeight: 1.0,
+              margin: '0 0 18px',
+              textShadow: '0 2px 40px rgba(0,0,0,0.6)',
+            }}
+          >
+            <span style={{ color: '#ffffff' }}>Clarity.{' '}</span>
+            <span style={{
+              background: 'linear-gradient(135deg, #f5a623 0%, #fcd34d 45%, #f5a623 100%)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}>
+              Focus.
+            </span>
+            {!isMobile && <br />}
+            {isMobile && ' '}
+            <span style={{
+              color: 'transparent',
+              WebkitTextStroke: isMobile ? '1px rgba(255,255,255,0.35)' : '1.5px rgba(255,255,255,0.3)',
+            }}>
+              Impact.
+            </span>
+          </motion.h2>
+
+          {/* Subtitle */}
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              fontSize: isMobile ? 13 : 'clamp(13px, 1.2vw, 16px)',
+              color: '#7a7a7a',
+              letterSpacing: '-0.01em',
+              margin: 0,
+              textShadow: '0 1px 16px rgba(0,0,0,0.8)',
+            }}
+          >
+            We turn complex ideas into effortless digital experiences.
+          </motion.p>
+        </div>
+      </div>
+
+      {/* ── Marquee strip — sits below the Spline wave ── */}
+      <div style={{
+        background: '#080808',
+        borderTop: '1px solid rgba(255,255,255,0.04)',
+        paddingTop: 24,
+        paddingBottom: 24,
+        position: 'relative',
+        overflow: 'hidden',
+      }}>
+        {/* Edge masks */}
+        <div style={{
+          position: 'absolute', left: 0, top: 0, bottom: 0, width: 120, zIndex: 1,
+          background: 'linear-gradient(90deg, #080808 0%, transparent 100%)',
+          pointerEvents: 'none',
+        }} />
+        <div style={{
+          position: 'absolute', right: 0, top: 0, bottom: 0, width: 120, zIndex: 1,
+          background: 'linear-gradient(270deg, #080808 0%, transparent 100%)',
+          pointerEvents: 'none',
+        }} />
+
+        <div className="marquee-track" style={{ gap: 0 }}>
+          {[...CLIENTS, ...CLIENTS].map((client, i) => (
+            <span key={i} style={{ display: 'inline-flex', alignItems: 'center' }}>
+              <span style={{
+                fontSize: isMobile ? 12 : 14,
+                fontWeight: 700,
+                letterSpacing: '0.3em',
+                textTransform: 'uppercase',
+                color: '#ffffff',
+                whiteSpace: 'nowrap',
+                padding: isMobile ? '0 20px' : '0 36px',
+                opacity: 0.85,
+              }}>
+                {client}
               </span>
-            ))}
-          </div>
+              <span style={{
+                width: 1, height: 10,
+                background: 'rgba(245,166,35,0.25)',
+                flexShrink: 0,
+              }} />
+            </span>
+          ))}
         </div>
       </div>
     </section>
