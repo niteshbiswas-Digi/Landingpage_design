@@ -1,17 +1,16 @@
 [build]
   command = "npm run build"
-  publish = ".next/static"
-  functions = "netlify/functions"
+  publish = "out"
 
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
+[build.environment]
+  NETLIFY_NEXT_PLUGIN_SKIP = "true"
 
 [dev]
   command = "npm run dev"
   port = 3000
 
 [[headers]]
-  for = "/public/*"
+  for = "/_next/static/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
@@ -21,7 +20,12 @@
     Cache-Control = "public, max-age=31536000, immutable"
     Content-Type = "image/webp"
 
-[[redirects]]
-  from = "/*"
-  to = "/:splat"
-  status = 200
+[[headers]]
+  for = "/portfolio/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/team/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
