@@ -1,8 +1,13 @@
 'use client';
 import { useRef, useEffect, useState, useCallback, useMemo } from 'react';
 import {
-  useScroll, useTransform, useMotionValueEvent, AnimatePresence, motion, MotionValue, useSpring
-} from 'framer-motion';
+  useTransform,
+  useMotionValueEvent,
+  AnimatePresence,
+  motion,
+  MotionValue,
+  useSpring,
+} from "framer-motion"
 
 const FRAME_COUNT = 120;
 

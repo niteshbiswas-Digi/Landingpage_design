@@ -8,8 +8,15 @@ import TestimonialsSection from '../components/TestimonialsSection';
 import CustomerReviewsSection from '../components/CustomerReviewsSection';
 import BlogSection from '../components/BlogSection';
 import AnimatedCursor from '../components/AnimatedCursor';
+import Footer from '../components/Footer';
 
-const NAV_LINKS = ['Home', 'About Us', 'Services', 'Portfolio', 'Blog'];
+const NAV_LINKS = [
+  { label: 'Home',      href: '/'       },
+  { label: 'About Us',  href: '/about'  },
+  { label: 'Services',  href: '/services'   },
+  { label: 'Portfolio', href: '/portfolio' },
+  { label: 'Blog',      href: '#'       },
+];
 
 const STATS = [
   { value: '50+',   label: 'Projects Delivered'       },
@@ -653,134 +660,6 @@ function CTASection() {
   );
 }
 
-function Footer() {
-  const ref    = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: true });
-  const isMobile = useIsMobile();
-
-  return (
-    <motion.footer
-      ref={ref}
-      initial={{ opacity: 0, y: 20 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-      style={{ background: '#050505', borderTop: '1px solid rgba(255,255,255,0.05)' }}
-    >
-      {/* Main grid */}
-      <div style={{
-        padding: 'clamp(44px, 5.5vw, 72px) clamp(24px, 5vw, 80px)',
-        display: 'grid',
-        gridTemplateColumns: isMobile ? '1fr' : '1.8fr 1fr 1fr',
-        gap: isMobile ? '32px' : 'clamp(28px, 4vw, 56px)',
-        borderBottom: '1px solid rgba(255,255,255,0.04)',
-      }}>
-        {/* Brand column */}
-        <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 18 }}>
-            <div style={{
-              width: 28, height: 28, borderRadius: 8,
-              border: '1.5px solid rgba(245,166,35,0.4)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              flexShrink: 0, boxShadow: '0 0 14px rgba(245,166,35,0.1)',
-            }}>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#f5a623" strokeWidth="2.5">
-                <polyline points="16 18 22 12 16 6" />
-                <polyline points="8 6 2 12 8 18" stroke="rgba(255,255,255,0.35)" />
-              </svg>
-            </div>
-            <span style={{ fontSize: 13, fontWeight: 800, letterSpacing: '-0.04em', textTransform: 'uppercase', color: '#e8e8e8' }}>
-              UP<span style={{ color: '#f5a623' }}>CODO</span>
-            </span>
-          </div>
-          <p style={{
-            color: '#606060', fontSize: 13, lineHeight: 1.78,
-            maxWidth: 248, letterSpacing: '-0.01em', marginBottom: 24,
-          }}>
-            Transforming ambitious ideas into cutting-edge digital products. Building for the world from Noida.
-          </p>
-          <div style={{ width: 36, height: 1, background: 'rgba(245,166,35,0.25)' }} />
-        </div>
-
-        {/* Services */}
-        <div>
-          <p style={{
-            fontSize: 9, fontWeight: 700, letterSpacing: '0.38em',
-            textTransform: 'uppercase', color: '#555', marginBottom: 20,
-          }}>
-            Services
-          </p>
-          {['Mobile Apps', 'Web Development', 'AI Solutions', 'UI/UX Design'].map(link => (
-            <motion.a
-              key={link} href="#"
-              whileHover={{ x: 4, color: '#f5a623' }}
-              style={{
-                display: 'block', fontSize: 13, color: '#666', fontWeight: 500,
-                textDecoration: 'none', marginBottom: 11, letterSpacing: '-0.01em',
-                transition: 'color 0.2s ease',
-              }}
-              onMouseEnter={e => (e.currentTarget.style.color = '#f5a623')}
-              onMouseLeave={e => (e.currentTarget.style.color = '#666')}
-            >
-              {link}
-            </motion.a>
-          ))}
-        </div>
-
-        {/* Company */}
-        <div>
-          <p style={{
-            fontSize: 9, fontWeight: 700, letterSpacing: '0.38em',
-            textTransform: 'uppercase', color: '#555', marginBottom: 20,
-          }}>
-            Company
-          </p>
-          {['About', 'Work', 'Process', 'Contact', 'GitHub'].map(link => (
-            <motion.a
-              key={link} href="#"
-              whileHover={{ x: 4, color: '#f5a623' }}
-              style={{
-                display: 'block', fontSize: 13, color: '#666', fontWeight: 500,
-                textDecoration: 'none', marginBottom: 11, letterSpacing: '-0.01em',
-                transition: 'color 0.2s ease',
-              }}
-              onMouseEnter={e => (e.currentTarget.style.color = '#f5a623')}
-              onMouseLeave={e => (e.currentTarget.style.color = '#666')}
-            >
-              {link}
-            </motion.a>
-          ))}
-        </div>
-      </div>
-
-      {/* Bottom bar */}
-      <div style={{
-        padding: 'clamp(14px, 1.8vw, 22px) clamp(24px, 5vw, 80px)',
-        display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-        flexWrap: 'wrap', gap: 12,
-      }}>
-        <span style={{ fontSize: 10, color: '#4a4a4a', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-          © 2026 UpCodo Digital · All rights reserved
-        </span>
-        <div style={{ display: 'flex', gap: 28 }}>
-          {['Privacy', 'Terms'].map(link => (
-            <a
-              key={link} href="#"
-              style={{
-                fontSize: 10, color: '#4a4a4a', fontWeight: 700,
-                letterSpacing: '0.18em', textTransform: 'uppercase', textDecoration: 'none',
-                transition: 'color 0.2s ease',
-              }}
-              onMouseEnter={e => (e.currentTarget.style.color = '#f5a623')}
-              onMouseLeave={e => (e.currentTarget.style.color = '#4a4a4a')}
-            >
-              {link}
-            </a>
-          ))}
-        </div>
-      </div>
-    </motion.footer>
-  );
-}
 
 function Navigation() {
   const isMobile = useIsMobile();
@@ -829,12 +708,12 @@ function Navigation() {
           <div style={{ display: 'flex', gap: 36, alignItems: 'center' }}>
             {NAV_LINKS.map((link, i) => (
               <motion.a
-                key={link}
-                href="#"
+                key={link.label}
+                href={link.href}
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 + i * 0.07, ease: [0.16, 1, 0.3, 1] }}
-                whileHover={{ y: -2, color: '#f0f0f0' }}
+                whileHover={{ y: -2 }}
                 style={{
                   fontSize: 12, fontWeight: 600, color: '#888',
                   textDecoration: 'none', letterSpacing: '0.02em',
@@ -844,7 +723,7 @@ function Navigation() {
                 onMouseEnter={e => (e.currentTarget.style.color = '#f0f0f0')}
                 onMouseLeave={e => (e.currentTarget.style.color = '#888')}
               >
-                {link}
+                {link.label}
               </motion.a>
             ))}
             <motion.a
@@ -922,8 +801,8 @@ function Navigation() {
         >
           {NAV_LINKS.map((link) => (
             <motion.a
-              key={link}
-              href="#"
+              key={link.label}
+              href={link.href}
               onClick={() => setMenuOpen(false)}
               style={{
                 padding: '12px 0', fontSize: 14, fontWeight: 600, color: '#888',
@@ -934,7 +813,7 @@ function Navigation() {
               onMouseEnter={e => (e.currentTarget.style.color = '#f0f0f0')}
               onMouseLeave={e => (e.currentTarget.style.color = '#888')}
             >
-              {link}
+              {link.label}
             </motion.a>
           ))}
           <motion.a
