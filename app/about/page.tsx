@@ -32,7 +32,7 @@ const E = [0.16, 1, 0.3, 1] as const;
 const TEAM = [
   // ── Founders & Leadership ──────────────────────────────────────────────────
   { name: 'Akshay Pratap Singh',   role: 'Co-founder & System Architect',                  img: '/team/Akshay_Pratap_Singh.webp',  accent: '#38bdf8' },
-  { name: 'Gaurav Jain',           role: 'Co-founder / CEO & Head of Operations',          img: '/team/Gaurav_Jain.webp',          accent: '#f5a623' },
+  { name: 'Gaurav Jain',           role: 'Co-founder / CEO & Head of Operations',          img: '/team/Gaurav_Jain.webp',          accent: '#22C76F' },
   { name: 'Abhay Pratap',          role: 'Co-founder & Chief Technology Officer',           img: '/team/Abhay_Pratap.webp',         accent: '#4ade80' },
   { name: 'Rajat Singh',           role: 'Product Delivery Head',                          img: '/team/Rajat_Singh.webp',          accent: '#a78bfa' },
   { name: 'Yuvraj Shinde',         role: 'Project Delivery Manager',                       img: '/team/Yuvraj_Shinde.webp',        accent: '#fb923c' },
@@ -40,7 +40,7 @@ const TEAM = [
   { name: 'Ravindra Jain',         role: 'MERN Stack Developer',                           img: '/team/Ravindra_Jain.webp',        accent: '#2dd4bf' },
   { name: 'Sandeep Sikarwar',      role: 'MERN Stack Developer',                           img: '/team/Sandeep_Sikarwar.webp',     accent: '#e879f9' },
   { name: 'Abhishek Tiwari',       role: 'MERN Stack Developer',                           img: '/team/Abhishek_tiwari.webp',      accent: '#a3e635' },
-  { name: 'Saral Shrivastava',     role: 'MERN Stack Developer',                           img: '/team/Saral_shrivastava.webp',    accent: '#f5a623' },
+  { name: 'Saral Shrivastava',     role: 'MERN Stack Developer',                           img: '/team/Saral_shrivastava.webp',    accent: '#22C76F' },
   { name: 'Sakshi Shrivastava',    role: 'MERN Stack Developer',                           img: '/team/Sakshi_Shrivastava.webp',   accent: '#38bdf8' },
   { name: 'Sarfaraj Ali',          role: 'MERN Stack Developer',                           img: '/team/Sarfaraj_Ali.webp',         accent: '#4ade80' },
   { name: 'Akash Singh Pathoriya', role: 'MERN Stack Developer',                           img: '/team/Akash_Singh.webp',          accent: '#a78bfa' },
@@ -49,7 +49,7 @@ const TEAM = [
   { name: 'Prashant Gupta',        role: 'MERN Stack Developer',                           img: '/team/Prashant_Gupta.webp',       accent: '#2dd4bf' },
   { name: 'Mangal Vanik',          role: 'MERN Stack Developer',                           img: '/team/Mangal_Banik.webp',         accent: '#e879f9' },
   { name: 'Sanskar Sahu',          role: 'MERN Stack Developer',                           img: '/team/Sanskar_Sahu.webp',         accent: '#a3e635' },
-  { name: 'Sandeep Sahu',          role: 'MERN Stack Developer',                           img: '/team/Sandeep_sahu.webp',         accent: '#f5a623' },
+  { name: 'Sandeep Sahu',          role: 'MERN Stack Developer',                           img: '/team/Sandeep_sahu.webp',         accent: '#22C76F' },
   { name: 'Vivek Shrivastava',     role: 'MERN Stack Developer',                           img: '/team/Vivek.webp',                accent: '#38bdf8' },
   { name: 'Jatin Pal',             role: 'MERN Stack Developer',                           img: '/team/Jatin_pal.webp',            accent: '#4ade80' },
   { name: 'Bhoopnesh',             role: 'MERN Stack Developer',                           img: '/team/Bhoopesh.webp',             accent: '#a78bfa' },
@@ -59,7 +59,7 @@ const TEAM = [
   { name: 'Injila Naureen',        role: 'MERN Stack Developer',                           img: '/team/Injila_Naureen.webp',       accent: '#e879f9' },
   // ── UI/UX ─────────────────────────────────────────────────────────────────
   { name: 'Pradeep Singh Tomar',   role: 'Sr. UI/UX Designer',                             img: '/team/Pradeep_Tomar.webp',        accent: '#a3e635' },
-  { name: 'Nitesh Biswas',         role: 'Sr. UI/UX Designer',                             img: '/team/Nitesh_Biswas.webp',        accent: '#f5a623' },
+  { name: 'Nitesh Biswas',         role: 'Sr. UI/UX Designer',                             img: '/team/Nitesh_Biswas.webp',        accent: '#22C76F' },
   { name: 'Harsh Tomar',           role: 'Sr. UI/UX Designer',                             img: '/team/Harsh_Tomar.webp',          accent: '#38bdf8' },
   { name: 'Saumya Bais',           role: 'UI/UX Developer',                                img: '/team/Saumya_bais.webp',          accent: '#a78bfa' },
   { name: 'Narayan Singh',         role: 'UI/UX Developer',                                img: '/team/Narayan.webp',              accent: '#fb923c' },
@@ -77,7 +77,7 @@ const TEAM = [
   { name: 'Hemant Mandeliya',      role: 'Full-Stack Developer',                           img: '/team/Hemant.webp',               accent: '#2dd4bf' },
   { name: 'Suraj Maurya',          role: 'Full-Stack Developer',                           img: '/team/Suraj_Maurya.webp',         accent: '#a3e635' },
   // ── Laravel Developers ────────────────────────────────────────────────────
-  { name: 'Praveen Kushwah',       role: 'Laravel Developer',                              img: '/team/Praveen_kushwah.webp',      accent: '#f5a623' },
+  { name: 'Praveen Kushwah',       role: 'Laravel Developer',                              img: '/team/Praveen_kushwah.webp',      accent: '#22C76F' },
   { name: 'Suraj Prajapati',       role: 'Laravel Developer',                              img: '/team/Suraj_Prajapati.webp',      accent: '#38bdf8' },
   // ── Python & Django Developers ────────────────────────────────────────────
   { name: 'Praveen Vaidhya',       role: 'Python & Django Developer',                      img: '/team/Praveen_Vaidhya.webp',      accent: '#4ade80' },
@@ -89,7 +89,7 @@ const TEAM = [
   { name: 'Vishnu Kumar Gahlot',   role: 'DevOps & AWS Engineer',                          img: '/team/Vishnu.webp',               accent: '#e879f9' },
   { name: 'Chirag Jain',           role: 'DevOps & AWS Engineer',                          img: '/team/Chirag_jain_Devops.webp',   accent: '#a3e635' },
   // ── Software Quality Analysts ─────────────────────────────────────────────
-  { name: 'Pankaj Singh',          role: 'Software Quality Analyst',                       img: '/team/Pankaj.webp',               accent: '#f5a623' },
+  { name: 'Pankaj Singh',          role: 'Software Quality Analyst',                       img: '/team/Pankaj.webp',               accent: '#22C76F' },
   { name: 'Aman Kushwah',          role: 'Software Quality Analyst',                       img: '/team/Aman_Kushwah.webp',         accent: '#38bdf8' },
   { name: 'Saurabh Pathak',        role: 'Software Quality Analyst',                       img: '/team/Saurabh_Pathak.webp',       accent: '#4ade80' },
 ];
@@ -113,11 +113,11 @@ const PROCESS = [
 ];
 
 const HERO_AVATARS = [
-  { name: 'Gaurav Jain',         img: '/team/Gaurav_Jain.webp',          accent: '#f5a623', x: 10, y: 10, size: 82, d: 0 },
+  { name: 'Gaurav Jain',         img: '/team/Gaurav_Jain.webp',          accent: '#22C76F', x: 10, y: 10, size: 82, d: 0 },
   { name: 'Akshay Pratap Singh', img: '/team/Akshay_Pratap_Singh.webp',  accent: '#38bdf8', x: 72, y: 8,  size: 68, d: 0.1 },
   { name: 'Abhay Pratap',        img: '/team/Abhay_Pratap.webp',         accent: '#4ade80', x: 80, y: 46, size: 62, d: 0.06 },
   { name: 'Rajat Singh',         img: '/team/Rajat_Singh.webp',          accent: '#a78bfa', x: 60, y: 78, size: 54, d: 0.18 },
-  { name: 'Nitesh Biswas',       img: '/team/Nitesh_Biswas.webp',        accent: '#f5a623', x: 16, y: 74, size: 58, d: 0.12 },
+  { name: 'Nitesh Biswas',       img: '/team/Nitesh_Biswas.webp',        accent: '#22C76F', x: 16, y: 74, size: 58, d: 0.12 },
   { name: 'Yuvraj Shinde',       img: '/team/Yuvraj_Shinde.webp',        accent: '#fb923c', x: 38, y: 54, size: 48, d: 0.22 },
   { name: 'Pradeep Singh Tomar', img: '/team/Pradeep_Tomar.webp',        accent: '#a3e635', x: 24, y: 32, size: 52, d: 0.08 },
   { name: 'Sakshi Shrivastava',  img: '/team/Sakshi_Shrivastava.webp',   accent: '#e879f9', x: 55, y: 24, size: 50, d: 0.28 },
@@ -186,8 +186,8 @@ function MagneticBtn({
       }}
       onMouseLeave={() => { mx.set(0); my.set(0); }}
       whileHover={primary
-        ? { boxShadow: '0 16px 50px rgba(245,166,35,0.28)', scale: 1.03 }
-        : { borderColor: 'rgba(245,166,35,0.4)', color: '#e0e0e0' }
+        ? { boxShadow: '0 16px 50px rgba(34,199,111,0.28)', scale: 1.03 }
+        : { borderColor: 'rgba(34,199,111,0.4)', color: '#e0e0e0' }
       }
       whileTap={{ scale: 0.95 }}
     >
@@ -244,20 +244,11 @@ function Navigation() {
           whileHover={{ scale: 1.03 }}
           transition={{ type: 'spring', stiffness: 300, damping: 22 }}
         >
-          <div style={{
-            width: 30, height: 30, borderRadius: 9,
-            border: '1.5px solid #f5a623',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            boxShadow: '0 0 18px rgba(245,166,35,0.22)', flexShrink: 0,
-          }}>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f5a623" strokeWidth="2.5">
-              <polyline points="16 18 22 12 16 6" />
-              <polyline points="8 6 2 12 8 18" stroke="rgba(255,255,255,0.35)" />
-            </svg>
-          </div>
-          <span style={{ color: '#ffffff', fontSize: 14, fontWeight: 800, letterSpacing: '-0.04em', textTransform: 'uppercase' }}>
-            UP<span style={{ color: '#f5a623' }}>CODO</span>
-          </span>
+          <img
+            src="/Upcodo_logo.webp"
+            alt="UpCodo Digital"
+            style={{ height: 34, width: 'auto', filter: 'brightness(0) invert(1)', opacity: 0.92 }}
+          />
         </motion.a>
 
         {/* Desktop links */}
@@ -274,7 +265,7 @@ function Navigation() {
                   transition={{ duration: 0.5, delay: 0.2 + i * 0.07, ease: E }}
                   style={{
                     fontSize: 12, fontWeight: active ? 700 : 600,
-                    color: active ? '#f5a623' : '#888',
+                    color: active ? '#22C76F' : '#888',
                     textDecoration: 'none', letterSpacing: '0.02em',
                     position: 'relative',
                   }}
@@ -285,7 +276,7 @@ function Navigation() {
                   {active && (
                     <div style={{
                       position: 'absolute', bottom: -3, left: 0, right: 0,
-                      height: 1.5, background: '#f5a623', borderRadius: 99,
+                      height: 1.5, background: '#22C76F', borderRadius: 99,
                     }} />
                   )}
                 </motion.a>
@@ -296,11 +287,11 @@ function Navigation() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.55, ease: E }}
-              whileHover={{ scale: 1.08, boxShadow: '0 12px 40px rgba(245,166,35,0.4)', y: -3 }}
+              whileHover={{ scale: 1.08, boxShadow: '0 12px 40px rgba(34,199,111,0.4)', y: -3 }}
               whileTap={{ scale: 0.92 }}
               style={{
                 padding: '9px 20px', borderRadius: 7,
-                background: '#f5a623', color: '#050505',
+                background: '#22C76F', color: '#050505',
                 fontSize: 11, fontWeight: 800, textDecoration: 'none',
                 letterSpacing: '0.08em', textTransform: 'uppercase',
                 display: 'inline-block', position: 'relative', overflow: 'hidden',
@@ -353,7 +344,7 @@ function Navigation() {
               onClick={() => setMenuOpen(false)}
               style={{
                 display: 'block', padding: '12px 0', fontSize: 14, fontWeight: 600,
-                color: link.label === 'About Us' ? '#f5a623' : '#888',
+                color: link.label === 'About Us' ? '#22C76F' : '#888',
                 textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,0.04)',
               }}
             >
@@ -365,7 +356,7 @@ function Navigation() {
             onClick={() => setMenuOpen(false)}
             style={{
               display: 'block', marginTop: 8, padding: '14px 0', fontSize: 12, fontWeight: 800,
-              background: '#f5a623', color: '#050505', textDecoration: 'none',
+              background: '#22C76F', color: '#050505', textDecoration: 'none',
               textAlign: 'center', borderRadius: 7, letterSpacing: '0.08em', textTransform: 'uppercase',
             }}
           >
@@ -396,7 +387,7 @@ function HeroSection() {
           position: 'absolute', top: '-15%', left: '50%',
           transform: 'translateX(-50%)',
           width: 900, height: 700,
-          background: 'radial-gradient(ellipse, rgba(245,166,35,0.07) 0%, transparent 68%)',
+          background: 'radial-gradient(ellipse, rgba(34,199,111,0.07) 0%, transparent 68%)',
           pointerEvents: 'none',
         }}
       />
@@ -450,9 +441,9 @@ function HeroSection() {
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ duration: 0.5, delay: 0.4, ease: E }}
-              style={{ width: 36, height: 1, background: '#f5a623', transformOrigin: 'left' }}
+              style={{ width: 36, height: 1, background: '#22C76F', transformOrigin: 'left' }}
             />
-            <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.42em', textTransform: 'uppercase', color: '#f5a623' }}>
+            <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.42em', textTransform: 'uppercase', color: '#22C76F' }}>
               About UpCodo
             </span>
           </motion.div>
@@ -472,7 +463,7 @@ function HeroSection() {
                   style={{
                     display: 'block',
                     ...(i === 1 ? { color: 'transparent', WebkitTextStroke: '1px rgba(255,255,255,0.32)' } : {}),
-                    ...(i === 2 ? { color: '#f5a623' } : {}),
+                    ...(i === 2 ? { color: '#22C76F' } : {}),
                   }}
                 >
                   {line}
@@ -521,7 +512,7 @@ function HeroSection() {
               position: 'absolute', top: '50%', left: '50%',
               transform: 'translate(-50%,-50%)',
               width: 440, height: 440, borderRadius: '50%',
-              background: 'radial-gradient(circle, rgba(245,166,35,0.06) 0%, transparent 70%)',
+              background: 'radial-gradient(circle, rgba(34,199,111,0.06) 0%, transparent 70%)',
               filter: 'blur(60px)', pointerEvents: 'none',
             }} />
             {/* Connecting ring */}
@@ -532,7 +523,7 @@ function HeroSection() {
                 position: 'absolute', top: '50%', left: '50%',
                 transform: 'translate(-50%,-50%)',
                 width: 340, height: 340, borderRadius: '50%',
-                border: '1px solid rgba(245,166,35,0.07)',
+                border: '1px solid rgba(34,199,111,0.07)',
                 pointerEvents: 'none',
               }}
             />
@@ -605,7 +596,7 @@ function HeroSection() {
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-          style={{ width: 1, height: 36, background: 'linear-gradient(to bottom, #f5a623, transparent)' }}
+          style={{ width: 1, height: 36, background: 'linear-gradient(to bottom, #22C76F, transparent)' }}
         />
       </motion.div>
     </section>
@@ -628,7 +619,7 @@ function VisionSection() {
       <div className="orb-a" style={{
         position: 'absolute', top: '-10%', right: '-5%',
         width: 500, height: 500, borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(245,166,35,0.045) 0%, transparent 65%)',
+        background: 'radial-gradient(circle, rgba(34,199,111,0.045) 0%, transparent 65%)',
         filter: 'blur(50px)', pointerEvents: 'none',
       }} />
 
@@ -650,9 +641,9 @@ function VisionSection() {
               initial={{ scaleX: 0 }}
               animate={inView ? { scaleX: 1 } : {}}
               transition={{ duration: 0.5, delay: 0.08, ease: E }}
-              style={{ width: 36, height: 1, background: '#f5a623', transformOrigin: 'left' }}
+              style={{ width: 36, height: 1, background: '#22C76F', transformOrigin: 'left' }}
             />
-            <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.42em', textTransform: 'uppercase', color: '#f5a623' }}>
+            <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.42em', textTransform: 'uppercase', color: '#22C76F' }}>
               Our Vision
             </span>
           </motion.div>
@@ -678,7 +669,7 @@ function VisionSection() {
             transition={{ duration: 0.9, delay: 0.36, ease: E }}
             style={{
               height: 1, maxWidth: 380,
-              background: 'linear-gradient(90deg, rgba(245,166,35,0.5), transparent)',
+              background: 'linear-gradient(90deg, rgba(34,199,111,0.5), transparent)',
               marginBottom: 28, transformOrigin: 'left',
             }}
           />
@@ -720,7 +711,7 @@ function VisionSection() {
             {/* Gradient overlay */}
             <div style={{
               position: 'absolute', inset: 0,
-              background: 'linear-gradient(135deg, rgba(245,166,35,0.04) 0%, rgba(167,139,250,0.03) 100%)',
+              background: 'linear-gradient(135deg, rgba(34,199,111,0.04) 0%, rgba(167,139,250,0.03) 100%)',
             }} />
 
             {/* Team photo grid */}
@@ -771,7 +762,7 @@ function VisionSection() {
             {/* Bottom gradient */}
             <div style={{
               position: 'absolute', bottom: 0, left: 0, right: 0, height: '45%',
-              background: 'linear-gradient(to top, rgba(245,166,35,0.07), transparent)',
+              background: 'linear-gradient(to top, rgba(34,199,111,0.07), transparent)',
               pointerEvents: 'none',
             }} />
           </div>
@@ -779,7 +770,7 @@ function VisionSection() {
           {/* Edge glow */}
           <div style={{
             position: 'absolute', inset: -2, borderRadius: 26, zIndex: -1,
-            background: 'linear-gradient(135deg, rgba(245,166,35,0.18), transparent 55%, rgba(167,139,250,0.12))',
+            background: 'linear-gradient(135deg, rgba(34,199,111,0.18), transparent 55%, rgba(167,139,250,0.12))',
             filter: 'blur(12px)',
           }} />
 
@@ -790,13 +781,13 @@ function VisionSection() {
             style={{
               position: 'absolute', bottom: -22, right: -10,
               background: 'rgba(8,8,8,0.96)',
-              border: '1px solid rgba(245,166,35,0.2)',
+              border: '1px solid rgba(34,199,111,0.2)',
               borderRadius: 16, padding: '16px 20px',
               backdropFilter: 'blur(20px)',
               boxShadow: '0 20px 50px rgba(0,0,0,0.4)',
             }}
           >
-            <div style={{ fontSize: 28, fontWeight: 900, color: '#f5a623', letterSpacing: '-0.05em', lineHeight: 1 }}>50+</div>
+            <div style={{ fontSize: 28, fontWeight: 900, color: '#22C76F', letterSpacing: '-0.05em', lineHeight: 1 }}>50+</div>
             <div style={{ fontSize: 9, fontWeight: 700, color: '#555', letterSpacing: '0.2em', textTransform: 'uppercase', marginTop: 5 }}>
               Team Members
             </div>
@@ -1027,16 +1018,16 @@ function TeamSection() {
             initial={{ scaleX: 0 }}
             animate={inView ? { scaleX: 1 } : {}}
             transition={{ duration: 0.5, ease: E }}
-            style={{ width: 32, height: 1, background: '#f5a623', transformOrigin: 'right' }}
+            style={{ width: 32, height: 1, background: '#22C76F', transformOrigin: 'right' }}
           />
-          <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.42em', textTransform: 'uppercase', color: '#f5a623' }}>
+          <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.42em', textTransform: 'uppercase', color: '#22C76F' }}>
             The People
           </span>
           <motion.div
             initial={{ scaleX: 0 }}
             animate={inView ? { scaleX: 1 } : {}}
             transition={{ duration: 0.5, ease: E }}
-            style={{ width: 32, height: 1, background: '#f5a623', transformOrigin: 'left' }}
+            style={{ width: 32, height: 1, background: '#22C76F', transformOrigin: 'left' }}
           />
         </motion.div>
 
@@ -1081,7 +1072,7 @@ function TeamSection() {
 
 // ─── Life @ UpCodo Section ────────────────────────────────────────────────────
 const LIFE_TILES = [
-  { label: 'Team Syncs',       caption: 'Daily standups, weekly strategy',   accent: '#f5a623', cols: 2, rows: 1, grad: 'linear-gradient(145deg, #1a1200 0%, #2d1f00 100%)' },
+  { label: 'Team Syncs',       caption: 'Daily standups, weekly strategy',   accent: '#22C76F', cols: 2, rows: 1, grad: 'linear-gradient(145deg, #1a1200 0%, #2d1f00 100%)' },
   { label: 'Design Sprints',   caption: 'Ideas from sketch to prototype',    accent: '#a78bfa', cols: 1, rows: 1, grad: 'linear-gradient(145deg, #0d0a1f 0%, #1a1335 100%)' },
   { label: 'Code Reviews',     caption: 'Every PR is a learning moment',     accent: '#38bdf8', cols: 1, rows: 2, grad: 'linear-gradient(145deg, #001a2d 0%, #002d47 100%)' },
   { label: 'Hackathons',       caption: '48 hrs of pure innovation',         accent: '#4ade80', cols: 1, rows: 1, grad: 'linear-gradient(145deg, #001a0a 0%, #002d15 100%)' },
@@ -1112,15 +1103,15 @@ function LifeSection() {
           <motion.div
             initial={{ scaleX: 0 }} animate={inView ? { scaleX: 1 } : {}}
             transition={{ duration: 0.5, ease: E }}
-            style={{ width: 32, height: 1, background: '#f5a623', transformOrigin: 'right' }}
+            style={{ width: 32, height: 1, background: '#22C76F', transformOrigin: 'right' }}
           />
-          <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.42em', textTransform: 'uppercase', color: '#f5a623' }}>
+          <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.42em', textTransform: 'uppercase', color: '#22C76F' }}>
             Inside UpCodo
           </span>
           <motion.div
             initial={{ scaleX: 0 }} animate={inView ? { scaleX: 1 } : {}}
             transition={{ duration: 0.5, ease: E }}
-            style={{ width: 32, height: 1, background: '#f5a623', transformOrigin: 'left' }}
+            style={{ width: 32, height: 1, background: '#22C76F', transformOrigin: 'left' }}
           />
         </motion.div>
         <h2 style={{ fontSize: 'clamp(32px,4.5vw,58px)', fontWeight: 900, letterSpacing: '-0.055em', lineHeight: 0.96, margin: 0 }}>
@@ -1211,7 +1202,7 @@ function WhySection() {
       <div className="orb-a" style={{
         position: 'absolute', top: '10%', right: '-5%',
         width: 500, height: 500, borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(245,166,35,0.04) 0%, transparent 65%)',
+        background: 'radial-gradient(circle, rgba(34,199,111,0.04) 0%, transparent 65%)',
         filter: 'blur(60px)', pointerEvents: 'none',
       }} />
 
@@ -1224,14 +1215,14 @@ function WhySection() {
         >
           <motion.div initial={{ scaleX: 0 }} animate={inView ? { scaleX: 1 } : {}}
             transition={{ duration: 0.5, ease: E }}
-            style={{ width: 32, height: 1, background: '#f5a623', transformOrigin: 'right' }}
+            style={{ width: 32, height: 1, background: '#22C76F', transformOrigin: 'right' }}
           />
-          <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.42em', textTransform: 'uppercase', color: '#f5a623' }}>
+          <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.42em', textTransform: 'uppercase', color: '#22C76F' }}>
             Why Choose Us
           </span>
           <motion.div initial={{ scaleX: 0 }} animate={inView ? { scaleX: 1 } : {}}
             transition={{ duration: 0.5, ease: E }}
-            style={{ width: 32, height: 1, background: '#f5a623', transformOrigin: 'left' }}
+            style={{ width: 32, height: 1, background: '#22C76F', transformOrigin: 'left' }}
           />
         </motion.div>
         <h2 style={{ fontSize: 'clamp(32px,4.5vw,58px)', fontWeight: 900, letterSpacing: '-0.055em', lineHeight: 0.96, margin: 0 }}>
@@ -1261,8 +1252,8 @@ function WhySection() {
             transition={{ duration: 0.75, delay: i * 0.1, ease: E }}
             whileHover={{
               y: -10,
-              boxShadow: '0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(245,166,35,0.22)',
-              borderColor: 'rgba(245,166,35,0.28)',
+              boxShadow: '0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(34,199,111,0.22)',
+              borderColor: 'rgba(34,199,111,0.28)',
             }}
             style={{
               background: 'linear-gradient(145deg, #0d0d0d 0%, #0a0a0a 100%)',
@@ -1277,13 +1268,13 @@ function WhySection() {
             {/* Top shimmer line */}
             <div style={{
               position: 'absolute', top: 0, left: 0, right: 0, height: 1,
-              background: 'linear-gradient(90deg, transparent, rgba(245,166,35,0.3), transparent)',
+              background: 'linear-gradient(90deg, transparent, rgba(34,199,111,0.3), transparent)',
             }} />
 
             {/* Symbol */}
             <div style={{
               fontSize: 28, marginBottom: 20, lineHeight: 1,
-              filter: 'drop-shadow(0 0 12px rgba(245,166,35,0.4))',
+              filter: 'drop-shadow(0 0 12px rgba(34,199,111,0.4))',
             }}>
               {item.sym}
             </div>
@@ -1319,7 +1310,7 @@ function WhySection() {
               style={{
                 position: 'absolute', bottom: 0, right: 0,
                 width: 100, height: 100,
-                background: 'radial-gradient(circle at bottom right, rgba(245,166,35,0.08), transparent 70%)',
+                background: 'radial-gradient(circle at bottom right, rgba(34,199,111,0.08), transparent 70%)',
                 pointerEvents: 'none',
               }}
             />
@@ -1344,8 +1335,8 @@ function MobileProcessStep({ step }: { step: typeof PROCESS[0] }) {
         style={{
           position: 'absolute', left: 1,
           width: 18, height: 18, borderRadius: '50%',
-          background: '#f5a623',
-          boxShadow: '0 0 16px rgba(245,166,35,0.5)',
+          background: '#22C76F',
+          boxShadow: '0 0 16px rgba(34,199,111,0.5)',
           flexShrink: 0, marginTop: 20,
         }}
       />
@@ -1355,16 +1346,16 @@ function MobileProcessStep({ step }: { step: typeof PROCESS[0] }) {
         transition={{ duration: 0.7, ease: E }}
         style={{
           background: 'linear-gradient(145deg, #0e0e0e, #0a0a0a)',
-          border: '1px solid rgba(245,166,35,0.12)',
+          border: '1px solid rgba(34,199,111,0.12)',
           borderRadius: 16, padding: '20px',
           position: 'relative', overflow: 'hidden', width: '100%',
         }}
       >
         <div style={{
           position: 'absolute', top: 0, left: 0, right: 0, height: 1,
-          background: 'linear-gradient(90deg, transparent, rgba(245,166,35,0.22), transparent)',
+          background: 'linear-gradient(90deg, transparent, rgba(34,199,111,0.22), transparent)',
         }} />
-        <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.28em', color: '#f5a623', textTransform: 'uppercase', marginBottom: 8 }}>{step.n}</div>
+        <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.28em', color: '#22C76F', textTransform: 'uppercase', marginBottom: 8 }}>{step.n}</div>
         <div style={{ fontSize: 16, fontWeight: 800, color: '#e2e2e2', letterSpacing: '-0.03em', marginBottom: 8 }}>{step.title}</div>
         <div style={{ fontSize: 13, color: '#575757', lineHeight: 1.7 }}>{step.body}</div>
       </motion.div>
@@ -1397,17 +1388,17 @@ function ProcessStep({ step, index, isLeft }: { step: typeof PROCESS[0]; index: 
       >
         <div style={{
           background: 'linear-gradient(145deg, #0e0e0e, #0a0a0a)',
-          border: `1px solid rgba(245,166,35,0.14)`,
+          border: `1px solid rgba(34,199,111,0.14)`,
           borderRadius: 16, padding: '24px 24px 24px 28px',
           position: 'relative', overflow: 'hidden',
-          boxShadow: inView ? '0 0 40px rgba(245,166,35,0.06)' : 'none',
+          boxShadow: inView ? '0 0 40px rgba(34,199,111,0.06)' : 'none',
           textAlign: 'left',
         }}>
           <div style={{
             position: 'absolute', top: 0, left: 0, right: 0, height: 1,
-            background: 'linear-gradient(90deg, transparent, rgba(245,166,35,0.25), transparent)',
+            background: 'linear-gradient(90deg, transparent, rgba(34,199,111,0.25), transparent)',
           }} />
-          <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.28em', color: '#f5a623', textTransform: 'uppercase', marginBottom: 10 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.28em', color: '#22C76F', textTransform: 'uppercase', marginBottom: 10 }}>
             {step.n}
           </div>
           <div style={{ fontSize: 18, fontWeight: 800, color: '#e2e2e2', letterSpacing: '-0.03em', marginBottom: 10, lineHeight: 1.1 }}>
@@ -1427,8 +1418,8 @@ function ProcessStep({ step, index, isLeft }: { step: typeof PROCESS[0]; index: 
           transition={{ duration: 0.5, delay: 0.2, type: 'spring', stiffness: 200 }}
           style={{
             width: 20, height: 20, borderRadius: '50%',
-            background: '#f5a623',
-            boxShadow: '0 0 20px rgba(245,166,35,0.6), 0 0 40px rgba(245,166,35,0.25)',
+            background: '#22C76F',
+            boxShadow: '0 0 20px rgba(34,199,111,0.6), 0 0 40px rgba(34,199,111,0.25)',
             zIndex: 2, flexShrink: 0,
           }}
         />
@@ -1446,16 +1437,16 @@ function ProcessStep({ step, index, isLeft }: { step: typeof PROCESS[0]; index: 
       >
         <div style={{
           background: 'linear-gradient(145deg, #0e0e0e, #0a0a0a)',
-          border: `1px solid rgba(245,166,35,0.14)`,
+          border: `1px solid rgba(34,199,111,0.14)`,
           borderRadius: 16, padding: '24px 28px 24px 24px',
           position: 'relative', overflow: 'hidden',
-          boxShadow: inView ? '0 0 40px rgba(245,166,35,0.06)' : 'none',
+          boxShadow: inView ? '0 0 40px rgba(34,199,111,0.06)' : 'none',
         }}>
           <div style={{
             position: 'absolute', top: 0, left: 0, right: 0, height: 1,
-            background: 'linear-gradient(90deg, transparent, rgba(245,166,35,0.25), transparent)',
+            background: 'linear-gradient(90deg, transparent, rgba(34,199,111,0.25), transparent)',
           }} />
-          <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.28em', color: '#f5a623', textTransform: 'uppercase', marginBottom: 10 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.28em', color: '#22C76F', textTransform: 'uppercase', marginBottom: 10 }}>
             {step.n}
           </div>
           <div style={{ fontSize: 18, fontWeight: 800, color: '#e2e2e2', letterSpacing: '-0.03em', marginBottom: 10, lineHeight: 1.1 }}>
@@ -1494,12 +1485,12 @@ function ProcessSection() {
           style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 14, marginBottom: 20 }}
         >
           <motion.div initial={{ scaleX: 0 }} animate={inView ? { scaleX: 1 } : {}} transition={{ duration: 0.5, ease: E }}
-            style={{ width: 32, height: 1, background: '#f5a623', transformOrigin: 'right' }} />
-          <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.42em', textTransform: 'uppercase', color: '#f5a623' }}>
+            style={{ width: 32, height: 1, background: '#22C76F', transformOrigin: 'right' }} />
+          <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.42em', textTransform: 'uppercase', color: '#22C76F' }}>
             How We Work
           </span>
           <motion.div initial={{ scaleX: 0 }} animate={inView ? { scaleX: 1 } : {}} transition={{ duration: 0.5, ease: E }}
-            style={{ width: 32, height: 1, background: '#f5a623', transformOrigin: 'left' }} />
+            style={{ width: 32, height: 1, background: '#22C76F', transformOrigin: 'left' }} />
         </motion.div>
         <h2 style={{ fontSize: 'clamp(32px,4.5vw,58px)', fontWeight: 900, letterSpacing: '-0.055em', lineHeight: 0.96, margin: 0 }}>
           <WordReveal text="Our Process" inView={inView} delay={0.1} />
@@ -1512,7 +1503,7 @@ function ProcessSection() {
           {/* Vertical line */}
           <div style={{ position: 'absolute', left: 10, top: 0, bottom: 0, width: 1, background: 'rgba(255,255,255,0.05)' }} />
           <motion.div
-            style={{ position: 'absolute', left: 10, top: 0, width: 1, height: lineH, background: 'linear-gradient(to bottom, #f5a623, rgba(245,166,35,0.2))', transformOrigin: 'top' }}
+            style={{ position: 'absolute', left: 10, top: 0, width: 1, height: lineH, background: 'linear-gradient(to bottom, #22C76F, rgba(34,199,111,0.2))', transformOrigin: 'top' }}
           />
           {PROCESS.map((step, i) => (
             <MobileProcessStep key={i} step={step} />
@@ -1529,7 +1520,7 @@ function ProcessSection() {
           <motion.div style={{
             position: 'absolute', left: '50%', top: 0,
             width: 1, height: lineH,
-            background: 'linear-gradient(to bottom, #f5a623, rgba(245,166,35,0.15))',
+            background: 'linear-gradient(to bottom, #22C76F, rgba(34,199,111,0.15))',
             transform: 'translateX(-50%)',
             transformOrigin: 'top',
           }} />
@@ -1563,7 +1554,7 @@ function CTASection() {
       <div className="orb-a" style={{
         position: 'absolute', top: '-10%', left: '-5%',
         width: 500, height: 500, borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(245,166,35,0.07) 0%, transparent 65%)',
+        background: 'radial-gradient(circle, rgba(34,199,111,0.07) 0%, transparent 65%)',
         filter: 'blur(50px)', pointerEvents: 'none', zIndex: 0,
       }} />
       <div className="orb-b" style={{
@@ -1608,14 +1599,14 @@ function CTASection() {
         >
           <motion.div initial={{ scaleX: 0 }} animate={inView ? { scaleX: 1 } : {}}
             transition={{ duration: 0.5, delay: 0.08, ease: E }}
-            style={{ width: 36, height: 1, background: '#f5a623', transformOrigin: 'right' }}
+            style={{ width: 36, height: 1, background: '#22C76F', transformOrigin: 'right' }}
           />
-          <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.42em', textTransform: 'uppercase', color: '#f5a623' }}>
+          <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.42em', textTransform: 'uppercase', color: '#22C76F' }}>
             Ready to build?
           </span>
           <motion.div initial={{ scaleX: 0 }} animate={inView ? { scaleX: 1 } : {}}
             transition={{ duration: 0.5, delay: 0.08, ease: E }}
-            style={{ width: 36, height: 1, background: '#f5a623', transformOrigin: 'left' }}
+            style={{ width: 36, height: 1, background: '#22C76F', transformOrigin: 'left' }}
           />
         </motion.div>
 
@@ -1638,7 +1629,7 @@ function CTASection() {
           transition={{ duration: 0.9, delay: 0.4, ease: E }}
           style={{
             height: 1, maxWidth: 400, margin: '0 auto 36px',
-            background: 'linear-gradient(90deg, transparent, rgba(245,166,35,0.45), transparent)',
+            background: 'linear-gradient(90deg, transparent, rgba(34,199,111,0.45), transparent)',
             transformOrigin: 'center',
           }}
         />

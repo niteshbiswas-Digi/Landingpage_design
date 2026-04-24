@@ -53,7 +53,7 @@ const TESTIMONIALS = [
     role: 'CEO',
     company: 'Wisterias Tech',
     initials: 'SJ',
-    color: '#f5a623',
+    color: '#22C76F',
     rating: 5,
     quote: 'The SaaS platform delivered was production-ready and scalable. Best investment we made for our business growth.',
     featured: false,
@@ -95,7 +95,7 @@ function Stars({ count, inView, delay = 0 }: { count: number; inView: boolean; d
       {Array.from({ length: count }).map((_, i) => (
         <motion.svg
           key={i}
-          width="12" height="12" viewBox="0 0 24 24" fill="#f5a623"
+          width="12" height="12" viewBox="0 0 24 24" fill="#22C76F"
           initial={{ scale: 0, opacity: 0, rotate: -30 }}
           animate={inView ? { scale: 1, opacity: 1, rotate: 0 } : {}}
           transition={{ duration: 0.35, delay: delay + i * 0.07, ease: [0.16, 1, 0.3, 1] }}
@@ -170,11 +170,11 @@ export default function TestimonialsSection() {
             initial={{ scaleX: 0 }}
             animate={inView ? { scaleX: 1 } : {}}
             transition={{ duration: 0.5, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-            style={{ width: 28, height: 1, background: '#f5a623', transformOrigin: 'left' }}
+            style={{ width: 28, height: 1, background: '#22C76F', transformOrigin: 'left' }}
           />
           <p style={{
             fontSize: 10, fontWeight: 700, letterSpacing: '0.4em',
-            textTransform: 'uppercase', color: '#f5a623', margin: 0,
+            textTransform: 'uppercase', color: '#22C76F', margin: 0,
           }}>
             Client Testimonials
           </p>
@@ -470,17 +470,17 @@ export default function TestimonialsSection() {
           >
             <div style={{
               width: 28, height: 1,
-              background: 'linear-gradient(90deg, transparent, rgba(245,158,11,0.6))',
+              background: 'linear-gradient(90deg, transparent, rgba(26,174,92,0.6))',
             }} />
             <span style={{
               fontSize: 10, fontWeight: 700, letterSpacing: '0.5em',
-              textTransform: 'uppercase', color: '#f5a623',
+              textTransform: 'uppercase', color: '#22C76F',
             }}>
               Trusted by builders at
             </span>
             <div style={{
               width: 28, height: 1,
-              background: 'linear-gradient(270deg, transparent, rgba(245,158,11,0.6))',
+              background: 'linear-gradient(270deg, transparent, rgba(26,174,92,0.6))',
             }} />
           </motion.div>
 
@@ -499,12 +499,7 @@ export default function TestimonialsSection() {
             }}
           >
             <span style={{ color: '#ffffff' }}>Clarity.{' '}</span>
-            <span style={{
-              background: 'linear-gradient(135deg, #f5a623 0%, #fcd34d 45%, #f5a623 100%)',
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}>
+            <span style={{ color: '#22C76F' }}>
               Focus.
             </span>
             {!isMobile && <br />}
@@ -573,7 +568,7 @@ export default function TestimonialsSection() {
               </span>
               <span style={{
                 width: 1, height: 10,
-                background: 'rgba(245,166,35,0.25)',
+                background: 'rgba(34,199,111,0.25)',
                 flexShrink: 0,
               }} />
             </span>

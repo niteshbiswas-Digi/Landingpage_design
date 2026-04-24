@@ -44,7 +44,7 @@ const AnimatedCursor = memo(function AnimatedCursor() {
         style={{
           position: 'fixed', top: 0, left: 0, zIndex: 0,
           width: 560, height: 560, borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(245,166,35,0.045) 0%, rgba(245,166,35,0.015) 35%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(34,199,111,0.045) 0%, rgba(34,199,111,0.015) 35%, transparent 70%)',
           pointerEvents: 'none', willChange: 'transform',
           mixBlendMode: 'screen',
         }}
@@ -55,7 +55,7 @@ const AnimatedCursor = memo(function AnimatedCursor() {
         style={{
           position: 'fixed', top: 0, left: 0, zIndex: 9999,
           width: 8, height: 8, borderRadius: '50%',
-          background: '#f5a623',
+          background: '#22C76F',
           pointerEvents: 'none', willChange: 'transform',
           mixBlendMode: 'difference',
           opacity: 0.7,

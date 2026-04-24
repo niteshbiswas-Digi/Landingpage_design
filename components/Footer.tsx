@@ -45,10 +45,10 @@ function SocialBtn({ name, href, children }: { name: string; href: string; child
       }}
       onMouseEnter={e => {
         const el = e.currentTarget;
-        el.style.color = '#f5a623';
-        el.style.borderColor = 'rgba(245,166,35,0.32)';
-        el.style.background = 'rgba(245,166,35,0.06)';
-        el.style.boxShadow = '0 0 22px rgba(245,166,35,0.18), inset 0 0 14px rgba(245,166,35,0.04)';
+        el.style.color = '#22C76F';
+        el.style.borderColor = 'rgba(34,199,111,0.32)';
+        el.style.background = 'rgba(34,199,111,0.06)';
+        el.style.boxShadow = '0 0 22px rgba(34,199,111,0.18), inset 0 0 14px rgba(34,199,111,0.04)';
       }}
       onMouseLeave={e => {
         const el = e.currentTarget;
@@ -83,7 +83,7 @@ export default function Footer() {
           style={{
             position: 'absolute', width: 560, height: 560,
             top: '-20%', left: '-12%', borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(245,166,35,0.05) 0%, transparent 68%)',
+            background: 'radial-gradient(circle, rgba(34,199,111,0.05) 0%, transparent 68%)',
             filter: 'blur(48px)',
           }}
         />
@@ -130,7 +130,7 @@ export default function Footer() {
         transition={{ duration: 1.4, ease, delay: 0.1 }}
         style={{
           height: 1,
-          background: 'linear-gradient(90deg, transparent 0%, rgba(245,166,35,0.18) 20%, rgba(245,166,35,0.55) 50%, rgba(245,166,35,0.18) 80%, transparent 100%)',
+          background: 'linear-gradient(90deg, transparent 0%, rgba(34,199,111,0.18) 20%, rgba(34,199,111,0.55) 50%, rgba(34,199,111,0.18) 80%, transparent 100%)',
           transformOrigin: 'left',
         }}
       />
@@ -157,32 +157,12 @@ export default function Footer() {
             transition={{ duration: 0.75, ease, delay: 0.18 }}
           >
             {/* Logo */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 11, marginBottom: 22 }}>
-              <div style={{ position: 'relative', width: 38, height: 38, flexShrink: 0 }}>
-                <svg width="38" height="38" viewBox="0 0 38 38" fill="none">
-                  <path d="M19 3L35 12.5V25.5L19 35L3 25.5V12.5L19 3Z"
-                    stroke="rgba(245,166,35,0.45)" strokeWidth="1.4" strokeLinejoin="round" />
-                  <path d="M19 3L35 12.5V25.5L19 35L3 25.5V12.5L19 3Z"
-                    stroke="rgba(245,166,35,0.08)" strokeWidth="5" strokeLinejoin="round" />
-                  {/* Lightbulb top */}
-                  <circle cx="19" cy="17" r="4.6" stroke="#f5a623" strokeWidth="1.3" />
-                  {/* Filament base */}
-                  <path d="M16.3 21.5V24h5.4v-2.5" stroke="#f5a623" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
-                  {/* Spark rays */}
-                  <line x1="19" y1="10.5" x2="19" y2="9.2" stroke="rgba(245,166,35,0.6)" strokeWidth="1.1" strokeLinecap="round" />
-                  <line x1="23.8" y1="12.2" x2="24.8" y2="11.2" stroke="rgba(245,166,35,0.4)" strokeWidth="1" strokeLinecap="round" />
-                  <line x1="14.2" y1="12.2" x2="13.2" y2="11.2" stroke="rgba(245,166,35,0.4)" strokeWidth="1" strokeLinecap="round" />
-                </svg>
-              </div>
-              <span style={{
-                fontFamily: 'var(--font-outfit)',
-                fontSize: 17, fontWeight: 800,
-                letterSpacing: '-0.045em',
-                textTransform: 'lowercase',
-                color: '#e0e0e0',
-              }}>
-                up<span style={{ color: '#f5a623' }}>codo</span>
-              </span>
+            <div style={{ marginBottom: 22 }}>
+              <img
+                src="/Upcodo_logo.webp"
+                alt="UpCodo Digital"
+                style={{ height: 40, width: 'auto', filter: 'brightness(0) invert(1)', opacity: 0.9 }}
+              />
             </div>
 
             {/* Tagline */}
@@ -203,7 +183,7 @@ export default function Footer() {
             {/* Gold divider */}
             <div style={{
               width: 40, height: 1,
-              background: 'linear-gradient(90deg, rgba(245,166,35,0.5), transparent)',
+              background: 'linear-gradient(90deg, rgba(34,199,111,0.5), transparent)',
               marginBottom: 24,
             }} />
 
@@ -277,21 +257,21 @@ export default function Footer() {
                     fontFamily: 'var(--font-outfit)',
                   }}
                   onMouseEnter={e => {
-                    e.currentTarget.style.color = '#f5a623';
+                    e.currentTarget.style.color = '#22C76F';
                     const dot = e.currentTarget.querySelector('.nav-dot') as HTMLElement;
-                    if (dot) dot.style.background = '#f5a623';
+                    if (dot) dot.style.background = '#22C76F';
                   }}
                   onMouseLeave={e => {
                     e.currentTarget.style.color = '#5a5a5a';
                     const dot = e.currentTarget.querySelector('.nav-dot') as HTMLElement;
-                    if (dot) dot.style.background = 'rgba(245,166,35,0.28)';
+                    if (dot) dot.style.background = 'rgba(34,199,111,0.28)';
                   }}
                 >
                   <span
                     className="nav-dot"
                     style={{
                       width: 3.5, height: 3.5, borderRadius: '50%',
-                      background: 'rgba(245,166,35,0.28)',
+                      background: 'rgba(34,199,111,0.28)',
                       flexShrink: 0,
                       transition: 'background 0.2s ease',
                     }}
@@ -336,7 +316,7 @@ export default function Footer() {
                     transition: 'color 0.2s ease',
                     fontFamily: 'var(--font-outfit)',
                   }}
-                  onMouseEnter={e => { e.currentTarget.style.color = '#f5a623'; }}
+                  onMouseEnter={e => { e.currentTarget.style.color = '#22C76F'; }}
                   onMouseLeave={e => { e.currentTarget.style.color = '#5a5a5a'; }}
                 >
                   hello@upcodo.in
@@ -363,14 +343,14 @@ export default function Footer() {
             {/* CTA card */}
             <div style={{
               padding: '16px 18px',
-              border: '1px solid rgba(245,166,35,0.1)',
+              border: '1px solid rgba(34,199,111,0.1)',
               borderRadius: 12,
-              background: 'rgba(245,166,35,0.025)',
+              background: 'rgba(34,199,111,0.025)',
               position: 'relative', overflow: 'hidden',
             }}>
               <div style={{
                 position: 'absolute', top: 0, left: 0, right: 0, height: 1,
-                background: 'linear-gradient(90deg, transparent, rgba(245,166,35,0.35), transparent)',
+                background: 'linear-gradient(90deg, transparent, rgba(34,199,111,0.35), transparent)',
               }} />
               <p style={{
                 fontSize: 12, color: '#4e4e4e', lineHeight: 1.65,
@@ -384,7 +364,7 @@ export default function Footer() {
                 whileHover={{ x: 4 }}
                 style={{
                   display: 'inline-flex', alignItems: 'center', gap: 5,
-                  fontSize: 11, color: '#f5a623', fontWeight: 700,
+                  fontSize: 11, color: '#22C76F', fontWeight: 700,
                   textDecoration: 'none', letterSpacing: '0.04em',
                   textTransform: 'uppercase',
                   fontFamily: 'var(--font-outfit)',
@@ -443,7 +423,7 @@ export default function Footer() {
                   textDecoration: 'none', transition: 'color 0.2s ease',
                   fontFamily: 'var(--font-outfit)',
                 }}
-                onMouseEnter={e => { e.currentTarget.style.color = '#f5a623'; }}
+                onMouseEnter={e => { e.currentTarget.style.color = '#22C76F'; }}
                 onMouseLeave={e => { e.currentTarget.style.color = '#333'; }}
               >
                 {link}

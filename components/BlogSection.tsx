@@ -206,7 +206,7 @@ function PWAThumbnail() {
   return (
     <div style={{
       width: '100%', height: '100%', position: 'relative', overflow: 'hidden',
-      background: 'radial-gradient(ellipse at 55% 30%, rgba(245,166,35,0.15) 0%, #080808 65%)',
+      background: 'radial-gradient(ellipse at 55% 30%, rgba(34,199,111,0.15) 0%, #080808 65%)',
     }}>
       <div style={{
         position: 'absolute', inset: 0, pointerEvents: 'none',
@@ -225,13 +225,13 @@ function PWAThumbnail() {
           style={{ width: 110, height: 110 }}
         >
           <svg viewBox="0 0 110 110" width="110" height="110">
-            <circle cx="55" cy="55" r="7" fill="#f5a623" />
-            <ellipse cx="55" cy="55" rx="48" ry="18" fill="none" stroke="rgba(245,166,35,0.45)" strokeWidth="1.5" />
-            <ellipse cx="55" cy="55" rx="48" ry="18" fill="none" stroke="rgba(245,166,35,0.32)" strokeWidth="1.5" transform="rotate(60 55 55)" />
-            <ellipse cx="55" cy="55" rx="48" ry="18" fill="none" stroke="rgba(245,166,35,0.25)" strokeWidth="1.5" transform="rotate(120 55 55)" />
-            <circle cx="103" cy="55" r="4.5" fill="#f5a623" opacity="0.9" />
-            <circle cx="31"  cy="74" r="3.5" fill="#f5a623" opacity="0.65" />
-            <circle cx="31"  cy="36" r="3"   fill="#f5a623" opacity="0.5" />
+            <circle cx="55" cy="55" r="7" fill="#22C76F" />
+            <ellipse cx="55" cy="55" rx="48" ry="18" fill="none" stroke="rgba(34,199,111,0.45)" strokeWidth="1.5" />
+            <ellipse cx="55" cy="55" rx="48" ry="18" fill="none" stroke="rgba(34,199,111,0.32)" strokeWidth="1.5" transform="rotate(60 55 55)" />
+            <ellipse cx="55" cy="55" rx="48" ry="18" fill="none" stroke="rgba(34,199,111,0.25)" strokeWidth="1.5" transform="rotate(120 55 55)" />
+            <circle cx="103" cy="55" r="4.5" fill="#22C76F" opacity="0.9" />
+            <circle cx="31"  cy="74" r="3.5" fill="#22C76F" opacity="0.65" />
+            <circle cx="31"  cy="36" r="3"   fill="#22C76F" opacity="0.5" />
           </svg>
         </motion.div>
       </div>
@@ -252,10 +252,10 @@ function PWAThumbnail() {
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.6, delay }}
             style={{
-              background: 'rgba(245,166,35,0.09)',
-              border: '1px solid rgba(245,166,35,0.22)',
+              background: 'rgba(34,199,111,0.09)',
+              border: '1px solid rgba(34,199,111,0.22)',
               borderRadius: 6, padding: '3px 9px',
-              fontSize: 9, fontWeight: 700, color: 'rgba(245,166,35,0.9)',
+              fontSize: 9, fontWeight: 700, color: 'rgba(34,199,111,0.9)',
             }}
           >
             {label}
@@ -271,7 +271,7 @@ function PWAThumbnail() {
         display: 'flex', alignItems: 'center', gap: 8,
       }}>
         <div style={{ display: 'flex', gap: 4 }}>
-          {['#f43f5e','#f5a623','#4ade80'].map(c => (
+          {['#f43f5e','#22C76F','#4ade80'].map(c => (
             <div key={c} style={{ width: 6, height: 6, borderRadius: '50%', background: c, opacity: 0.7 }} />
           ))}
         </div>
@@ -284,9 +284,9 @@ function PWAThumbnail() {
         </div>
         {/* Install icon */}
         <div style={{
-          background: 'rgba(245,166,35,0.15)', border: '1px solid rgba(245,166,35,0.3)',
+          background: 'rgba(34,199,111,0.15)', border: '1px solid rgba(34,199,111,0.3)',
           borderRadius: 5, padding: '2px 7px',
-          fontSize: 8, fontWeight: 700, color: '#f5a623',
+          fontSize: 8, fontWeight: 700, color: '#22C76F',
         }}>
           Install
         </div>
@@ -325,7 +325,7 @@ const POSTS = [
   {
     id: 3,
     category: 'React · PWA',
-    categoryColor: '#f5a623',
+    categoryColor: '#22C76F',
     title: "Mastering Progressive Web Apps with React.JS: A Beginner's Guide",
     excerpt: 'Progressive Web Apps have emerged as a powerful approach to building web applications that offer a native app-like experience — right in the browser.',
     date: 'Oct 31, 2025',
@@ -362,7 +362,7 @@ export default function BlogSection() {
       <div style={{
         position: 'absolute', bottom: -200, right: '15%', width: 520, height: 520,
         borderRadius: '50%', pointerEvents: 'none',
-        background: 'radial-gradient(circle, rgba(245,166,35,0.04) 0%, transparent 65%)',
+        background: 'radial-gradient(circle, rgba(34,199,111,0.04) 0%, transparent 65%)',
       }} />
 
       {/* Ghost watermark */}
@@ -393,11 +393,11 @@ export default function BlogSection() {
               initial={{ scaleX: 0 }}
               animate={inView ? { scaleX: 1 } : {}}
               transition={{ duration: 0.5, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-              style={{ width: 28, height: 1, background: '#f5a623', transformOrigin: 'left' }}
+              style={{ width: 28, height: 1, background: '#22C76F', transformOrigin: 'left' }}
             />
             <p style={{
               fontSize: 10, fontWeight: 700, letterSpacing: '0.4em',
-              textTransform: 'uppercase', color: '#f5a623', margin: 0,
+              textTransform: 'uppercase', color: '#22C76F', margin: 0,
             }}>
               From the Desk
             </p>
@@ -435,7 +435,7 @@ export default function BlogSection() {
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
-          whileHover={{ x: 5, color: '#f5a623' }}
+          whileHover={{ x: 5, color: '#22C76F' }}
           style={{
             display: 'flex', alignItems: 'center', gap: 9,
             fontSize: 11, fontWeight: 700, color: '#666',
@@ -550,7 +550,7 @@ export default function BlogSection() {
               whileHover={{ gap: '14px' }}
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: 8,
-                fontSize: 12, fontWeight: 700, color: '#f5a623',
+                fontSize: 12, fontWeight: 700, color: '#22C76F',
               }}
             >
               Read full article <ArrowIcon />
@@ -639,7 +639,7 @@ export default function BlogSection() {
                   whileHover={{ x: 4 }}
                   style={{
                     display: 'flex', alignItems: 'center', gap: 6,
-                    fontSize: 11, fontWeight: 700, color: '#f5a623',
+                    fontSize: 11, fontWeight: 700, color: '#22C76F',
                   }}
                 >
                   Read <ArrowIcon />

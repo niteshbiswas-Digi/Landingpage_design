@@ -86,7 +86,7 @@ function SpotlightOrb() {
           height: 700,
           borderRadius: '50%',
           background:
-            'radial-gradient(circle, rgba(245,158,11,0.07) 0%, rgba(245,158,11,0.02) 40%, transparent 70%)',
+            'radial-gradient(circle, rgba(26,174,92,0.07) 0%, rgba(26,174,92,0.02) 40%, transparent 70%)',
           left: x.get() + '%',
           top: y.get() + '%',
           x: '-50%',
@@ -119,9 +119,9 @@ function RevealLines({ inView }: { inView: boolean }) {
         style={{
           height: '100%',
           background:
-            'linear-gradient(90deg, transparent 0%, rgba(245,158,11,0.5) 30%, rgba(252,211,77,0.7) 50%, rgba(245,158,11,0.5) 70%, transparent 100%)',
+            'linear-gradient(90deg, transparent 0%, rgba(26,174,92,0.5) 30%, rgba(77,208,142,0.7) 50%, rgba(26,174,92,0.5) 70%, transparent 100%)',
           transformOrigin: 'center',
-          boxShadow: '0 0 16px rgba(245,158,11,0.4)',
+          boxShadow: '0 0 16px rgba(26,174,92,0.4)',
         }}
       />
     </div>
@@ -167,17 +167,17 @@ function ServiceCard({
       style={{
         position: 'relative',
         background: hovered
-          ? 'linear-gradient(135deg, rgba(255,255,255,0.055) 0%, rgba(245,158,11,0.03) 100%)'
+          ? 'linear-gradient(135deg, rgba(255,255,255,0.055) 0%, rgba(26,174,92,0.03) 100%)'
           : 'linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%)',
         borderWidth: 1,
         borderStyle: 'solid',
-        borderColor: hovered ? 'rgba(245,158,11,0.5)' : 'rgba(255,255,255,0.07)',
+        borderColor: hovered ? 'rgba(26,174,92,0.5)' : 'rgba(255,255,255,0.07)',
         borderRadius: 20,
         padding: 'clamp(28px, 3vw, 40px)',
         overflow: 'hidden',
         cursor: 'default',
         boxShadow: hovered
-          ? '0 0 60px rgba(245,158,11,0.12), 0 30px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.06)'
+          ? '0 0 60px rgba(26,174,92,0.12), 0 30px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.06)'
           : '0 4px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04)',
         transition: 'border-color 0.35s ease, box-shadow 0.35s ease, background 0.35s ease',
         transformStyle: 'preserve-3d',
@@ -192,7 +192,7 @@ function ServiceCard({
           height: 280,
           borderRadius: '50%',
           background:
-            'radial-gradient(circle, rgba(245,158,11,0.14) 0%, transparent 65%)',
+            'radial-gradient(circle, rgba(26,174,92,0.14) 0%, transparent 65%)',
           left: glowX,
           top: glowY,
           x: '-50%',
@@ -221,10 +221,10 @@ function ServiceCard({
               ...rest,
               width: 12,
               height: 12,
-              borderTop: ci < 2 ? '1px solid rgba(245,158,11,0.55)' : 'none',
-              borderBottom: ci >= 2 ? '1px solid rgba(245,158,11,0.55)' : 'none',
-              borderLeft: ci === 0 || ci === 3 ? '1px solid rgba(245,158,11,0.55)' : 'none',
-              borderRight: ci === 1 || ci === 2 ? '1px solid rgba(245,158,11,0.55)' : 'none',
+              borderTop: ci < 2 ? '1px solid rgba(26,174,92,0.55)' : 'none',
+              borderBottom: ci >= 2 ? '1px solid rgba(26,174,92,0.55)' : 'none',
+              borderLeft: ci === 0 || ci === 3 ? '1px solid rgba(26,174,92,0.55)' : 'none',
+              borderRight: ci === 1 || ci === 2 ? '1px solid rgba(26,174,92,0.55)' : 'none',
               pointerEvents: 'none',
             }}
           />
@@ -260,17 +260,17 @@ function ServiceCard({
           width: 54,
           height: 54,
           borderRadius: 14,
-          background: `linear-gradient(135deg, rgba(245,158,11,${hovered ? 0.18 : 0.09}) 0%, rgba(245,158,11,${hovered ? 0.06 : 0.02}) 100%)`,
-          border: `1px solid rgba(245,158,11,${hovered ? 0.45 : 0.18})`,
+          background: `linear-gradient(135deg, rgba(26,174,92,${hovered ? 0.18 : 0.09}) 0%, rgba(26,174,92,${hovered ? 0.06 : 0.02}) 100%)`,
+          border: `1px solid rgba(26,174,92,${hovered ? 0.45 : 0.18})`,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           marginBottom: 22,
-          boxShadow: hovered ? '0 0 24px rgba(245,158,11,0.25), inset 0 0 12px rgba(245,158,11,0.1)' : 'none',
+          boxShadow: hovered ? '0 0 24px rgba(26,174,92,0.25), inset 0 0 12px rgba(26,174,92,0.1)' : 'none',
           transition: 'all 0.38s ease',
         }}
       >
-        <Icon size={22} color="#F59E0B" strokeWidth={1.6} />
+        <Icon size={22} color="#22C76F" strokeWidth={1.6} />
       </motion.div>
 
       {/* Separator */}
@@ -278,7 +278,7 @@ function ServiceCard({
         style={{
           width: hovered ? 52 : 28,
           height: 1,
-          background: `linear-gradient(90deg, rgba(245,158,11,${hovered ? 0.8 : 0.28}), transparent)`,
+          background: `linear-gradient(90deg, rgba(26,174,92,${hovered ? 0.8 : 0.28}), transparent)`,
           marginBottom: 18,
           transition: 'all 0.4s ease',
           borderRadius: 1,
@@ -321,10 +321,10 @@ function ServiceCard({
           left: 0,
           right: 0,
           height: 2,
-          background: 'linear-gradient(90deg, #F59E0B 0%, #FCD34D 40%, transparent 100%)',
+          background: 'linear-gradient(90deg, #22C76F 0%, #6EE7B0 40%, transparent 100%)',
           transformOrigin: 'left',
           borderRadius: '0 0 20px 20px',
-          boxShadow: '0 0 12px rgba(245,158,11,0.5)',
+          boxShadow: '0 0 12px rgba(26,174,92,0.5)',
         }}
       />
     </motion.div>
@@ -367,7 +367,7 @@ export default function ServicesSection() {
       <div style={{
         position: 'absolute', top: '-20%', right: '-8%',
         width: 700, height: 700, borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(245,158,11,0.10) 0%, transparent 58%)',
+        background: 'radial-gradient(circle, rgba(26,174,92,0.10) 0%, transparent 58%)',
         pointerEvents: 'none',
       }} />
 
@@ -375,7 +375,7 @@ export default function ServicesSection() {
       <div style={{
         position: 'absolute', bottom: '-10%', left: '-6%',
         width: 450, height: 450, borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(245,158,11,0.045) 0%, transparent 68%)',
+        background: 'radial-gradient(circle, rgba(26,174,92,0.045) 0%, transparent 68%)',
         pointerEvents: 'none',
       }} />
 
@@ -387,7 +387,7 @@ export default function ServicesSection() {
           position: 'absolute', top: '30%', left: '50%',
           transform: 'translateX(-50%)',
           width: 500, height: 300, borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(245,158,11,0.05) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(26,174,92,0.05) 0%, transparent 70%)',
           pointerEvents: 'none',
           filter: 'blur(20px)',
         }}
@@ -422,8 +422,8 @@ export default function ServicesSection() {
           style={{
             position: 'absolute', ...dot.style,
             width: dot.size, height: dot.size, borderRadius: '50%',
-            background: '#F59E0B',
-            boxShadow: `0 0 ${dot.size * 3}px rgba(245,158,11,0.7)`,
+            background: '#22C76F',
+            boxShadow: `0 0 ${dot.size * 3}px rgba(26,174,92,0.7)`,
             pointerEvents: 'none',
           }}
         />
@@ -436,7 +436,7 @@ export default function ServicesSection() {
         style={{
           position: 'absolute', top: 0, left: 0,
           width: 120, height: '100%',
-          background: 'linear-gradient(105deg, transparent 30%, rgba(245,158,11,0.4) 50%, transparent 70%)',
+          background: 'linear-gradient(105deg, transparent 30%, rgba(26,174,92,0.4) 50%, transparent 70%)',
           pointerEvents: 'none', zIndex: 0,
           transform: 'skewX(-20deg)',
         }}
@@ -466,14 +466,14 @@ export default function ServicesSection() {
               transition={{ duration: 0.6, delay: 0.1 }}
               style={{
                 width: 36, height: 1,
-                background: 'linear-gradient(90deg, transparent, rgba(245,158,11,0.7))',
+                background: 'linear-gradient(90deg, transparent, rgba(26,174,92,0.7))',
                 transformOrigin: 'right',
               }}
             />
             <span style={{
               fontSize: 11, fontWeight: 700,
               letterSpacing: '0.52em', textTransform: 'uppercase',
-              color: '#F59E0B',
+              color: '#22C76F',
             }}>
               Our Services
             </span>
@@ -484,7 +484,7 @@ export default function ServicesSection() {
               transition={{ duration: 0.6, delay: 0.1 }}
               style={{
                 width: 36, height: 1,
-                background: 'linear-gradient(270deg, transparent, rgba(245,158,11,0.7))',
+                background: 'linear-gradient(270deg, transparent, rgba(26,174,92,0.7))',
                 transformOrigin: 'left',
               }}
             />
@@ -507,12 +507,7 @@ export default function ServicesSection() {
             }}
           >
             <span style={{ color: '#ffffff' }}>Strategic{' '}</span>
-            <span style={{
-              background: 'linear-gradient(135deg, #F59E0B 0%, #FCD34D 45%, #F59E0B 100%)',
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}>
+            <span style={{ color: '#22C76F' }}>
               App Development
             </span>
             <br />
@@ -534,11 +529,11 @@ export default function ServicesSection() {
             transition={{ duration: 0.7, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
             style={{
               width: 60, height: 2,
-              background: 'linear-gradient(90deg, transparent, #F59E0B 30%, #FCD34D 50%, #F59E0B 70%, transparent)',
+              background: 'linear-gradient(90deg, transparent, #22C76F 30%, #6EE7B0 50%, #22C76F 70%, transparent)',
               margin: '0 auto',
               borderRadius: 2,
               transformOrigin: 'center',
-              boxShadow: '0 0 16px rgba(245,158,11,0.5)',
+              boxShadow: '0 0 16px rgba(26,174,92,0.5)',
             }}
           />
         </div>

@@ -124,8 +124,8 @@ function MagneticBtn({
       }}
       onMouseLeave={() => { mx.set(0); my.set(0); }}
       whileHover={primary
-        ? { boxShadow: '0 16px 50px rgba(245,166,35,0.28)', scale: 1.03 }
-        : { borderColor: 'rgba(245,166,35,0.4)', color: '#e0e0e0' }
+        ? { boxShadow: '0 16px 50px rgba(34,199,111,0.28)', scale: 1.03 }
+        : { borderColor: 'rgba(34,199,111,0.4)', color: '#e0e0e0' }
       }
       whileTap={{ scale: 0.95, y: 2 }}
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
@@ -171,10 +171,7 @@ function StatItem({ stat, index, inView }: { stat: typeof STATS[0]; index: numbe
         fontSize: 'clamp(32px, 4vw, 58px)',
         fontWeight: 900, letterSpacing: '-0.05em',
         lineHeight: 1, marginBottom: 10,
-        background: 'linear-gradient(135deg, #ffffff 0%, #aaaaaa 100%)',
-        backgroundClip: 'text',
-        WebkitBackgroundClip: 'text',
-        WebkitTextFillColor: 'transparent',
+        color: '#ffffff',
       }}>
         {display}
       </div>
@@ -211,7 +208,7 @@ function StatsBar() {
       {/* Scan line — single pass CSS animation */}
       <div style={{
         position: 'absolute', left: 0, right: 0, height: 1,
-        background: 'linear-gradient(90deg, transparent, rgba(245,166,35,0.4), transparent)',
+        background: 'linear-gradient(90deg, transparent, rgba(34,199,111,0.4), transparent)',
         animation: 'scan-line 2.4s ease-in-out 0.3s 1 forwards',
         zIndex: 2, pointerEvents: 'none',
       }} />
@@ -231,7 +228,7 @@ const CTAOrbs = memo(function CTAOrbs() {
       <div className="orb-a" style={{
         position: 'absolute', top: '-10%', left: '-5%',
         width: 500, height: 500, borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(245,166,35,0.07) 0%, transparent 65%)',
+        background: 'radial-gradient(circle, rgba(34,199,111,0.07) 0%, transparent 65%)',
         pointerEvents: 'none', zIndex: 0,
       }} />
       <div className="orb-b" style={{
@@ -304,11 +301,11 @@ function CTASection() {
             initial={{ scaleX: 0 }}
             animate={inView ? { scaleX: 1 } : {}}
             transition={{ duration: 0.5, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-            style={{ width: 36, height: 1, background: '#f5a623', transformOrigin: 'left' }}
+            style={{ width: 36, height: 1, background: '#22C76F', transformOrigin: 'left' }}
           />
           <span style={{
             fontSize: 10, fontWeight: 700, letterSpacing: '0.42em',
-            textTransform: 'uppercase', color: '#f5a623',
+            textTransform: 'uppercase', color: '#22C76F',
           }}>
             Ready to build?
           </span>
@@ -344,7 +341,7 @@ function CTASection() {
           transition={{ duration: 0.9, delay: 0.48, ease: [0.16, 1, 0.3, 1] }}
           style={{
             height: 1, maxWidth: 480,
-            background: 'linear-gradient(90deg, rgba(245,166,35,0.55) 0%, rgba(245,166,35,0.12) 55%, transparent 100%)',
+            background: 'linear-gradient(90deg, rgba(34,199,111,0.55) 0%, rgba(34,199,111,0.12) 55%, transparent 100%)',
             marginBottom: 44, transformOrigin: 'left',
           }}
         />
@@ -401,7 +398,7 @@ function CTASection() {
                 width: 200,
                 height: 200,
                 borderRadius: '50%',
-                background: 'radial-gradient(circle, rgba(245,166,35,0.15) 0%, transparent 70%)',
+                background: 'radial-gradient(circle, rgba(34,199,111,0.15) 0%, transparent 70%)',
                 filter: 'blur(40px)',
                 zIndex: 0,
               }}
@@ -419,7 +416,7 @@ function CTASection() {
               background: '#0a0a0a',
               borderRadius: 40,
               border: '8px solid #1a1a1a',
-              boxShadow: '0 0 60px rgba(245,166,35,0.2), inset 0 0 60px rgba(245,166,35,0.05)',
+              boxShadow: '0 0 60px rgba(34,199,111,0.2), inset 0 0 60px rgba(34,199,111,0.05)',
               overflow: 'hidden',
               display: 'flex',
               flexDirection: 'column',
@@ -459,8 +456,8 @@ function CTASection() {
                 transition={{ duration: 0.7, delay: 0.5 }}
                 style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}
               >
-                <div style={{ fontSize: 10, fontWeight: 700, color: '#f5a623', letterSpacing: '0.2em', textTransform: 'uppercase' }}>UpCodo</div>
-                <div style={{ width: 20, height: 20, borderRadius: '50%', background: 'rgba(245,166,35,0.2)', border: '1px solid #f5a623' }} />
+                <div style={{ fontSize: 10, fontWeight: 700, color: '#22C76F', letterSpacing: '0.2em', textTransform: 'uppercase' }}>UpCodo</div>
+                <div style={{ width: 20, height: 20, borderRadius: '50%', background: 'rgba(34,199,111,0.2)', border: '1px solid #22C76F' }} />
               </motion.div>
 
               {/* Insight metrics - animated reveal */}
@@ -469,8 +466,8 @@ function CTASection() {
                 animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
                 transition={{ duration: 0.7, delay: 0.65 }}
                 style={{
-                  background: 'linear-gradient(135deg, rgba(245,166,35,0.08) 0%, rgba(167,139,250,0.04) 100%)',
-                  border: '1px solid rgba(245,166,35,0.1)',
+                  background: 'linear-gradient(135deg, rgba(34,199,111,0.08) 0%, rgba(167,139,250,0.04) 100%)',
+                  border: '1px solid rgba(34,199,111,0.1)',
                   borderRadius: 8,
                   padding: '8px 10px',
                   display: 'grid',
@@ -492,7 +489,7 @@ function CTASection() {
                     <div style={{ fontSize: 8, color: '#888', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 2 }}>
                       {metric.label}
                     </div>
-                    <div style={{ fontSize: 11, fontWeight: 700, color: '#f5a623' }}>
+                    <div style={{ fontSize: 11, fontWeight: 700, color: '#22C76F' }}>
                       {metric.value}
                     </div>
                   </motion.div>
@@ -506,7 +503,7 @@ function CTASection() {
                 transition={{ duration: 0.8, delay: 0.75, ease: 'easeOut' }}
                 style={{
                   height: 1,
-                  background: 'linear-gradient(90deg, rgba(245,166,35,0.2) 0%, transparent 100%)',
+                  background: 'linear-gradient(90deg, rgba(34,199,111,0.2) 0%, transparent 100%)',
                   transformOrigin: 'left',
                 }}
               />
@@ -520,7 +517,7 @@ function CTASection() {
                   transition={{ duration: 0.6, delay: 0.6 + i * 0.1 }}
                   style={{
                     background: 'rgba(255,255,255,0.04)',
-                    border: '1px solid rgba(245,166,35,0.15)',
+                    border: '1px solid rgba(34,199,111,0.15)',
                     borderRadius: 12,
                     padding: 12,
                     display: 'flex',
@@ -530,7 +527,7 @@ function CTASection() {
                   }}
                   whileHover={{
                     backgroundColor: 'rgba(255,255,255,0.08)',
-                    borderColor: 'rgba(245,166,35,0.35)',
+                    borderColor: 'rgba(34,199,111,0.35)',
                     y: -2,
                   }}
                 >
@@ -544,14 +541,14 @@ function CTASection() {
                         width: 28,
                         height: 28,
                         borderRadius: 6,
-                        background: `rgba(245,166,35,${0.1 + i * 0.05})`,
-                        border: '1px solid rgba(245,166,35,0.2)',
+                        background: `rgba(34,199,111,${0.1 + i * 0.05})`,
+                        border: '1px solid rgba(34,199,111,0.2)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         fontSize: 14,
                         fontWeight: 700,
-                        color: '#f5a623',
+                        color: '#22C76F',
                       }}
                     >
                       {i + 1}
@@ -573,7 +570,7 @@ function CTASection() {
                         width: 4,
                         height: 4,
                         borderRadius: '50%',
-                        background: '#f5a623',
+                        background: '#22C76F',
                       }}
                     />
                   </div>
@@ -595,7 +592,7 @@ function CTASection() {
                         transition={{ duration: 1, delay: 0.8 + i * 0.12, ease: 'easeOut' }}
                         style={{
                           height: '100%',
-                          background: `linear-gradient(90deg, #f5a623 0%, rgba(245,166,35,0.5) 100%)`,
+                          background: `linear-gradient(90deg, #22C76F 0%, rgba(34,199,111,0.5) 100%)`,
                           borderRadius: 2,
                         }}
                       />
@@ -622,7 +619,7 @@ function CTASection() {
                 style={{
                   marginTop: 'auto',
                   padding: '10px 12px',
-                  background: '#f5a623',
+                  background: '#22C76F',
                   color: '#000',
                   borderRadius: 10,
                   textAlign: 'center',
@@ -687,20 +684,11 @@ function Navigation() {
           whileHover={{ scale: 1.03 }}
           transition={{ type: 'spring', stiffness: 300, damping: 22 }}
         >
-          <div style={{
-            width: 30, height: 30, borderRadius: 9,
-            border: '1.5px solid #f5a623',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            boxShadow: '0 0 18px rgba(245,166,35,0.22)', flexShrink: 0,
-          }}>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f5a623" strokeWidth="2.5">
-              <polyline points="16 18 22 12 16 6" />
-              <polyline points="8 6 2 12 8 18" stroke="rgba(255,255,255,0.35)" />
-            </svg>
-          </div>
-          <span style={{ color: '#ffffff', fontSize: 14, fontWeight: 800, letterSpacing: '-0.04em', textTransform: 'uppercase' }}>
-            UP<span style={{ color: '#f5a623' }}>CODO</span>
-          </span>
+          <img
+            src="/Upcodo_logo.webp"
+            alt="UpCodo Digital"
+            style={{ height: 34, width: 'auto', filter: 'brightness(0) invert(1)', opacity: 0.92 }}
+          />
         </motion.div>
 
         {/* Desktop Nav links + CTA */}
@@ -731,11 +719,11 @@ function Navigation() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
-              whileHover={{ scale: 1.08, boxShadow: '0 12px 40px rgba(245,166,35,0.4)', y: -3 }}
+              whileHover={{ scale: 1.08, boxShadow: '0 12px 40px rgba(34,199,111,0.4)', y: -3 }}
               whileTap={{ scale: 0.92 }}
               style={{
                 padding: '9px 20px', borderRadius: 7,
-                background: '#f5a623', color: '#050505',
+                background: '#22C76F', color: '#050505',
                 fontSize: 11, fontWeight: 800, textDecoration: 'none',
                 letterSpacing: '0.08em', textTransform: 'uppercase',
                 display: 'inline-block', position: 'relative', overflow: 'hidden',
@@ -821,7 +809,7 @@ function Navigation() {
             onClick={() => setMenuOpen(false)}
             style={{
               padding: '14px 0', marginTop: 8, fontSize: 12, fontWeight: 800,
-              background: '#f5a623', color: '#050505',
+              background: '#22C76F', color: '#050505',
               textDecoration: 'none', letterSpacing: '0.08em', textTransform: 'uppercase',
               display: 'block', textAlign: 'center', borderRadius: 7,
               cursor: 'pointer',

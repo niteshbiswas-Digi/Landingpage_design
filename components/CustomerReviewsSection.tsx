@@ -42,7 +42,7 @@ const VIDEOS = [
     person: 'Co-Founder',
     company: 'GRAJ',
     country: '🇺🇸 United States',
-    color: '#f5a623',
+    color: '#22C76F',
     tag: 'SaaS Platform',
     initials: 'MB',
   },
@@ -149,11 +149,11 @@ export default function CustomerReviewsSection() {
             initial={{ scaleX: 0 }}
             animate={inView ? { scaleX: 1 } : {}}
             transition={{ duration: 0.5, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-            style={{ width: 28, height: 1, background: '#f5a623', transformOrigin: 'left' }}
+            style={{ width: 28, height: 1, background: '#22C76F', transformOrigin: 'left' }}
           />
           <p style={{
             fontSize: 10, fontWeight: 700, letterSpacing: '0.4em',
-            textTransform: 'uppercase', color: '#f5a623', margin: 0,
+            textTransform: 'uppercase', color: '#22C76F', margin: 0,
           }}>
             Our Customer Reviews
           </p>
@@ -324,7 +324,7 @@ export default function CustomerReviewsSection() {
             >
               <div style={{ display: 'flex', gap: 3, marginBottom: 4 }}>
                 {[...Array(5)].map((_, i) => (
-                  <svg key={i} width="10" height="10" viewBox="0 0 24 24" fill="#f5a623">
+                  <svg key={i} width="10" height="10" viewBox="0 0 24 24" fill="#22C76F">
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                   </svg>
                 ))}

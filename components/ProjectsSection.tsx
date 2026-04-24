@@ -424,7 +424,7 @@ export default function ProjectsSection() {
             initial={{ opacity: 0, x: -20 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-            style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.4em', textTransform: 'uppercase', color: '#f5a623', marginBottom: 16 }}
+            style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.4em', textTransform: 'uppercase', color: '#22C76F', marginBottom: 16 }}
           >
             Selected Work
           </motion.p>
@@ -455,7 +455,7 @@ export default function ProjectsSection() {
             style={{
               background: 'transparent', border: 'none', padding: 0,
               display: 'flex', alignItems: 'center', gap: 8,
-              color: '#f5a623', fontSize: 12, fontWeight: 700,
+              color: '#22C76F', fontSize: 12, fontWeight: 700,
               letterSpacing: '0.12em', textTransform: 'uppercase',
             }}
           >

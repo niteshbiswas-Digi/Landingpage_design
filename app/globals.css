@@ -1,10 +1,46 @@
 @import "tailwindcss";
 
+:root {
+  /* ── Core theme — change these to retheme the entire site ── */
+  --bg:              #050505;
+  --bg-rgb:          5, 5, 5;
+  --bg-section:      #080808;
+  --bg-card:         #0d0d0d;
+
+  --text:            #f0f0f0;
+  --text-muted:      #888;
+  --text-dim:        #666;
+  --text-faint:      #777;
+
+  /* ── Brand green (primary accent) ── */
+  --accent:          #22C76F;
+  --accent-rgb:      34, 199, 111;
+  --accent-alt:      #1AAE5C;
+  --accent-alt-rgb:  26, 174, 92;
+  --accent-light:    #6EE7B0;
+  --accent-light-alt:#4DD08E;
+  --accent-light-rgb:77, 208, 142;
+
+  /* ── Brand warm gold (secondary) ── */
+  --gold:            #C49A2C;
+  --gold-rgb:        196, 154, 44;
+
+  --border:          #1a1a1a;
+
+  /* ── Per-item palette (project / testimonial accent colors) ── */
+  --color-purple:    #a78bfa;
+  --color-green:     #4ade80;
+  --color-blue:      #38bdf8;
+  --color-rose:      #f43f5e;
+  --color-teal:      #2dd4bf;
+  --color-amber:     #fbbf24;
+}
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html, body {
-  background: #050505;
-  color: #f0f0f0;
+  background: var(--bg);
+  color: var(--text);
   font-family: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -18,13 +54,13 @@ html, body {
 }
 
 ::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #050505; }
-::-webkit-scrollbar-thumb { background: #1a1a1a; border-radius: 99px; }
-::-webkit-scrollbar-thumb:hover { background: #f5a623; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
 /* ── Keyframes ── */
 
-@keyframes shimmer-gold {
+@keyframes shimmer-accent {
   0%   { background-position: -200% center; }
   100% { background-position:  200% center; }
 }
@@ -72,12 +108,12 @@ html, body {
 /* ── Utility classes ── */
 
 .gold-shimmer {
-  background: linear-gradient(90deg, #f5a623 0%, #ffe26a 40%, #f5a623 80%);
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-light) 40%, var(--accent) 80%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: shimmer-gold 3s linear infinite;
+  animation: shimmer-accent 3s linear infinite;
 }
 
 .marquee-track {
