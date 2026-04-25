@@ -7,6 +7,7 @@ import {
 } from 'framer-motion';
 import AnimatedCursor from '../../components/AnimatedCursor';
 import Footer from '../../components/Footer';
+import Navigation from '../../components/Navigation';
 
 const E: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -84,97 +85,6 @@ function WordReveal({ text, inView, delay = 0, style }: {
         </span>
       ))}
     </span>
-  );
-}
-
-// ─── Navigation ───────────────────────────────────────────────────────────────
-function Navigation() {
-  const isMobile = useIsMobile();
-  const [menuOpen, setMenuOpen] = useState(false);
-  const links = [
-    { label: 'Home',      href: '/'          },
-    { label: 'About Us',  href: '/about'     },
-    { label: 'Services',  href: '/services'  },
-    { label: 'Portfolio', href: '/portfolio' },
-    { label: 'Blog',      href: '#'          },
-  ];
-  return (
-    <>
-      <motion.nav
-        initial={{ y: -80, opacity: 0 }} animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: E, delay: 0.1 }}
-        style={{
-          position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000,
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          padding: isMobile ? '16px 20px' : '18px 48px',
-          background: 'rgba(5,5,5,0.85)', backdropFilter: 'blur(24px)',
-          WebkitBackdropFilter: 'blur(24px)',
-          borderBottom: '1px solid rgba(255,255,255,0.04)',
-        }}
-      >
-        <motion.a href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }} whileHover={{ scale: 1.03 }}>
-          <img
-            src="/Upcodo_logo.webp"
-            alt="UpCodo Digital"
-            style={{ height: 34, width: 'auto', filter: 'brightness(0) invert(1)', opacity: 0.92 }}
-          />
-        </motion.a>
-
-        {!isMobile && (
-          <div style={{ display: 'flex', gap: 36, alignItems: 'center' }}>
-            {links.map((link, i) => {
-              const active = link.label === 'Portfolio';
-              return (
-                <motion.a key={link.label} href={link.href}
-                  initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.2 + i * 0.07, ease: E }}
-                  style={{ fontSize: 12, fontWeight: active ? 700 : 600, color: active ? '#22C76F' : '#888', textDecoration: 'none', letterSpacing: '0.02em', position: 'relative' }}
-                  onMouseEnter={e => { if (!active) (e.currentTarget as HTMLElement).style.color = '#f0f0f0'; }}
-                  onMouseLeave={e => { if (!active) (e.currentTarget as HTMLElement).style.color = '#888'; }}
-                >
-                  {link.label}
-                  {active && <div style={{ position: 'absolute', bottom: -3, left: 0, right: 0, height: 1.5, background: '#22C76F', borderRadius: 99 }} />}
-                </motion.a>
-              );
-            })}
-            <motion.a href="/services#contact"
-              initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.55, ease: E }}
-              whileHover={{ scale: 1.08, boxShadow: '0 12px 40px rgba(34,199,111,0.4)', y: -3 }}
-              style={{ padding: '9px 20px', borderRadius: 7, background: '#22C76F', color: '#050505', fontSize: 11, fontWeight: 800, textDecoration: 'none', letterSpacing: '0.08em', textTransform: 'uppercase', display: 'inline-block', position: 'relative', overflow: 'hidden' }}
-            >
-              <motion.span initial={{ x: '-120%' }} whileHover={{ x: '200%' }} transition={{ duration: 0.5 }}
-                style={{ position: 'absolute', inset: 0, background: 'linear-gradient(105deg,transparent 30%,rgba(255,255,255,0.4) 50%,transparent 70%)', pointerEvents: 'none' }} />
-              Start a Project
-            </motion.a>
-          </div>
-        )}
-
-        {isMobile && (
-          <motion.button onClick={() => setMenuOpen(v => !v)} style={{ background: 'transparent', border: 'none', padding: 8, display: 'flex', flexDirection: 'column', gap: 5, cursor: 'pointer' }}>
-            <motion.div animate={menuOpen ? { rotate: 45, y: 12 } : { rotate: 0, y: 0 }} style={{ width: 24, height: 2, background: '#f0f0f0', borderRadius: 1 }} />
-            <motion.div animate={menuOpen ? { opacity: 0 } : { opacity: 1 }} style={{ width: 24, height: 2, background: '#f0f0f0', borderRadius: 1 }} />
-            <motion.div animate={menuOpen ? { rotate: -45, y: -12 } : { rotate: 0, y: 0 }} style={{ width: 24, height: 2, background: '#f0f0f0', borderRadius: 1 }} />
-          </motion.button>
-        )}
-      </motion.nav>
-
-      {isMobile && menuOpen && (
-        <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}
-          style={{ position: 'fixed', top: 70, left: 0, right: 0, zIndex: 999, background: 'rgba(5,5,5,0.97)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(255,255,255,0.04)', padding: '16px 20px' }}>
-          {links.map(link => (
-            <a key={link.label} href={link.href} onClick={() => setMenuOpen(false)}
-              style={{ display: 'block', padding: '12px 0', fontSize: 14, fontWeight: 600, color: link.label === 'Portfolio' ? '#22C76F' : '#888', textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
-              {link.label}
-            </a>
-          ))}
-          <a href="/services#contact" onClick={() => setMenuOpen(false)}
-            style={{ display: 'block', marginTop: 8, padding: '14px 0', fontSize: 12, fontWeight: 800, background: '#22C76F', color: '#050505', textDecoration: 'none', textAlign: 'center', borderRadius: 7, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-            Start a Project
-          </a>
-        </motion.div>
-      )}
-    </>
   );
 }
 
@@ -840,7 +750,7 @@ export default function PortfolioPage() {
   return (
     <main style={{ background: '#050505', minHeight: '100dvh', width: '100%', color: '#f0f0f0' }}>
       <AnimatedCursor />
-      <Navigation />
+      <Navigation activePage="portfolio" />
       <HeroSection />
       <PortfolioSection />
       <CTASection />

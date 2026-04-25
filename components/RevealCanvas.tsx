@@ -606,19 +606,19 @@ export default function RevealCanvas() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.92 }}
                     style={{
-                      padding: isMobile ? "16px 32px" : "22px 52px",
-                      borderRadius: 14,
-                      background: "#fff",
+                      padding: isMobile ? "13px 28px" : "16px 40px",
+                      borderRadius: 12,
+                      background: "#22C76F",
                       color: "#000",
                       fontWeight: 800,
-                      fontSize: isMobile ? 14 : 17,
-                      letterSpacing: "-0.02em",
+                      fontSize: isMobile ? 13 : 15,
+                      letterSpacing: "-0.01em",
                       border: "none",
                       cursor: "pointer",
                       display: "inline-flex",
                       alignItems: "center",
-                      gap: 12,
-                      boxShadow: "0 20px 50px rgba(255,255,255,0.2)",
+                      gap: 10,
+                      boxShadow: "0 12px 40px rgba(34,199,111,0.35)",
                     }}
                   >
                     {beat.cta}
@@ -642,22 +642,6 @@ export default function RevealCanvas() {
             )
           })}
 
-          {!isMobile && (
-            <div
-              style={{
-                position: "absolute",
-                bottom: 60,
-                right: 80,
-                fontSize: 11,
-                color: "#333",
-                fontWeight: 900,
-                letterSpacing: "0.4em",
-                textTransform: "uppercase",
-              }}
-            >
-              REVELATION / {activeBeat >= 0 ? `0${activeBeat + 1}` : "FINALE"}
-            </div>
-          )}
 
           {/* Mobile scroll progress bar */}
           {isMobile && (

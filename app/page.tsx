@@ -9,14 +9,9 @@ import CustomerReviewsSection from '../components/CustomerReviewsSection';
 import BlogSection from '../components/BlogSection';
 import AnimatedCursor from '../components/AnimatedCursor';
 import Footer from '../components/Footer';
+import Navigation from '../components/Navigation';
+import AwardsMarquee from '../components/AwardsMarquee';
 
-const NAV_LINKS = [
-  { label: 'Home',      href: '/'       },
-  { label: 'About Us',  href: '/about'  },
-  { label: 'Services',  href: '/services'   },
-  { label: 'Portfolio', href: '/portfolio' },
-  { label: 'Blog',      href: '#'       },
-];
 
 const STATS = [
   { value: '50+',   label: 'Projects Delivered'       },
@@ -27,14 +22,16 @@ const STATS = [
 
 /* ── Count-up hook ── */
 function useCountUp(target: string, active: boolean) {
-  const [display, setDisplay] = useState('0');
+  const [display, setDisplay] = useState(() =>
+    /^[\d.]+/.test(target) ? '0' : target
+  );
   const ran = useRef(false);
 
   useEffect(() => {
     if (!active || ran.current) return;
-    ran.current = true;
     const m = target.match(/^([\d.]+)(.*)$/);
-    if (!m) { setDisplay(target); return; }
+    if (!m) return;
+    ran.current = true;
     const num  = parseFloat(m[1]);
     const sfx  = m[2];
     const dur  = 1800;
@@ -154,7 +151,6 @@ function StatItem({ stat, index, inView }: { stat: typeof STATS[0]; index: numbe
   const isMobile = useIsMobile();
 
   const shouldShowBorder = !isMobile && index > 0;
-  const shouldShowPadding = !isMobile && index > 0;
 
   return (
     <motion.div
@@ -164,7 +160,11 @@ function StatItem({ stat, index, inView }: { stat: typeof STATS[0]; index: numbe
       whileHover={{ y: -8, scale: 1.05 }}
       style={{
         borderLeft: shouldShowBorder ? '1px solid rgba(255,255,255,0.04)' : 'none',
-        paddingLeft: shouldShowPadding ? 'clamp(24px, 3vw, 52px)' : 0,
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        textAlign: 'center',
       }}
     >
       <div style={{
@@ -198,10 +198,11 @@ function StatsBar() {
         borderTop: '1px solid rgba(255,255,255,0.04)',
         borderBottom: '1px solid rgba(255,255,255,0.04)',
         background: '#080808',
-        padding: 'clamp(24px, 3.5vw, 52px) clamp(24px, 5vw, 80px)',
+        padding: `clamp(24px, 3.5vw, 52px) 80px`,
         display: 'grid',
         gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
         gap: isMobile ? 'clamp(32px, 5vw, 48px)' : 0,
+        justifyItems: 'center',
         overflow: 'hidden',
       }}
     >
@@ -658,170 +659,6 @@ function CTASection() {
 }
 
 
-function Navigation() {
-  const isMobile = useIsMobile();
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  return (
-    <>
-      <motion.nav
-        initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-        style={{
-          position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000,
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          padding: isMobile ? '16px 20px' : '18px 48px',
-          background: 'rgba(5,5,5,0.8)',
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
-          borderBottom: '1px solid rgba(255,255,255,0.04)',
-        }}
-      >
-        {/* Logo */}
-        <motion.div
-          style={{ display: 'flex', alignItems: 'center', gap: 10 }}
-          whileHover={{ scale: 1.03 }}
-          transition={{ type: 'spring', stiffness: 300, damping: 22 }}
-        >
-          <img
-            src="/Upcodo_logo.webp"
-            alt="UpCodo Digital"
-            style={{ height: 34, width: 'auto', filter: 'brightness(0) invert(1)', opacity: 0.92 }}
-          />
-        </motion.div>
-
-        {/* Desktop Nav links + CTA */}
-        {!isMobile && (
-          <div style={{ display: 'flex', gap: 36, alignItems: 'center' }}>
-            {NAV_LINKS.map((link, i) => (
-              <motion.a
-                key={link.label}
-                href={link.href}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 + i * 0.07, ease: [0.16, 1, 0.3, 1] }}
-                whileHover={{ y: -2 }}
-                style={{
-                  fontSize: 12, fontWeight: 600, color: '#888',
-                  textDecoration: 'none', letterSpacing: '0.02em',
-                  transition: 'color 0.2s ease',
-                  position: 'relative',
-                }}
-                onMouseEnter={e => (e.currentTarget.style.color = '#f0f0f0')}
-                onMouseLeave={e => (e.currentTarget.style.color = '#888')}
-              >
-                {link.label}
-              </motion.a>
-            ))}
-            <motion.a
-              href="#"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
-              whileHover={{ scale: 1.08, boxShadow: '0 12px 40px rgba(34,199,111,0.4)', y: -3 }}
-              whileTap={{ scale: 0.92 }}
-              style={{
-                padding: '9px 20px', borderRadius: 7,
-                background: '#22C76F', color: '#050505',
-                fontSize: 11, fontWeight: 800, textDecoration: 'none',
-                letterSpacing: '0.08em', textTransform: 'uppercase',
-                display: 'inline-block', position: 'relative', overflow: 'hidden',
-                cursor: 'pointer',
-              }}
-            >
-              <motion.span
-                initial={{ x: '-120%' }}
-                whileHover={{ x: '200%' }}
-                transition={{ duration: 0.5, ease: 'easeOut' }}
-                style={{
-                  position: 'absolute', inset: 0,
-                  background: 'linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.4) 50%, transparent 70%)',
-                  pointerEvents: 'none',
-                }}
-              />
-              Start a Project
-            </motion.a>
-          </div>
-        )}
-
-        {/* Mobile Hamburger Button */}
-        {isMobile && (
-          <motion.button
-            onClick={() => setMenuOpen(!menuOpen)}
-            style={{
-              background: 'transparent', border: 'none', padding: 8,
-              display: 'flex', flexDirection: 'column', gap: 5,
-              cursor: 'pointer',
-            }}
-          >
-            <motion.div
-              animate={menuOpen ? { rotate: 45, y: 12 } : { rotate: 0, y: 0 }}
-              style={{ width: 24, height: 2, background: '#f0f0f0', borderRadius: 1 }}
-            />
-            <motion.div
-              animate={menuOpen ? { opacity: 0 } : { opacity: 1 }}
-              style={{ width: 24, height: 2, background: '#f0f0f0', borderRadius: 1 }}
-            />
-            <motion.div
-              animate={menuOpen ? { rotate: -45, y: -12 } : { rotate: 0, y: 0 }}
-              style={{ width: 24, height: 2, background: '#f0f0f0', borderRadius: 1 }}
-            />
-          </motion.button>
-        )}
-      </motion.nav>
-
-      {/* Mobile Menu Overlay */}
-      {isMobile && menuOpen && (
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.3 }}
-          style={{
-            position: 'fixed', top: 70, left: 0, right: 0, zIndex: 999,
-            background: 'rgba(5,5,5,0.95)',
-            backdropFilter: 'blur(20px)',
-            borderBottom: '1px solid rgba(255,255,255,0.04)',
-            display: 'flex', flexDirection: 'column', gap: 0,
-            padding: '16px 20px',
-          }}
-        >
-          {NAV_LINKS.map((link) => (
-            <motion.a
-              key={link.label}
-              href={link.href}
-              onClick={() => setMenuOpen(false)}
-              style={{
-                padding: '12px 0', fontSize: 14, fontWeight: 600, color: '#888',
-                textDecoration: 'none', letterSpacing: '0.02em',
-                borderBottom: '1px solid rgba(255,255,255,0.04)',
-                transition: 'color 0.2s ease',
-              }}
-              onMouseEnter={e => (e.currentTarget.style.color = '#f0f0f0')}
-              onMouseLeave={e => (e.currentTarget.style.color = '#888')}
-            >
-              {link.label}
-            </motion.a>
-          ))}
-          <motion.a
-            href="#"
-            onClick={() => setMenuOpen(false)}
-            style={{
-              padding: '14px 0', marginTop: 8, fontSize: 12, fontWeight: 800,
-              background: '#22C76F', color: '#050505',
-              textDecoration: 'none', letterSpacing: '0.08em', textTransform: 'uppercase',
-              display: 'block', textAlign: 'center', borderRadius: 7,
-              cursor: 'pointer',
-            }}
-          >
-            Start a Project
-          </motion.a>
-        </motion.div>
-      )}
-    </>
-  );
-}
 
 export default function Home() {
   return (
@@ -829,10 +666,17 @@ export default function Home() {
 
       <AnimatedCursor />
 
-      <Navigation />
+      <Navigation activePage="home" />
 
-      {/* ── Hero Scroll Sequence ── */}
-      <RevealCanvas />
+      {/* ── Hero Scroll Sequence + Awards Overlay ── */}
+      <div style={{ position: 'relative' }}>
+        <RevealCanvas />
+        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, zIndex: 100 }}>
+          {/* gradient gap so button above is never covered */}
+          <div style={{ height: 48, background: 'linear-gradient(to bottom, transparent, rgba(0,0,0,0.45))', pointerEvents: 'none' }} />
+          <AwardsMarquee />
+        </div>
+      </div>
 
       {/* ── Stats Bar with count-up ── */}
       <StatsBar />
