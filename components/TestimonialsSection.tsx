@@ -53,7 +53,7 @@ const TESTIMONIALS = [
     role: 'CEO',
     company: 'Wisterias Tech',
     initials: 'SJ',
-    color: '#22C76F',
+    color: '#4ADE80',
     rating: 5,
     quote: 'The SaaS platform delivered was production-ready and scalable. Best investment we made for our business growth.',
     featured: false,
@@ -95,7 +95,7 @@ function Stars({ count, inView, delay = 0 }: { count: number; inView: boolean; d
       {Array.from({ length: count }).map((_, i) => (
         <motion.svg
           key={i}
-          width="12" height="12" viewBox="0 0 24 24" fill="#22C76F"
+          width="12" height="12" viewBox="0 0 24 24" fill="#4ADE80"
           initial={{ scale: 0, opacity: 0, rotate: -30 }}
           animate={inView ? { scale: 1, opacity: 1, rotate: 0 } : {}}
           transition={{ duration: 0.35, delay: delay + i * 0.07, ease: [0.16, 1, 0.3, 1] }}
@@ -170,11 +170,11 @@ export default function TestimonialsSection() {
             initial={{ scaleX: 0 }}
             animate={inView ? { scaleX: 1 } : {}}
             transition={{ duration: 0.5, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-            style={{ width: 28, height: 1, background: '#22C76F', transformOrigin: 'left' }}
+            style={{ width: 28, height: 1, background: '#4ADE80', transformOrigin: 'left' }}
           />
           <p style={{
             fontSize: 10, fontWeight: 700, letterSpacing: '0.4em',
-            textTransform: 'uppercase', color: '#22C76F', margin: 0,
+            textTransform: 'uppercase', color: '#4ADE80', margin: 0,
           }}>
             Client Testimonials
           </p>
@@ -474,7 +474,7 @@ export default function TestimonialsSection() {
             }} />
             <span style={{
               fontSize: 10, fontWeight: 700, letterSpacing: '0.5em',
-              textTransform: 'uppercase', color: '#22C76F',
+              textTransform: 'uppercase', color: '#4ADE80',
             }}>
               Trusted by builders at
             </span>
@@ -499,7 +499,7 @@ export default function TestimonialsSection() {
             }}
           >
             <span style={{ color: '#ffffff' }}>Clarity.{' '}</span>
-            <span style={{ color: '#22C76F' }}>
+            <span style={{ color: '#4ADE80' }}>
               Focus.
             </span>
             {!isMobile && <br />}
@@ -568,7 +568,7 @@ export default function TestimonialsSection() {
               </span>
               <span style={{
                 width: 1, height: 10,
-                background: 'rgba(34,199,111,0.25)',
+                background: 'rgba(74,222,128,0.25)',
                 flexShrink: 0,
               }} />
             </span>

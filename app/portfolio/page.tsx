@@ -33,19 +33,19 @@ type Project = {
 
 const PROJECTS: Project[] = [
   { id: 1,  title: 'Trip Align',             subtitle: 'iOS & Android Travel App',         category: 'Mobile Apps', tag: 'iOS & Android',   img: 'Tripalign.webp',              accent: '#38bdf8' },
-  { id: 2,  title: 'Properly Web',            subtitle: 'Real Estate SaaS Platform',        category: 'SaaS',        tag: 'SaaS Platform',   img: 'Properly.webp',               accent: '#22C76F' },
+  { id: 2,  title: 'Properly Web',            subtitle: 'Real Estate SaaS Platform',        category: 'SaaS',        tag: 'SaaS Platform',   img: 'Properly.webp',               accent: '#4ADE80' },
   { id: 3,  title: 'Seent',                   subtitle: 'Social Sharing Mobile App',        category: 'Mobile Apps', tag: 'Mobile App',      img: 'Seent app.webp',              accent: '#a78bfa' },
   { id: 4,  title: 'HaulFreight AI',          subtitle: 'Logistics SaaS Solution',          category: 'SaaS',        tag: 'SaaS Platform',   img: 'Haulfreight_ai_.webp',        accent: '#4ade80' },
   { id: 5,  title: 'GRAJ',                    subtitle: 'iOS & Android Mobile App',         category: 'Mobile Apps', tag: 'iOS & Android',   img: 'Graj_app.webp',               accent: '#f43f5e' },
   { id: 6,  title: 'Wisterias',               subtitle: 'E-Commerce SaaS Web App',          category: 'SaaS',        tag: 'SaaS Web App',    img: 'Wisteria.webp',               accent: '#38bdf8' },
   { id: 7,  title: 'Water Donation',          subtitle: 'Charity Mobile Application',       category: 'Mobile Apps', tag: 'Mobile App',      img: 'Water_donation.webp',         accent: '#22d3ee' },
-  { id: 8,  title: 'Gurbani Sangeet',         subtitle: 'Music iOS & Android App',          category: 'Mobile Apps', tag: 'iOS & Android',   img: 'Gurbani Sangeet.webp',        accent: '#22C76F' },
+  { id: 8,  title: 'Gurbani Sangeet',         subtitle: 'Music iOS & Android App',          category: 'Mobile Apps', tag: 'iOS & Android',   img: 'Gurbani Sangeet.webp',        accent: '#4ADE80' },
   { id: 9,  title: 'Embroidery Store',        subtitle: 'E-Commerce Web Platform',          category: 'Web Apps',    tag: 'E-Commerce',      img: 'Embroidery.webp',             accent: '#e879f9' },
   { id: 10, title: 'Zaples Biolink',          subtitle: 'Link-in-bio Builder',              category: 'Web Apps',    tag: 'Web App',         img: 'Zapies.webp',                 accent: '#38bdf8' },
-  { id: 11, title: 'Properly Mobile',         subtitle: 'Real Estate Mobile SaaS',          category: 'SaaS',        tag: 'Mobile SaaS',     img: 'Properlyapp.webp',            accent: '#22C76F' },
+  { id: 11, title: 'Properly Mobile',         subtitle: 'Real Estate Mobile SaaS',          category: 'SaaS',        tag: 'Mobile SaaS',     img: 'Properlyapp.webp',            accent: '#4ADE80' },
   { id: 12, title: 'Collect Mineral',         subtitle: 'Collectibles Mobile App',          category: 'Mobile Apps', tag: 'Mobile App',      img: 'Collect Mineral app.webp',    accent: '#4ade80' },
   { id: 13, title: 'Nessma',                  subtitle: 'iOS & Android Streaming App',      category: 'Mobile Apps', tag: 'iOS & Android',   img: 'Nessma.webp',                 accent: '#f43f5e' },
-  { id: 14, title: 'Protocol',                subtitle: 'Health Report Tracking SaaS',      category: 'SaaS',        tag: 'Health Tech',     img: 'Protocol.webp',               accent: '#22C76F' },
+  { id: 14, title: 'Protocol',                subtitle: 'Health Report Tracking SaaS',      category: 'SaaS',        tag: 'Health Tech',     img: 'Protocol.webp',               accent: '#4ADE80' },
   { id: 15, title: 'Med Match',               subtitle: 'Healthcare SaaS Platform',         category: 'SaaS',        tag: 'SaaS Platform',   img: 'Medmatch.webp',               accent: '#38bdf8' },
   { id: 16, title: 'CrossLinker',             subtitle: 'E-Commerce Marketplace',           category: 'Web Apps',    tag: 'E-Commerce',      img: 'Crosslinker.webp',            accent: '#4ade80' },
   { id: 17, title: 'Cappli',                  subtitle: 'Loan Tracking Web App',            category: 'Web Apps',    tag: 'FinTech Web',     img: 'Caplli.webp',                 accent: '#fb923c' },
@@ -54,10 +54,10 @@ const PROJECTS: Project[] = [
   { id: 20, title: 'Carvind',                 subtitle: 'Automotive Mobile App',            category: 'Mobile Apps', tag: 'Mobile App',      img: 'Carvind.webp',                accent: '#f43f5e' },
   { id: 21, title: '360AI',                   subtitle: 'AI-Powered SaaS Platform',         category: 'AI / Others', tag: 'AI Platform',     img: '360AI.webp',                  accent: '#4ade80' },
   { id: 22, title: 'Bantar',                  subtitle: 'Social Commerce Mobile App',       category: 'Mobile Apps', tag: 'Mobile App',      img: 'Bantar_app.webp',             accent: '#22d3ee' },
-  { id: 23, title: 'Juno Market',             subtitle: 'Trading Mobile Application',       category: 'Mobile Apps', tag: 'Mobile App',      img: 'Juno Market.webp',            accent: '#22C76F' },
+  { id: 23, title: 'Juno Market',             subtitle: 'Trading Mobile Application',       category: 'Mobile Apps', tag: 'Mobile App',      img: 'Juno Market.webp',            accent: '#4ADE80' },
   { id: 24, title: 'My Tabla',                subtitle: 'Music Companion Mobile App',       category: 'Mobile Apps', tag: 'Mobile App',      img: 'Mytabla.webp',                accent: '#e879f9' },
   { id: 25, title: 'Koor Connect',            subtitle: 'Social Web Application',           category: 'Web Apps',    tag: 'Web App',         img: 'Koor.webp',                   accent: '#4ade80' },
-  { id: 26, title: 'Six Seconds',             subtitle: 'Legacy System Modernization',      category: 'Web Apps',    tag: 'Web App',         img: 'Six_Seconds.webp',            accent: '#22C76F' },
+  { id: 26, title: 'Six Seconds',             subtitle: 'Legacy System Modernization',      category: 'Web Apps',    tag: 'Web App',         img: 'Six_Seconds.webp',            accent: '#4ADE80' },
   { id: 27, title: 'Prism Health',            subtitle: 'Health Tracking Mobile App',       category: 'Mobile Apps', tag: 'Mobile App',      img: 'Prism health tracking.webp',  accent: '#38bdf8' },
   { id: 28, title: 'Strength Pals',           subtitle: 'Fitness Tracker App',              category: 'Mobile Apps', tag: 'Fitness App',     img: 'Strength pals workout.webp',  accent: '#4ade80' },
   { id: 29, title: 'BookForVisa',             subtitle: 'Travel Booking Web App',           category: 'Web Apps',    tag: 'Web App',         img: 'Bookforvisa.webp',            accent: '#a78bfa' },
@@ -244,7 +244,7 @@ function HeroCarousel() {
             animate={{
               height: i === active ? 30 : 7,
               background: i === active
-                ? '#22C76F'
+                ? '#4ADE80'
                 : Math.abs(i - active) <= 1
                   ? 'rgba(255,255,255,0.16)'
                   : 'rgba(255,255,255,0.06)',
@@ -266,7 +266,7 @@ function HeroSection() {
     <section style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'center', overflow: 'hidden', background: '#050505' }}>
       {/* Ambient glow */}
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 3 }}
-        style={{ position: 'absolute', top: '-15%', right: '-8%', width: 900, height: 900, background: 'radial-gradient(ellipse, rgba(34,199,111,0.065) 0%, transparent 62%)', pointerEvents: 'none' }} />
+        style={{ position: 'absolute', top: '-15%', right: '-8%', width: 900, height: 900, background: 'radial-gradient(ellipse, rgba(74,222,128,0.065) 0%, transparent 62%)', pointerEvents: 'none' }} />
       {/* Dot grid */}
       <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.024) 1px, transparent 1px)', backgroundSize: '48px 48px' }} />
 
@@ -295,15 +295,15 @@ function HeroSection() {
             style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 36 }}
           >
             <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.5, delay: 0.4, ease: E }}
-              style={{ width: 36, height: 1, background: '#22C76F', transformOrigin: 'left' }} />
-            <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.44em', textTransform: 'uppercase', color: '#22C76F' }}>Our Work</span>
+              style={{ width: 36, height: 1, background: '#4ADE80', transformOrigin: 'left' }} />
+            <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.44em', textTransform: 'uppercase', color: '#4ADE80' }}>Our Work</span>
           </motion.div>
 
           <h1 style={{ fontSize: isMobile ? 'clamp(46px,11vw,72px)' : 'clamp(52px,6.5vw,86px)', fontWeight: 900, letterSpacing: '-0.055em', lineHeight: 0.87, margin: '0 0 32px' }}>
             {[
               { text: 'Crafted',    style: {} },
               { text: 'Digital',    style: { color: 'transparent', WebkitTextStroke: '1px rgba(255,255,255,0.28)' } as React.CSSProperties },
-              { text: 'Products.',  style: { color: '#22C76F' } },
+              { text: 'Products.',  style: { color: '#4ADE80' } },
             ].map((line, i) => (
               <div key={i} style={{ display: 'block', overflow: 'hidden' }}>
                 <motion.div
@@ -336,7 +336,7 @@ function HeroSection() {
               { value: '98%', label: 'Satisfaction' },
             ].map((s, i) => (
               <div key={i}>
-                <div style={{ fontSize: 28, fontWeight: 900, color: '#22C76F', letterSpacing: '-0.04em', lineHeight: 1, fontFamily: 'var(--font-outfit)' }}>{s.value}</div>
+                <div style={{ fontSize: 28, fontWeight: 900, color: '#4ADE80', letterSpacing: '-0.04em', lineHeight: 1, fontFamily: 'var(--font-outfit)' }}>{s.value}</div>
                 <div style={{ fontSize: 10, fontWeight: 600, color: '#333', letterSpacing: '0.2em', textTransform: 'uppercase', marginTop: 5 }}>{s.label}</div>
               </div>
             ))}
@@ -353,7 +353,7 @@ function HeroSection() {
       >
         <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.32em', color: '#333', textTransform: 'uppercase' }}>Scroll</span>
         <motion.div animate={{ y: [0, 9, 0] }} transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-          style={{ width: 1, height: 36, background: 'linear-gradient(to bottom, #22C76F, transparent)' }} />
+          style={{ width: 1, height: 36, background: 'linear-gradient(to bottom, #4ADE80, transparent)' }} />
       </motion.div>
     </section>
   );
@@ -382,15 +382,15 @@ function FilterBar({ active, onChange }: { active: string; onChange: (c: string)
               position: 'relative',
               padding: isMobile ? '9px 18px' : '11px 24px',
               borderRadius: 999,
-              border: isActive ? '1px solid rgba(34,199,111,0.5)' : '1px solid rgba(255,255,255,0.07)',
-              background: isActive ? 'linear-gradient(135deg, #22C76F, #e8941a)' : 'rgba(255,255,255,0.03)',
+              border: isActive ? '1px solid rgba(74,222,128,0.5)' : '1px solid rgba(255,255,255,0.07)',
+              background: isActive ? 'linear-gradient(135deg, #4ADE80, #e8941a)' : 'rgba(255,255,255,0.03)',
               color: isActive ? '#050505' : '#666',
               fontSize: isMobile ? 11 : 12,
               fontWeight: isActive ? 800 : 600,
               cursor: 'pointer',
               fontFamily: 'var(--font-outfit)',
               backdropFilter: 'blur(8px)',
-              boxShadow: isActive ? '0 8px 30px rgba(34,199,111,0.3)' : 'none',
+              boxShadow: isActive ? '0 8px 30px rgba(74,222,128,0.3)' : 'none',
               transition: 'all 0.28s ease',
               overflow: 'hidden',
             }}
@@ -398,7 +398,7 @@ function FilterBar({ active, onChange }: { active: string; onChange: (c: string)
             {isActive && (
               <motion.span
                 layoutId="filterActive"
-                style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, #22C76F, #e8941a)', borderRadius: 999 }}
+                style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, #4ADE80, #e8941a)', borderRadius: 999 }}
                 transition={{ type: 'spring', stiffness: 340, damping: 32 }}
               />
             )}
@@ -573,7 +573,7 @@ function PortfolioSection() {
       position: 'relative', overflow: 'hidden',
     }}>
       {/* Background orb */}
-      <div className="orb-a" style={{ position: 'absolute', top: '-10%', right: '-8%', width: 700, height: 700, borderRadius: '50%', background: 'radial-gradient(circle, rgba(34,199,111,0.04) 0%, transparent 65%)', filter: 'blur(70px)', pointerEvents: 'none' }} />
+      <div className="orb-a" style={{ position: 'absolute', top: '-10%', right: '-8%', width: 700, height: 700, borderRadius: '50%', background: 'radial-gradient(circle, rgba(74,222,128,0.04) 0%, transparent 65%)', filter: 'blur(70px)', pointerEvents: 'none' }} />
 
       <div style={{ maxWidth: 1300, margin: '0 auto' }}>
         {/* Section header */}
@@ -584,10 +584,10 @@ function PortfolioSection() {
             style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 14, marginBottom: 20 }}
           >
             <motion.div initial={{ scaleX: 0 }} animate={inView ? { scaleX: 1 } : {}} transition={{ duration: 0.5, ease: E }}
-              style={{ width: 32, height: 1, background: '#22C76F', transformOrigin: 'right' }} />
-            <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.44em', textTransform: 'uppercase', color: '#22C76F' }}>All Projects</span>
+              style={{ width: 32, height: 1, background: '#4ADE80', transformOrigin: 'right' }} />
+            <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.44em', textTransform: 'uppercase', color: '#4ADE80' }}>All Projects</span>
             <motion.div initial={{ scaleX: 0 }} animate={inView ? { scaleX: 1 } : {}} transition={{ duration: 0.5, ease: E }}
-              style={{ width: 32, height: 1, background: '#22C76F', transformOrigin: 'left' }} />
+              style={{ width: 32, height: 1, background: '#4ADE80', transformOrigin: 'left' }} />
           </motion.div>
 
           <h2 style={{ fontSize: 'clamp(32px,4.5vw,60px)', fontWeight: 900, letterSpacing: '-0.055em', lineHeight: 0.92, margin: '0 0 16px' }}>
@@ -657,7 +657,7 @@ function CTASection() {
       borderTop: '1px solid rgba(255,255,255,0.04)',
       overflow: 'hidden',
     }}>
-      <div className="orb-a" style={{ position: 'absolute', top: '-12%', left: '-6%', width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(34,199,111,0.08) 0%, transparent 65%)', filter: 'blur(55px)', pointerEvents: 'none', zIndex: 0 }} />
+      <div className="orb-a" style={{ position: 'absolute', top: '-12%', left: '-6%', width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(74,222,128,0.08) 0%, transparent 65%)', filter: 'blur(55px)', pointerEvents: 'none', zIndex: 0 }} />
       <div className="orb-b" style={{ position: 'absolute', bottom: '-18%', right: '-10%', width: 500, height: 500, borderRadius: '50%', background: 'radial-gradient(circle, rgba(167,139,250,0.07) 0%, transparent 65%)', filter: 'blur(55px)', pointerEvents: 'none', zIndex: 0 }} />
       <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.022) 1px, transparent 1px)', backgroundSize: '48px 48px', opacity: 0.6 }} />
 
@@ -676,22 +676,22 @@ function CTASection() {
           style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 14, marginBottom: 40 }}
         >
           <motion.div initial={{ scaleX: 0 }} animate={inView ? { scaleX: 1 } : {}} transition={{ duration: 0.5, delay: 0.08, ease: E }}
-            style={{ width: 40, height: 1, background: '#22C76F', transformOrigin: 'right' }} />
-          <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.44em', textTransform: 'uppercase', color: '#22C76F' }}>Ready to build?</span>
+            style={{ width: 40, height: 1, background: '#4ADE80', transformOrigin: 'right' }} />
+          <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.44em', textTransform: 'uppercase', color: '#4ADE80' }}>Ready to build?</span>
           <motion.div initial={{ scaleX: 0 }} animate={inView ? { scaleX: 1 } : {}} transition={{ duration: 0.5, delay: 0.08, ease: E }}
-            style={{ width: 40, height: 1, background: '#22C76F', transformOrigin: 'left' }} />
+            style={{ width: 40, height: 1, background: '#4ADE80', transformOrigin: 'left' }} />
         </motion.div>
 
         <h2 style={{ fontSize: isMobile ? 'clamp(38px,9vw,56px)' : 'clamp(48px,7vw,84px)', fontWeight: 900, letterSpacing: '-0.055em', lineHeight: 0.9, margin: '0 0 36px' }}>
           <WordReveal text="Have a Project" inView={inView} delay={0.05} />
           <br />
-          <WordReveal text="in Mind?" inView={inView} delay={0.22} style={{ color: '#22C76F' }} />
+          <WordReveal text="in Mind?" inView={inView} delay={0.22} style={{ color: '#4ADE80' }} />
         </h2>
 
         <motion.div
           initial={{ scaleX: 0 }} animate={inView ? { scaleX: 1 } : {}}
           transition={{ duration: 0.9, delay: 0.42, ease: E }}
-          style={{ height: 1, maxWidth: 420, margin: '0 auto 40px', background: 'linear-gradient(90deg, transparent, rgba(34,199,111,0.5), transparent)', transformOrigin: 'center' }}
+          style={{ height: 1, maxWidth: 420, margin: '0 auto 40px', background: 'linear-gradient(90deg, transparent, rgba(74,222,128,0.5), transparent)', transformOrigin: 'center' }}
         />
 
         <motion.p
@@ -708,7 +708,7 @@ function CTASection() {
           style={{ display: 'flex', gap: 14, justifyContent: 'center', flexDirection: isMobile ? 'column' : 'row', alignItems: 'center' }}
         >
           <motion.a href="/services#contact"
-            whileHover={{ scale: 1.05, boxShadow: '0 16px 50px rgba(34,199,111,0.35)', y: -3 }}
+            whileHover={{ scale: 1.05, boxShadow: '0 16px 50px rgba(74,222,128,0.35)', y: -3 }}
             whileTap={{ scale: 0.96 }}
             style={{
               padding: isMobile ? '14px 28px' : '17px 44px',
@@ -725,7 +725,7 @@ function CTASection() {
             Start a Project
           </motion.a>
           <motion.a href="/about"
-            whileHover={{ borderColor: 'rgba(34,199,111,0.4)', color: '#e0e0e0' }}
+            whileHover={{ borderColor: 'rgba(74,222,128,0.4)', color: '#e0e0e0' }}
             style={{
               padding: isMobile ? '14px 28px' : '17px 44px',
               borderRadius: 10, textDecoration: 'none',

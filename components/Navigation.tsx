@@ -108,7 +108,7 @@ export default function Navigation({ activePage }: { activePage?: ActivePage }) 
         style={{
           position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000,
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          padding: isMobile ? '14px 20px' : scrolled ? '14px 48px' : '20px 48px',
+          padding: isMobile ? '14px 20px' : '20px 48px',
           background: scrolled ? 'rgba(5,5,5,0.88)' : 'transparent',
           backdropFilter: scrolled ? 'blur(24px)' : 'none',
           WebkitBackdropFilter: scrolled ? 'blur(24px)' : 'none',
@@ -128,7 +128,7 @@ export default function Navigation({ activePage }: { activePage?: ActivePage }) 
             src="/Upcodo_logo.webp"
             alt="UpCodo Digital"
             style={{
-              height: scrolled ? 28 : 34,
+              height: 44,
               width: 'auto',
               filter: 'brightness(0) invert(1)',
               opacity: 0.92,
@@ -167,7 +167,7 @@ export default function Navigation({ activePage }: { activePage?: ActivePage }) 
                       padding: '8px 14px',
                       fontSize: 13,
                       fontWeight: isActive ? 700 : 600,
-                      color: isActive ? '#22C76F' : isHovered ? '#f0f0f0' : '#a0a0a0',
+                      color: isActive ? '#4ADE80' : isHovered ? '#f0f0f0' : '#a0a0a0',
                       textDecoration: 'none',
                       letterSpacing: isHovered ? '0.03em' : '0.01em',
                       position: 'relative',
@@ -191,7 +191,7 @@ export default function Navigation({ activePage }: { activePage?: ActivePage }) 
                     {isActive && (
                       <span style={{
                         position: 'absolute', bottom: 2, left: 14, right: 14,
-                        height: 1.5, background: '#22C76F', borderRadius: 99,
+                        height: 1.5, background: '#4ADE80', borderRadius: 99,
                         display: 'block',
                       }} />
                     )}
@@ -202,7 +202,7 @@ export default function Navigation({ activePage }: { activePage?: ActivePage }) 
                         transition={{ duration: 0.22, ease: 'easeOut' }}
                         style={{
                           position: 'absolute', bottom: 2, left: 14, right: 14,
-                          height: 1, background: '#22C76F', borderRadius: 99,
+                          height: 1, background: '#4ADE80', borderRadius: 99,
                           transformOrigin: 'left', display: 'block',
                         }}
                       />
@@ -221,10 +221,10 @@ export default function Navigation({ activePage }: { activePage?: ActivePage }) 
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.55, ease: E }}
-            whileHover={{ scale: 1.05, y: -2, boxShadow: '0 0 28px rgba(34,199,111,0.35)' }}
+            whileHover={{ scale: 1.05, y: -2, boxShadow: '0 0 28px rgba(74,222,128,0.35)' }}
             style={{
               padding: '9px 22px',
-              background: '#22C76F',
+              background: '#4ADE80',
               color: '#050505',
               fontSize: 12, fontWeight: 700,
               letterSpacing: '0.05em', textTransform: 'uppercase',
@@ -300,7 +300,7 @@ export default function Navigation({ activePage }: { activePage?: ActivePage }) 
                   position: 'absolute', top: 0, left: '50%',
                   transform: 'translateX(-50%)',
                   width: 700, height: 220,
-                  background: 'radial-gradient(ellipse at top, rgba(34,199,111,0.07) 0%, transparent 70%)',
+                  background: 'radial-gradient(ellipse at top, rgba(74,222,128,0.07) 0%, transparent 70%)',
                   pointerEvents: 'none',
                 }} />
 
@@ -317,7 +317,7 @@ export default function Navigation({ activePage }: { activePage?: ActivePage }) 
                   >
                     <div style={{
                       fontSize: 10, fontWeight: 700,
-                      color: '#22C76F',
+                      color: '#4ADE80',
                       letterSpacing: '0.14em', textTransform: 'uppercase',
                       marginBottom: 20,
                     }}>
@@ -377,14 +377,14 @@ export default function Navigation({ activePage }: { activePage?: ActivePage }) 
                       cursor: 'pointer',
                     }}
                   >
-                    <span style={{ fontSize: 18, fontWeight: 700, color: isActive ? '#22C76F' : '#e0e0e0' }}>
+                    <span style={{ fontSize: 18, fontWeight: 700, color: isActive ? '#4ADE80' : '#e0e0e0' }}>
                       {link.label}
                     </span>
                     {link.mega && (
                       <motion.span
                         animate={{ rotate: isExpanded ? 180 : 0 }}
                         transition={{ duration: 0.22 }}
-                        style={{ color: '#22C76F', opacity: 0.7, fontSize: 18 }}
+                        style={{ color: '#4ADE80', opacity: 0.7, fontSize: 18 }}
                       >
                         ↓
                       </motion.span>
@@ -398,12 +398,12 @@ export default function Navigation({ activePage }: { activePage?: ActivePage }) 
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.28, ease: E }}
-                        style={{ overflow: 'hidden', background: 'rgba(34,199,111,0.025)' }}
+                        style={{ overflow: 'hidden', background: 'rgba(74,222,128,0.025)' }}
                       >
                         {link.mega.map(col => (
                           <div key={col.title} style={{ padding: '12px 28px 10px' }}>
                             <div style={{
-                              fontSize: 10, fontWeight: 700, color: '#22C76F',
+                              fontSize: 10, fontWeight: 700, color: '#4ADE80',
                               letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: 8,
                             }}>
                               {col.title}
@@ -437,7 +437,7 @@ export default function Navigation({ activePage }: { activePage?: ActivePage }) 
               style={{
                 margin: '28px 28px 40px',
                 padding: '14px 20px',
-                background: '#22C76F', color: '#050505',
+                background: '#4ADE80', color: '#050505',
                 textAlign: 'center', textDecoration: 'none',
                 borderRadius: 12, fontSize: 14, fontWeight: 700,
                 letterSpacing: '0.05em', textTransform: 'uppercase',
@@ -474,7 +474,7 @@ function MegaMenuItem({ item, delay }: { item: MegaItem; delay: number }) {
       }}
     >
       <span style={{
-        color: '#22C76F', fontSize: 14,
+        color: '#4ADE80', fontSize: 14,
         opacity: hovered ? 1 : 0.45,
         transition: 'opacity 0.18s, transform 0.18s',
         transform: hovered ? 'translateX(2px)' : 'translateX(0)',

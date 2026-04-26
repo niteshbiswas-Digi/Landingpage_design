@@ -116,7 +116,7 @@ export default function RevealCanvas() {
     const imgs: HTMLImageElement[] = []
     for (let i = 0; i < FRAME_COUNT; i++) {
       const img = new Image()
-      img.src = `/sequence/frame_${i}.webp`
+      img.src = `/seq/frame_${i}.webp`
       img.onload = () => {
         n++
         setLoadedCount(n)
@@ -222,8 +222,7 @@ export default function RevealCanvas() {
       ctx.scale(dpr, dpr)
     }
 
-    ctx.fillStyle = "#000"
-    ctx.fillRect(0, 0, rect.width, rect.height)
+    ctx.clearRect(0, 0, rect.width, rect.height)
 
     const r = Math.min(
       rect.width / img.naturalWidth,
@@ -282,9 +281,9 @@ export default function RevealCanvas() {
       case 2:
         return "radial-gradient(ellipse at 30% 50%, rgba(167,139,250,0.07) 0%, #050505 65%)"
       case 3:
-        return "radial-gradient(ellipse at 70% 50%, rgba(34,199,111,0.08) 0%, #050505 60%)"
+        return "radial-gradient(ellipse at 70% 50%, rgba(74,222,128,0.08) 0%, #050505 60%)"
       default:
-        return "radial-gradient(ellipse at 20% 50%, rgba(34,199,111,0.06) 0%, transparent 55%), radial-gradient(ellipse at 80% 20%, rgba(167,139,250,0.05) 0%, transparent 50%), #050505"
+        return "radial-gradient(ellipse at 20% 50%, rgba(74,222,128,0.06) 0%, transparent 55%), radial-gradient(ellipse at 80% 20%, rgba(167,139,250,0.05) 0%, transparent 50%), #050505"
     }
   }
 
@@ -300,6 +299,26 @@ export default function RevealCanvas() {
         overflow: "hidden",
       }}
     >
+      {/* ── Ambient video background ── */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          opacity: 0.18,
+          zIndex: 0,
+          pointerEvents: "none",
+        }}
+      >
+        <source src="/hero_bg.mp4" type="video/mp4" />
+      </video>
+
       <div
         style={{
           position: "absolute",
@@ -310,7 +329,7 @@ export default function RevealCanvas() {
           display: "flex",
           flexDirection: isMobile ? "column" : "row",
           alignItems: "stretch",
-          background: isMobile ? getBeatBgColor() : "#000",
+          background: isMobile ? getBeatBgColor() : "transparent",
           transition: isMobile ? "background 1s ease-in-out" : "none",
           overflow: isMobile ? "visible" : "hidden",
           zIndex: 50,
@@ -329,7 +348,7 @@ export default function RevealCanvas() {
                 height: 280,
                 borderRadius: "50%",
                 background:
-                  "radial-gradient(circle, rgba(34,199,111,0.12) 0%, transparent 70%)",
+                  "radial-gradient(circle, rgba(74,222,128,0.12) 0%, transparent 70%)",
                 filter: "blur(60px)",
                 pointerEvents: "none",
                 zIndex: 0,
@@ -378,7 +397,7 @@ export default function RevealCanvas() {
             padding: isMobile ? "80px 24px" : "0 80px",
             minHeight: isMobile ? "100vh" : "auto",
             overflow: "hidden",
-            background: isMobile ? "transparent" : "rgba(5,5,5,0.7)",
+            background: "transparent",
             zIndex: 2,
           }}
         >
@@ -400,7 +419,7 @@ export default function RevealCanvas() {
                   key={i}
                   animate={{
                     width: i === activeBeat ? 24 : 6,
-                    background: i === activeBeat ? "#22C76F" : "#1a1a1c",
+                    background: i === activeBeat ? "#4ADE80" : "#1a1a1c",
                   }}
                   transition={{ duration: 0.5 }}
                   style={{
@@ -423,7 +442,7 @@ export default function RevealCanvas() {
                   width: 4,
                   height: 4,
                   borderRadius: "50%",
-                  background: "rgba(34,199,111,0.5)",
+                  background: "rgba(74,222,128,0.5)",
                   pointerEvents: "none",
                   animation: "float-up 3s ease-in-out infinite",
                   zIndex: 1,
@@ -437,7 +456,7 @@ export default function RevealCanvas() {
                   width: 3,
                   height: 3,
                   borderRadius: "50%",
-                  background: "rgba(34,199,111,0.4)",
+                  background: "rgba(74,222,128,0.4)",
                   pointerEvents: "none",
                   animation: "float-up 4s ease-in-out infinite 1.4s",
                   zIndex: 1,
@@ -451,7 +470,7 @@ export default function RevealCanvas() {
                   width: 4,
                   height: 4,
                   borderRadius: "50%",
-                  background: "rgba(34,199,111,0.35)",
+                  background: "rgba(74,222,128,0.35)",
                   pointerEvents: "none",
                   animation: "float-up 5s ease-in-out infinite 2.8s",
                   zIndex: 1,
@@ -460,32 +479,6 @@ export default function RevealCanvas() {
             </>
           )}
 
-          {!isMobile && (
-            <div
-              style={{
-                position: "absolute",
-                top: 48,
-                left: 48,
-                display: "flex",
-                flexDirection: "column",
-                gap: 12,
-                alignItems: "flex-start",
-              }}
-            >
-              {BEATS.map((b, i) => (
-                <div
-                  key={b.id}
-                  style={{
-                    width: 2,
-                    borderRadius: 2,
-                    background: i === activeBeat ? "#22C76F" : "#1a1a1c",
-                    height: i === activeBeat ? 40 : 10,
-                    transition: "all 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
-                  }}
-                />
-              ))}
-            </div>
-          )}
 
           {BEATS.map((beat, i) => {
             const isFirst = i === 0
@@ -529,7 +522,7 @@ export default function RevealCanvas() {
                           width: 4,
                           height: 4,
                           borderRadius: "50%",
-                          background: "#22C76F",
+                          background: "#4ADE80",
                           flexShrink: 0,
                         }}
                       />
@@ -539,7 +532,7 @@ export default function RevealCanvas() {
                           fontWeight: 700,
                           letterSpacing: "0.4em",
                           textTransform: "uppercase",
-                          color: "#22C76F",
+                          color: "#4ADE80",
                         }}
                       >
                         {beat.eyebrow}
@@ -553,7 +546,7 @@ export default function RevealCanvas() {
                           fontWeight: 700,
                           letterSpacing: "0.4em",
                           textTransform: "uppercase",
-                          color: "#22C76F",
+                          color: "#4ADE80",
                         }}
                       >
                         {beat.eyebrow}
@@ -562,7 +555,7 @@ export default function RevealCanvas() {
                         style={{
                           flex: 1,
                           height: 1,
-                          background: "rgba(34,199,111,0.2)",
+                          background: "rgba(74,222,128,0.2)",
                         }}
                       />
                     </>
@@ -608,7 +601,7 @@ export default function RevealCanvas() {
                     style={{
                       padding: isMobile ? "13px 28px" : "16px 40px",
                       borderRadius: 12,
-                      background: "#22C76F",
+                      background: "#4ADE80",
                       color: "#000",
                       fontWeight: 800,
                       fontSize: isMobile ? 13 : 15,
@@ -618,7 +611,7 @@ export default function RevealCanvas() {
                       display: "inline-flex",
                       alignItems: "center",
                       gap: 10,
-                      boxShadow: "0 12px 40px rgba(34,199,111,0.35)",
+                      boxShadow: "0 12px 40px rgba(74,222,128,0.35)",
                     }}
                   >
                     {beat.cta}
@@ -653,7 +646,7 @@ export default function RevealCanvas() {
                 right: 0,
                 height: 2,
                 background:
-                  "linear-gradient(90deg, #22C76F 0%, rgba(34,199,111,0.3) 100%)",
+                  "linear-gradient(90deg, #4ADE80 0%, rgba(74,222,128,0.3) 100%)",
                 width: `${progress * 100}%`,
                 transition: "width 0.1s linear",
                 zIndex: 10,
@@ -679,7 +672,7 @@ export default function RevealCanvas() {
                 inset: 0,
                 zIndex: 1,
                 pointerEvents: "none",
-                background: `radial-gradient(circle at 50% 60%, rgba(34,199,111,${(
+                background: `radial-gradient(circle at 50% 60%, rgba(74,222,128,${(
                   0.06 +
                   progress * 0.2
                 ).toFixed(3)}) 0%, transparent 65%)`,
@@ -706,7 +699,7 @@ export default function RevealCanvas() {
                 right: 0,
                 height: 180,
                 zIndex: 3,
-                background: "linear-gradient(to bottom, #000, transparent)",
+                background: "linear-gradient(to bottom, rgba(0,0,0,0.6), transparent)",
                 pointerEvents: "none",
               }}
             />
@@ -718,7 +711,7 @@ export default function RevealCanvas() {
                 right: 0,
                 height: 180,
                 zIndex: 3,
-                background: "linear-gradient(to top, #000, transparent)",
+                background: "linear-gradient(to top, rgba(0,0,0,0.6), transparent)",
                 pointerEvents: "none",
               }}
             />
@@ -752,17 +745,17 @@ export default function RevealCanvas() {
                 width: 64,
                 height: 64,
                 borderRadius: 18,
-                border: "1px solid rgba(34,199,111,0.5)",
+                border: "1px solid rgba(74,222,128,0.5)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                boxShadow: "0 0 60px rgba(34,199,111,0.2)",
+                boxShadow: "0 0 60px rgba(74,222,128,0.2)",
               }}
             >
               <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
                 <polyline
                   points="16 18 22 12 16 6"
-                  stroke="#22C76F"
+                  stroke="#4ADE80"
                   strokeWidth="2.5"
                 />
                 <polyline
@@ -781,7 +774,7 @@ export default function RevealCanvas() {
                   fontSize: 11,
                   letterSpacing: "0.4em",
                   textTransform: "uppercase",
-                  color: "#22C76F",
+                  color: "#4ADE80",
                   fontWeight: 900,
                   margin: 0,
                 }}
@@ -801,7 +794,7 @@ export default function RevealCanvas() {
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: `${pct}%` }}
-                  style={{ height: "100%", background: "#22C76F" }}
+                  style={{ height: "100%", background: "#4ADE80" }}
                 />
               </div>
             </div>

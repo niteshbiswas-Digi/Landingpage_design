@@ -24,33 +24,33 @@ const SERVICES: {
   {
     icon: Smartphone,
     num: '01',
-    title: 'Custom Mobile App Development',
+    title: 'Mobile App Development',
     description:
-      'High-performance iOS and Android applications tailored to your specific business needs and user expectations.',
+      'Native iOS and Android apps built around real user flows — from architecture through App Store delivery.',
     floatDelay: 0,
   },
   {
     icon: Globe,
     num: '02',
-    title: 'Robust Web App Solutions',
+    title: 'Web Application Engineering',
     description:
-      'Scalable, secure, and lightning-fast web applications built with modern frameworks and clean architecture.',
+      'Scalable, secure web apps built with modern frameworks — clean architecture, fast load times, maintainable code.',
     floatDelay: 0.55,
   },
   {
     icon: PenTool,
     num: '03',
-    title: 'UX/UI Design Excellence',
+    title: 'Product Design & Interface',
     description:
-      'User-centric design systems that prioritize conversion, retention, and aesthetic sophistication.',
+      'Design systems grounded in user research — interface patterns that drive retention and reduce churn.',
     floatDelay: 1.1,
   },
   {
     icon: Activity,
     num: '04',
-    title: 'Cross-Platform Integration',
+    title: 'API & Platform Integration',
     description:
-      'Seamless connectivity between your digital ecosystem and third-party enterprise tools and APIs.',
+      'Direct connectivity between your product and third-party platforms, payment rails, and enterprise APIs.',
     floatDelay: 1.65,
   },
 ];
@@ -270,7 +270,7 @@ function ServiceCard({
           transition: 'all 0.38s ease',
         }}
       >
-        <Icon size={22} color="#22C76F" strokeWidth={1.6} />
+        <Icon size={22} color="#4ADE80" strokeWidth={1.6} />
       </motion.div>
 
       {/* Separator */}
@@ -321,7 +321,7 @@ function ServiceCard({
           left: 0,
           right: 0,
           height: 2,
-          background: 'linear-gradient(90deg, #22C76F 0%, #6EE7B0 40%, transparent 100%)',
+          background: 'linear-gradient(90deg, #4ADE80 0%, #6EE7B0 40%, transparent 100%)',
           transformOrigin: 'left',
           borderRadius: '0 0 20px 20px',
           boxShadow: '0 0 12px rgba(26,174,92,0.5)',
@@ -422,7 +422,7 @@ export default function ServicesSection() {
           style={{
             position: 'absolute', ...dot.style,
             width: dot.size, height: dot.size, borderRadius: '50%',
-            background: '#22C76F',
+            background: '#4ADE80',
             boxShadow: `0 0 ${dot.size * 3}px rgba(26,174,92,0.7)`,
             pointerEvents: 'none',
           }}
@@ -473,7 +473,7 @@ export default function ServicesSection() {
             <span style={{
               fontSize: 11, fontWeight: 700,
               letterSpacing: '0.52em', textTransform: 'uppercase',
-              color: '#22C76F',
+              color: '#4ADE80',
             }}>
               Our Services
             </span>
@@ -507,7 +507,7 @@ export default function ServicesSection() {
             }}
           >
             <span style={{ color: '#ffffff' }}>Strategic{' '}</span>
-            <span style={{ color: '#22C76F' }}>
+            <span style={{ color: '#4ADE80' }}>
               App Development
             </span>
             <br />
@@ -529,7 +529,7 @@ export default function ServicesSection() {
             transition={{ duration: 0.7, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
             style={{
               width: 60, height: 2,
-              background: 'linear-gradient(90deg, transparent, #22C76F 30%, #6EE7B0 50%, #22C76F 70%, transparent)',
+              background: 'linear-gradient(90deg, transparent, #4ADE80 30%, #6EE7B0 50%, #4ADE80 70%, transparent)',
               margin: '0 auto',
               borderRadius: 2,
               transformOrigin: 'center',

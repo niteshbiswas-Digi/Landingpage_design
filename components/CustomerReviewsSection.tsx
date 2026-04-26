@@ -42,7 +42,7 @@ const VIDEOS = [
     person: 'Co-Founder',
     company: 'GRAJ',
     country: '🇺🇸 United States',
-    color: '#22C76F',
+    color: '#4ADE80',
     tag: 'SaaS Platform',
     initials: 'MB',
   },
@@ -92,20 +92,36 @@ export default function CustomerReviewsSection() {
 
   const [active, setActive] = useState(0);
   const [dir, setDir] = useState(1);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const goTo = useCallback((idx: number, direction = 1) => {
     setDir(direction);
     setActive(idx);
+    setIsPlaying(false);
   }, []);
 
   const next = useCallback(() => goTo((active + 1) % VIDEOS.length, 1), [active, goTo]);
   const prev = useCallback(() => goTo((active - 1 + VIDEOS.length) % VIDEOS.length, -1), [active, goTo]);
 
-  // Auto-advance
+  // When user clicks into the iframe the window loses focus — that means video interaction
   useEffect(() => {
+    const handleBlur = () => {
+      requestAnimationFrame(() => {
+        if (document.activeElement instanceof HTMLIFrameElement) {
+          setIsPlaying(true);
+        }
+      });
+    };
+    window.addEventListener('blur', handleBlur);
+    return () => window.removeEventListener('blur', handleBlur);
+  }, []);
+
+  // Auto-advance — paused while video is playing
+  useEffect(() => {
+    if (isPlaying) return;
     const t = setTimeout(next, AUTO_INTERVAL);
     return () => clearTimeout(t);
-  }, [active, next]);
+  }, [active, next, isPlaying]);
 
   const video = VIDEOS[active];
 
@@ -149,11 +165,11 @@ export default function CustomerReviewsSection() {
             initial={{ scaleX: 0 }}
             animate={inView ? { scaleX: 1 } : {}}
             transition={{ duration: 0.5, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-            style={{ width: 28, height: 1, background: '#22C76F', transformOrigin: 'left' }}
+            style={{ width: 28, height: 1, background: '#4ADE80', transformOrigin: 'left' }}
           />
           <p style={{
             fontSize: 10, fontWeight: 700, letterSpacing: '0.4em',
-            textTransform: 'uppercase', color: '#22C76F', margin: 0,
+            textTransform: 'uppercase', color: '#4ADE80', margin: 0,
           }}>
             Our Customer Reviews
           </p>
@@ -324,7 +340,7 @@ export default function CustomerReviewsSection() {
             >
               <div style={{ display: 'flex', gap: 3, marginBottom: 4 }}>
                 {[...Array(5)].map((_, i) => (
-                  <svg key={i} width="10" height="10" viewBox="0 0 24 24" fill="#22C76F">
+                  <svg key={i} width="10" height="10" viewBox="0 0 24 24" fill="#4ADE80">
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                   </svg>
                 ))}
@@ -430,7 +446,7 @@ export default function CustomerReviewsSection() {
             <motion.div
               key={active}
               initial={{ width: '0%' }}
-              animate={{ width: '100%' }}
+              animate={{ width: isPlaying ? undefined : '100%' }}
               transition={{ duration: AUTO_INTERVAL / 1000, ease: 'linear' }}
               style={{
                 height: '100%', borderRadius: 2,

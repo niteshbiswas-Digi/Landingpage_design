@@ -71,7 +71,7 @@ function MagneticBtn({ children, primary, href }: { children: React.ReactNode; p
         my.set((e.clientY - (r.top + r.height / 2)) * 0.28);
       }}
       onMouseLeave={() => { mx.set(0); my.set(0); }}
-      whileHover={primary ? { boxShadow: '0 16px 50px rgba(34,199,111,0.3)', scale: 1.03 } : { borderColor: 'rgba(34,199,111,0.4)', color: '#e0e0e0' }}
+      whileHover={primary ? { boxShadow: '0 16px 50px rgba(74,222,128,0.3)', scale: 1.03 } : { borderColor: 'rgba(74,222,128,0.4)', color: '#e0e0e0' }}
       whileTap={{ scale: 0.95 }}
     >
       {primary && (
@@ -88,7 +88,7 @@ function MagneticBtn({ children, primary, href }: { children: React.ReactNode; p
 
 // ─── Hero preview cards data ──────────────────────────────────────────────────
 const HERO_CARDS = [
-  { title: 'Web Development',    sub: 'React · Next.js · Node.js',    accent: '#22C76F', icon: '⬡' },
+  { title: 'Web Development',    sub: 'React · Next.js · Node.js',    accent: '#4ADE80', icon: '⬡' },
   { title: 'Mobile Apps',        sub: 'React Native · Flutter · Swift', accent: '#38bdf8', icon: '◈' },
   { title: 'UI / UX Design',     sub: 'Figma · Design Systems',        accent: '#a78bfa', icon: '✦' },
   { title: 'Cloud & DevOps',     sub: 'AWS · Docker · CI/CD',          accent: '#4ade80', icon: '◉' },
@@ -113,7 +113,7 @@ function HeroSection() {
     }}>
       {/* Multi-layer background */}
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 3 }}
-        style={{ position: 'absolute', top: '-20%', left: '50%', transform: 'translateX(-50%)', width: 1100, height: 800, background: 'radial-gradient(ellipse, rgba(34,199,111,0.08) 0%, transparent 60%)', pointerEvents: 'none' }} />
+        style={{ position: 'absolute', top: '-20%', left: '50%', transform: 'translateX(-50%)', width: 1100, height: 800, background: 'radial-gradient(ellipse, rgba(74,222,128,0.08) 0%, transparent 60%)', pointerEvents: 'none' }} />
       <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.025) 1px, transparent 1px)', backgroundSize: '48px 48px' }} />
 
       {/* Ghost watermark */}
@@ -147,8 +147,8 @@ function HeroSection() {
             style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 36 }}
           >
             <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.5, delay: 0.4, ease: E }}
-              style={{ width: 36, height: 1, background: '#22C76F', transformOrigin: 'left' }} />
-            <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.44em', textTransform: 'uppercase', color: '#22C76F' }}>What We Build</span>
+              style={{ width: 36, height: 1, background: '#4ADE80', transformOrigin: 'left' }} />
+            <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.44em', textTransform: 'uppercase', color: '#4ADE80' }}>What We Build</span>
           </motion.div>
 
           {/* Title */}
@@ -156,7 +156,7 @@ function HeroSection() {
             {[
               { text: 'Premium',    style: {} },
               { text: 'Digital',    style: { color: 'transparent', WebkitTextStroke: '1px rgba(255,255,255,0.3)' } },
-              { text: 'Services.',  style: { color: '#22C76F' } },
+              { text: 'Services.',  style: { color: '#4ADE80' } },
             ].map((line, i) => (
               <div key={i} style={{ display: 'block', overflow: 'hidden' }}>
                 <motion.div
@@ -210,7 +210,7 @@ function HeroSection() {
                 background: '#080808',
                 textAlign: 'center',
               }}>
-                <div style={{ fontSize: isMobile ? 22 : 26, fontWeight: 900, color: '#22C76F', letterSpacing: '-0.05em', lineHeight: 1, fontFamily: 'var(--font-outfit)', marginBottom: 5 }}>
+                <div style={{ fontSize: isMobile ? 22 : 26, fontWeight: 900, color: '#4ADE80', letterSpacing: '-0.05em', lineHeight: 1, fontFamily: 'var(--font-outfit)', marginBottom: 5 }}>
                   {s.value}
                 </div>
                 <div style={{ fontSize: 9.5, fontWeight: 600, color: '#3a3a3a', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
@@ -228,7 +228,7 @@ function HeroSection() {
             <div style={{
               position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)',
               width: 480, height: 480, borderRadius: '50%',
-              background: 'radial-gradient(circle, rgba(34,199,111,0.06) 0%, transparent 70%)',
+              background: 'radial-gradient(circle, rgba(74,222,128,0.06) 0%, transparent 70%)',
               filter: 'blur(50px)', pointerEvents: 'none',
             }} />
 
@@ -300,14 +300,14 @@ function HeroSection() {
               whileInView={{ opacity: 1, scale: 1 }}
               style={{
                 position: 'absolute', bottom: -28, right: -18,
-                background: 'rgba(8,8,8,0.96)', border: '1px solid rgba(34,199,111,0.22)',
+                background: 'rgba(8,8,8,0.96)', border: '1px solid rgba(74,222,128,0.22)',
                 borderRadius: 16, padding: '18px 22px',
                 backdropFilter: 'blur(20px)',
                 boxShadow: '0 24px 60px rgba(0,0,0,0.5)',
                 zIndex: 2,
               }}
             >
-              <div style={{ fontSize: 26, fontWeight: 900, color: '#22C76F', letterSpacing: '-0.05em', lineHeight: 1 }}>150+</div>
+              <div style={{ fontSize: 26, fontWeight: 900, color: '#4ADE80', letterSpacing: '-0.05em', lineHeight: 1 }}>150+</div>
               <div style={{ fontSize: 9, fontWeight: 700, color: '#444', letterSpacing: '0.22em', textTransform: 'uppercase', marginTop: 5 }}>Happy Clients</div>
             </motion.div>
           </div>
@@ -321,7 +321,7 @@ function HeroSection() {
       >
         <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.32em', color: '#333', textTransform: 'uppercase' }}>Scroll</span>
         <motion.div animate={{ y: [0, 9, 0] }} transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-          style={{ width: 1, height: 36, background: 'linear-gradient(to bottom, #22C76F, transparent)' }} />
+          style={{ width: 1, height: 36, background: 'linear-gradient(to bottom, #4ADE80, transparent)' }} />
       </motion.div>
     </section>
   );
@@ -335,9 +335,9 @@ function SectionLabel({ text, inView, center = false }: { text: string; inView: 
       transition={{ duration: 0.6, ease: E }}
       style={{ display: 'flex', alignItems: 'center', justifyContent: center ? 'center' : 'flex-start', gap: 14, marginBottom: 22 }}
     >
-      {center && <motion.div initial={{ scaleX: 0 }} animate={inView ? { scaleX: 1 } : {}} transition={{ duration: 0.5, ease: E }} style={{ width: 32, height: 1, background: '#22C76F', transformOrigin: 'right' }} />}
-      <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.44em', textTransform: 'uppercase', color: '#22C76F' }}>{text}</span>
-      <motion.div initial={{ scaleX: 0 }} animate={inView ? { scaleX: 1 } : {}} transition={{ duration: 0.5, ease: E }} style={{ width: 32, height: 1, background: '#22C76F', transformOrigin: 'left' }} />
+      {center && <motion.div initial={{ scaleX: 0 }} animate={inView ? { scaleX: 1 } : {}} transition={{ duration: 0.5, ease: E }} style={{ width: 32, height: 1, background: '#4ADE80', transformOrigin: 'right' }} />}
+      <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.44em', textTransform: 'uppercase', color: '#4ADE80' }}>{text}</span>
+      <motion.div initial={{ scaleX: 0 }} animate={inView ? { scaleX: 1 } : {}} transition={{ duration: 0.5, ease: E }} style={{ width: 32, height: 1, background: '#4ADE80', transformOrigin: 'left' }} />
     </motion.div>
   );
 }
@@ -498,7 +498,7 @@ function ServiceCard({ iconKey, title, body, accent, index, inView, cols = 3 }: 
 // ─── Web Services ─────────────────────────────────────────────────────────────
 const WEB_SERVICES = [
   { iconKey: 'mobile',    title: 'Hybrid Mobile Application',    accent: '#38bdf8', body: 'Cross-platform apps using React Native, EXPO, and Redux. We also work with Flutter and Dart — one codebase, both iOS and Android.' },
-  { iconKey: 'web',       title: 'Website Development Services', accent: '#22C76F', body: 'Comprehensive website development — from pixel-perfect front ends to fully connected admin panels and content management systems.' },
+  { iconKey: 'web',       title: 'Website Development Services', accent: '#4ADE80', body: 'Comprehensive website development — from pixel-perfect front ends to fully connected admin panels and content management systems.' },
   { iconKey: 'ecommerce', title: 'E-commerce Platform Solutions',accent: '#4ade80', body: 'Intuitive, secure, and scalable e-commerce platforms. Full cart, payment gateway integration, and inventory management built for growth.' },
   { iconKey: 'frontend',  title: 'Front End Development',        accent: '#a78bfa', body: 'Responsive and dynamic interfaces using TypeScript, React.js, Next.js, Vue.js, and TailwindCSS — functional, fast, and beautiful.' },
   { iconKey: 'custom',    title: 'Custom Web App Development',   accent: '#fb923c', body: 'Tailored web applications for your unique workflows. Latest front-end and back-end technology to deliver scalable, efficient solutions.' },
@@ -517,7 +517,7 @@ function WebSection() {
       position: 'relative', overflow: 'hidden',
       borderTop: '1px solid rgba(255,255,255,0.04)',
     }}>
-      <div className="orb-a" style={{ position: 'absolute', top: '-12%', right: '-6%', width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(34,199,111,0.05) 0%, transparent 65%)', filter: 'blur(60px)', pointerEvents: 'none' }} />
+      <div className="orb-a" style={{ position: 'absolute', top: '-12%', right: '-6%', width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(74,222,128,0.05) 0%, transparent 65%)', filter: 'blur(60px)', pointerEvents: 'none' }} />
 
       <div style={{ maxWidth: 1240, margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: 'clamp(32px,4vw,52px)' }}>
@@ -556,7 +556,7 @@ const MOBILE_SERVICES = [
   { iconKey: 'mobile',  title: 'Hybrid Mobile Application',   accent: '#38bdf8', body: 'Cross-platform mobile apps with React Native, EXPO, and Redux. We also work with Flutter and Dart to create high-performance apps for both iOS and Android from a single codebase.' },
   { iconKey: 'ios',     title: 'Native iOS Application',      accent: '#a3e635', body: 'Robust native iOS apps built with Swift. Seamless performance, polished animations, and an intuitive user experience tailored to Apple\'s design standards.' },
   { iconKey: 'android', title: 'Native Android Application',  accent: '#4ade80', body: 'Powerful native Android apps using Java and Kotlin. Smooth user experience and optimal performance tailored to meet your specific business requirements.' },
-  { iconKey: 'api',     title: 'API Integration Solutions',   accent: '#22C76F', body: 'Seamlessly connect systems and services. We design and integrate RESTful and GraphQL APIs for streamlined operations, improved data flow, and scalable functionality.' },
+  { iconKey: 'api',     title: 'API Integration Solutions',   accent: '#4ADE80', body: 'Seamlessly connect systems and services. We design and integrate RESTful and GraphQL APIs for streamlined operations, improved data flow, and scalable functionality.' },
 ];
 
 function MobileSection() {
@@ -609,7 +609,7 @@ function MobileSection() {
 const STACKS = [
   { label: 'Web Front End', items: ['React.js', 'Next.js', 'Vue.js', 'TypeScript', 'TailwindCSS'], accent: '#38bdf8' },
   { label: 'Mobile App',    items: ['React Native CLI', 'Expo', 'Flutter'],                        accent: '#4ade80' },
-  { label: 'Back End',      items: ['Python Django', 'FastAPI', 'Node.js', 'PHP Laravel'],         accent: '#22C76F' },
+  { label: 'Back End',      items: ['Python Django', 'FastAPI', 'Node.js', 'PHP Laravel'],         accent: '#4ADE80' },
   { label: 'API & DB',      items: ['GraphQL', 'REST', 'MongoDB', 'MySQL', 'PostgreSQL'],          accent: '#a78bfa' },
 ];
 
@@ -640,7 +640,7 @@ function TechStackSection() {
       position: 'relative', overflow: 'hidden',
       borderTop: '1px solid rgba(255,255,255,0.04)',
     }}>
-      <div className="orb-a" style={{ position: 'absolute', top: '5%', right: '-6%', width: 550, height: 550, borderRadius: '50%', background: 'radial-gradient(circle, rgba(34,199,111,0.045) 0%, transparent 65%)', filter: 'blur(60px)', pointerEvents: 'none' }} />
+      <div className="orb-a" style={{ position: 'absolute', top: '5%', right: '-6%', width: 550, height: 550, borderRadius: '50%', background: 'radial-gradient(circle, rgba(74,222,128,0.045) 0%, transparent 65%)', filter: 'blur(60px)', pointerEvents: 'none' }} />
 
       <div style={{ maxWidth: 1240, margin: '0 auto' }}>
         {/* Header */}
@@ -830,7 +830,7 @@ function CTASection() {
       overflow: 'hidden',
     }}>
       {/* Orbs */}
-      <div className="orb-a" style={{ position: 'absolute', top: '-12%', left: '-6%', width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(34,199,111,0.08) 0%, transparent 65%)', filter: 'blur(55px)', pointerEvents: 'none', zIndex: 0 }} />
+      <div className="orb-a" style={{ position: 'absolute', top: '-12%', left: '-6%', width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(74,222,128,0.08) 0%, transparent 65%)', filter: 'blur(55px)', pointerEvents: 'none', zIndex: 0 }} />
       <div className="orb-b" style={{ position: 'absolute', bottom: '-18%', right: '-10%', width: 500, height: 500, borderRadius: '50%', background: 'radial-gradient(circle, rgba(167,139,250,0.07) 0%, transparent 65%)', filter: 'blur(55px)', pointerEvents: 'none', zIndex: 0 }} />
 
       {/* Dot grid */}
@@ -864,24 +864,24 @@ function CTASection() {
           style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 14, marginBottom: 40 }}
         >
           <motion.div initial={{ scaleX: 0 }} animate={inView ? { scaleX: 1 } : {}} transition={{ duration: 0.5, delay: 0.08, ease: E }}
-            style={{ width: 40, height: 1, background: '#22C76F', transformOrigin: 'right' }} />
-          <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.44em', textTransform: 'uppercase', color: '#22C76F' }}>Ready to innovate?</span>
+            style={{ width: 40, height: 1, background: '#4ADE80', transformOrigin: 'right' }} />
+          <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.44em', textTransform: 'uppercase', color: '#4ADE80' }}>Ready to innovate?</span>
           <motion.div initial={{ scaleX: 0 }} animate={inView ? { scaleX: 1 } : {}} transition={{ duration: 0.5, delay: 0.08, ease: E }}
-            style={{ width: 40, height: 1, background: '#22C76F', transformOrigin: 'left' }} />
+            style={{ width: 40, height: 1, background: '#4ADE80', transformOrigin: 'left' }} />
         </motion.div>
 
         {/* Title */}
         <h2 style={{ fontSize: isMobile ? 'clamp(38px,9vw,56px)' : 'clamp(48px,7vw,84px)', fontWeight: 900, letterSpacing: '-0.055em', lineHeight: 0.9, margin: '0 0 36px' }}>
           <WordReveal text="Innovate with" inView={inView} delay={0.05} />
           <br />
-          <WordReveal text="UpCodo" inView={inView} delay={0.22} style={{ color: '#22C76F' }} />
+          <WordReveal text="UpCodo" inView={inView} delay={0.22} style={{ color: '#4ADE80' }} />
         </h2>
 
         {/* Gold divider */}
         <motion.div
           initial={{ scaleX: 0 }} animate={inView ? { scaleX: 1 } : {}}
           transition={{ duration: 0.9, delay: 0.42, ease: E }}
-          style={{ height: 1, maxWidth: 420, margin: '0 auto 40px', background: 'linear-gradient(90deg, transparent, rgba(34,199,111,0.5), transparent)', transformOrigin: 'center' }}
+          style={{ height: 1, maxWidth: 420, margin: '0 auto 40px', background: 'linear-gradient(90deg, transparent, rgba(74,222,128,0.5), transparent)', transformOrigin: 'center' }}
         />
 
         <motion.p
