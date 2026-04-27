@@ -189,7 +189,7 @@ export default function CustomerReviewsSection() {
               <motion.span
                 style={{
                   display: 'block',
-                  color: stroke ? 'transparent' : c.text,
+                  color: stroke ? 'transparent' : (c.isDark ? c.text : c.accent),
                   ...(stroke ? { WebkitTextStroke: `1px ${c.isDark ? 'rgba(255,255,255,0.22)' : 'rgba(0,0,0,0.18)'}` } : {}),
                 }}
                 initial={{ y: '108%' }}

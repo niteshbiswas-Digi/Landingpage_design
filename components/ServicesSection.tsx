@@ -509,7 +509,7 @@ export default function ServicesSection() {
               margin: '0 0 20px',
             }}
           >
-            <span style={{ color: c.text }}>Strategic{' '}</span>
+            <span style={{ color: c.isDark ? c.text : c.accent }}>Strategic{' '}</span>
             <span style={{ color: c.accent }}>
               App Development
             </span>

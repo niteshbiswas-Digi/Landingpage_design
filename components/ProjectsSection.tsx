@@ -394,7 +394,7 @@ function HeaderWord({ text, inView, delay = 0, dim }: { text: string; inView: bo
   return (
     <span style={{ display: 'inline-block', overflow: 'hidden', verticalAlign: 'bottom' }}>
       <motion.span
-        style={{ display: 'inline-block', color: dim ? c.textMuted : c.text }}
+        style={{ display: 'inline-block', color: dim ? c.textMuted : (c.isDark ? c.text : c.accent) }}
         initial={{ y: '110%', opacity: 0 }}
         animate={inView ? { y: 0, opacity: 1 } : {}}
         transition={{ duration: 0.75, delay, ease: [0.16, 1, 0.3, 1] }}

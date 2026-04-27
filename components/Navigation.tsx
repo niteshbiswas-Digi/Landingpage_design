@@ -1,376 +1,496 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useTheme } from '../context/ThemeContext';
-import ThemeToggle from './ThemeToggle';
+import Image from "next/image"
+import { motion, AnimatePresence } from "framer-motion"
+import { useTheme } from "../context/ThemeContext"
+import ThemeToggle from "./ThemeToggle"
 
-export type ActivePage = 'services' | 'solutions' | 'industries' | 'partners' | 'success-stories' | 'corporate-info';
+export type ActivePage =
+  | "services"
+  | "solutions"
+  | "industries"
+  | "partners"
+  | "success-stories"
+  | "corporate-info"
 
-interface MegaItem { label: string; href: string }
-interface MegaColumn { title: string; items: MegaItem[] }
-interface NavLink { label: string; href: string; mega?: MegaColumn[] }
+interface MegaItem {
+  label: string
+  href: string
+}
+interface MegaColumn {
+  title: string
+  items: MegaItem[]
+}
+interface NavLink {
+  label: string
+  href: string
+  mega?: MegaColumn[]
+}
 
-const E = [0.16, 1, 0.3, 1] as const;
+const E = [0.16, 1, 0.3, 1] as const
 
 const NAV_LINKS: NavLink[] = [
   {
-    label: 'Services', href: '/services',
+    label: "Services",
+    href: "/services",
     mega: [
       {
-        title: 'Mobile Development', items: [
-          { label: 'iOS App Development', href: '/services' },
-          { label: 'Android Development', href: '/services' },
-          { label: 'Flutter Apps', href: '/services' },
-          { label: 'React Native', href: '/services' },
+        title: "Mobile Development",
+        items: [
+          { label: "iOS App Development", href: "/services" },
+          { label: "Android Development", href: "/services" },
+          { label: "Flutter Apps", href: "/services" },
+          { label: "React Native", href: "/services" },
         ],
       },
       {
-        title: 'Web Development', items: [
-          { label: 'Next.js Applications', href: '/services' },
-          { label: 'React Development', href: '/services' },
-          { label: 'SaaS Platforms', href: '/services' },
-          { label: 'E-commerce', href: '/services' },
+        title: "Web Development",
+        items: [
+          { label: "Next.js Applications", href: "/services" },
+          { label: "React Development", href: "/services" },
+          { label: "SaaS Platforms", href: "/services" },
+          { label: "E-commerce", href: "/services" },
         ],
       },
       {
-        title: 'UI/UX Design', items: [
-          { label: 'Product Design', href: '/services' },
-          { label: 'Brand Identity', href: '/services' },
-          { label: 'Motion Design', href: '/services' },
-          { label: 'Prototyping', href: '/services' },
+        title: "UI/UX Design",
+        items: [
+          { label: "Product Design", href: "/services" },
+          { label: "Brand Identity", href: "/services" },
+          { label: "Motion Design", href: "/services" },
+          { label: "Prototyping", href: "/services" },
         ],
       },
       {
-        title: 'Consulting', items: [
-          { label: 'Digital Strategy', href: '/services' },
-          { label: 'Tech Advisory', href: '/services' },
-          { label: 'Product Management', href: '/services' },
-          { label: 'Code Audit', href: '/services' },
+        title: "Consulting",
+        items: [
+          { label: "Digital Strategy", href: "/services" },
+          { label: "Tech Advisory", href: "/services" },
+          { label: "Product Management", href: "/services" },
+          { label: "Code Audit", href: "/services" },
         ],
       },
     ],
   },
   {
-    label: 'Solutions', href: '#solutions',
+    label: "Solutions",
+    href: "#solutions",
     mega: [
       {
-        title: 'Microsoft', items: [
-          { label: 'Dynamics 365 Business Central', href: '#solutions' },
-          { label: 'Dynamics F&O', href: '#solutions' },
-          { label: 'Dynamics CRM', href: '#solutions' },
-          { label: 'SharePoint', href: '#solutions' },
-          { label: 'Power Automate', href: '#solutions' },
-          { label: 'Power Apps', href: '#solutions' },
-          { label: 'Power BI', href: '#solutions' },
+        title: "Microsoft",
+        items: [
+          { label: "Dynamics 365 Business Central", href: "#solutions" },
+          { label: "Dynamics F&O", href: "#solutions" },
+          { label: "Dynamics CRM", href: "#solutions" },
+          { label: "SharePoint", href: "#solutions" },
+          { label: "Power Automate", href: "#solutions" },
+          { label: "Power Apps", href: "#solutions" },
+          { label: "Power BI", href: "#solutions" },
         ],
       },
       {
-        title: 'Salesforce', items: [
-          { label: 'Sales Cloud', href: '#solutions' },
-          { label: 'Service Cloud', href: '#solutions' },
-          { label: 'Marketing Cloud', href: '#solutions' },
-          { label: 'Commerce Cloud', href: '#solutions' },
-          { label: 'Salesforce CPQ', href: '#solutions' },
+        title: "Salesforce",
+        items: [
+          { label: "Sales Cloud", href: "#solutions" },
+          { label: "Service Cloud", href: "#solutions" },
+          { label: "Marketing Cloud", href: "#solutions" },
+          { label: "Commerce Cloud", href: "#solutions" },
+          { label: "Salesforce CPQ", href: "#solutions" },
         ],
       },
       {
-        title: 'SAP', items: [
-          { label: 'SAP S/4HANA', href: '#solutions' },
-          { label: 'SAP ERP', href: '#solutions' },
-          { label: 'SAP CRM', href: '#solutions' },
-          { label: 'SAP Analytics Cloud', href: '#solutions' },
-          { label: 'SAP SuccessFactors', href: '#solutions' },
+        title: "SAP",
+        items: [
+          { label: "SAP S/4HANA", href: "#solutions" },
+          { label: "SAP ERP", href: "#solutions" },
+          { label: "SAP CRM", href: "#solutions" },
+          { label: "SAP Analytics Cloud", href: "#solutions" },
+          { label: "SAP SuccessFactors", href: "#solutions" },
         ],
       },
       {
-        title: 'Other Platforms', items: [
-          { label: 'Odoo ERP', href: '#solutions' },
-          { label: 'NetSuite ERP', href: '#solutions' },
-          { label: 'ServiceNow', href: '#solutions' },
-          { label: 'Zoho CRM', href: '#solutions' },
-          { label: 'HubSpot', href: '#solutions' },
+        title: "Other Platforms",
+        items: [
+          { label: "Odoo ERP", href: "#solutions" },
+          { label: "NetSuite ERP", href: "#solutions" },
+          { label: "ServiceNow", href: "#solutions" },
+          { label: "Zoho CRM", href: "#solutions" },
+          { label: "HubSpot", href: "#solutions" },
         ],
       },
     ],
   },
   {
-    label: 'Industries', href: '#industries',
+    label: "Industries",
+    href: "#industries",
     mega: [
       {
-        title: 'Industries', items: [
-          { label: 'Banking & Financial Services', href: '#industries' },
-          { label: 'Industrial & Manufacturing', href: '#industries' },
-          { label: 'Education & eLearning', href: '#industries' },
-          { label: 'Energy', href: '#industries' },
+        title: "Industries",
+        items: [
+          { label: "Banking & Financial Services", href: "#industries" },
+          { label: "Industrial & Manufacturing", href: "#industries" },
+          { label: "Education & eLearning", href: "#industries" },
+          { label: "Energy", href: "#industries" },
         ],
       },
       {
-        title: 'More Industries', items: [
-          { label: 'Software & Hi-Tech', href: '#industries' },
-          { label: 'Healthcare & Life Science', href: '#industries' },
-          { label: 'Travel & Hospitality', href: '#industries' },
-          { label: 'Retail & Commerce', href: '#industries' },
+        title: "More Industries",
+        items: [
+          { label: "Software & Hi-Tech", href: "#industries" },
+          { label: "Healthcare & Life Science", href: "#industries" },
+          { label: "Travel & Hospitality", href: "#industries" },
+          { label: "Retail & Commerce", href: "#industries" },
         ],
       },
     ],
   },
   {
-    label: 'Partners', href: '#partners',
+    label: "Partners",
+    href: "#partners",
     mega: [
       {
-        title: 'Our Partners', items: [
-          { label: 'Microsoft', href: '#partners' },
-          { label: 'Salesforce', href: '#partners' },
-          { label: 'AWS Partner', href: '#partners' },
-          { label: 'Automation Anywhere', href: '#partners' },
+        title: "Our Partners",
+        items: [
+          { label: "Microsoft", href: "#partners" },
+          { label: "Salesforce", href: "#partners" },
+          { label: "AWS Partner", href: "#partners" },
+          { label: "Automation Anywhere", href: "#partners" },
         ],
       },
       {
-        title: 'More Partners', items: [
-          { label: 'Hyperledger', href: '#partners' },
-          { label: 'Hedera', href: '#partners' },
-          { label: 'ADOBE', href: '#partners' },
-          { label: 'Google Premier Partner', href: '#partners' },
+        title: "More Partners",
+        items: [
+          { label: "Hyperledger", href: "#partners" },
+          { label: "Hedera", href: "#partners" },
+          { label: "ADOBE", href: "#partners" },
+          { label: "Google Premier Partner", href: "#partners" },
         ],
       },
     ],
   },
   {
-    label: 'Success Stories', href: '#success-stories',
+    label: "Success Stories",
+    href: "#success-stories",
     mega: [
       {
-        title: 'Our Work', items: [
-          { label: 'Case Studies', href: '#success-stories' },
-          { label: 'Clients', href: '#success-stories' },
-          { label: 'Client Speaks', href: '#success-stories' },
+        title: "Our Work",
+        items: [
+          { label: "Case Studies", href: "#success-stories" },
+          { label: "Clients", href: "#success-stories" },
+          { label: "Client Speaks", href: "#success-stories" },
         ],
       },
       {
-        title: 'Recognition', items: [
-          { label: 'Awards', href: '#success-stories' },
-          { label: 'Testimonials', href: '#success-stories' },
-          { label: 'Press Coverage', href: '#success-stories' },
-          { label: 'Industry Recognition', href: '#success-stories' },
+        title: "Recognition",
+        items: [
+          { label: "Awards", href: "#success-stories" },
+          { label: "Testimonials", href: "#success-stories" },
+          { label: "Press Coverage", href: "#success-stories" },
+          { label: "Industry Recognition", href: "#success-stories" },
         ],
       },
     ],
   },
   {
-    label: 'Corporate Info', href: '#corporate-info',
+    label: "Corporate Info",
+    href: "#corporate-info",
     mega: [
       {
-        title: 'Corporate Info', items: [
-          { label: 'Company', href: '#corporate-info' },
-          { label: 'Awards & Accreditations', href: '#corporate-info' },
-          { label: 'Methods & Practices', href: '#corporate-info' },
-          { label: 'Security & IP Protection', href: '#corporate-info' },
-          { label: 'Blog', href: '#corporate-info' },
-          { label: 'Careers', href: '#corporate-info' },
+        title: "Corporate Info",
+        items: [
+          { label: "Company", href: "#corporate-info" },
+          { label: "Awards & Accreditations", href: "#corporate-info" },
+          { label: "Methods & Practices", href: "#corporate-info" },
+          { label: "Security & IP Protection", href: "#corporate-info" },
+          { label: "Blog", href: "#corporate-info" },
+          { label: "Careers", href: "#corporate-info" },
         ],
       },
       {
-        title: 'More Info', items: [
-          { label: 'Leadership', href: '#corporate-info' },
-          { label: 'News & Insights', href: '#corporate-info' },
-          { label: 'Privacy Policy', href: '#corporate-info' },
-          { label: 'CSR Initiatives', href: '#corporate-info' },
-          { label: 'Global Locations', href: '#corporate-info' },
+        title: "More Info",
+        items: [
+          { label: "Leadership", href: "#corporate-info" },
+          { label: "News & Insights", href: "#corporate-info" },
+          { label: "Privacy Policy", href: "#corporate-info" },
+          { label: "CSR Initiatives", href: "#corporate-info" },
+          { label: "Global Locations", href: "#corporate-info" },
         ],
       },
     ],
   },
-];
+]
 
 const PAGE_LABEL: Record<ActivePage, string> = {
-  services: 'Services',
-  solutions: 'Solutions',
-  industries: 'Industries',
-  partners: 'Partners',
-  'success-stories': 'Success Stories',
-  'corporate-info': 'Corporate Info',
-};
+  services: "Services",
+  solutions: "Solutions",
+  industries: "Industries",
+  partners: "Partners",
+  "success-stories": "Success Stories",
+  "corporate-info": "Corporate Info",
+}
 
-export default function Navigation({ activePage }: { activePage?: ActivePage }) {
-  const { c } = useTheme();
-  const [scrolled, setScrolled] = useState(false);
-  const [activeMenu, setActiveMenu] = useState<string | null>(null);
-  const [hoveredLink, setHoveredLink] = useState<string | null>(null);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
-  const [isMobile, setIsMobile] = useState(false);
-  const menuTimeout = useRef<number | null>(null);
-
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 900);
-    check();
-    window.addEventListener('resize', check);
-    return () => window.removeEventListener('resize', check);
-  }, []);
+export default function Navigation({
+  activePage,
+}: {
+  activePage?: ActivePage
+}) {
+  const { c } = useTheme()
+  const [scrolled, setScrolled] = useState(false)
+  const [activeMenu, setActiveMenu] = useState<string | null>(null)
+  const [hoveredLink, setHoveredLink] = useState<string | null>(null)
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const [mobileExpanded, setMobileExpanded] = useState<string | null>(null)
+  const [isMobile, setIsMobile] = useState(false)
+  const menuTimeout = useRef<number | null>(null)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+    const check = () => setIsMobile(window.innerWidth < 900)
+    check()
+    window.addEventListener("resize", check)
+    return () => window.removeEventListener("resize", check)
+  }, [])
 
   useEffect(() => {
-    document.body.style.overflow = mobileOpen ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
-  }, [mobileOpen]);
+    const onScroll = () => setScrolled(window.scrollY > 50)
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => window.removeEventListener("scroll", onScroll)
+  }, [])
+
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : ""
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [mobileOpen])
 
   const openMenu = useCallback((label: string) => {
-    if (menuTimeout.current !== null) clearTimeout(menuTimeout.current);
-    setActiveMenu(label);
-  }, []);
+    if (menuTimeout.current !== null) clearTimeout(menuTimeout.current)
+    setActiveMenu(label)
+  }, [])
+
+  const clearMenuTimeout = useCallback(() => {
+    if (menuTimeout.current !== null) clearTimeout(menuTimeout.current)
+  }, [])
 
   const closeMenu = useCallback(() => {
-    menuTimeout.current = window.setTimeout(() => setActiveMenu(null), 150);
-  }, []);
+    menuTimeout.current = window.setTimeout(() => setActiveMenu(null), 150)
+  }, [])
 
-  const currentLabel = activePage ? PAGE_LABEL[activePage] : '';
+  const currentLabel = activePage ? PAGE_LABEL[activePage] : ""
 
   return (
     <>
-      {/* ─────────────── NAV BAR ─────────────── */}
+      {/* ─────────────── NAV BAR ─────────────── */};
       <motion.nav
         initial={{ y: -40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: E }}
         onMouseLeave={closeMenu}
         style={{
-          position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000,
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          padding: isMobile ? '14px 20px' : '20px 48px',
-          background: (scrolled || !c.isDark) ? c.navBgScrolled : 'transparent',
-          backdropFilter: (scrolled || !c.isDark) ? 'blur(24px)' : 'none',
-          WebkitBackdropFilter: (scrolled || !c.isDark) ? 'blur(24px)' : 'none',
-          borderBottom: (scrolled || !c.isDark)
-            ? `1px solid ${c.border}`
-            : '1px solid transparent',
-          boxShadow: !c.isDark ? '0 1px 20px rgba(0,0,0,0.06)' : 'none',
-          transition: 'padding 0.45s ease, background 0.45s ease, border-color 0.45s ease, box-shadow 0.45s ease',
-          willChange: 'transform',
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 1000,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: isMobile ? "14px 20px" : "20px 48px",
+          background: scrolled || !c.isDark ? c.navBgScrolled : "transparent",
+          backdropFilter: scrolled || !c.isDark ? "blur(24px)" : "none",
+          WebkitBackdropFilter: scrolled || !c.isDark ? "blur(24px)" : "none",
+          borderBottom:
+            scrolled || !c.isDark
+              ? `1px solid ${c.border}`
+              : "1px solid transparent",
+          boxShadow: !c.isDark ? "0 1px 20px rgba(0,0,0,0.06)" : "none",
+          transition:
+            "padding 0.45s ease, background 0.45s ease, border-color 0.45s ease, box-shadow 0.45s ease",
+          willChange: "transform",
         }}
       >
         {/* ─ Logo ─ */}
         <motion.a
           href="/"
-          style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', flexShrink: 0 }}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            textDecoration: "none",
+            flexShrink: 0,
+          }}
           whileHover={{ scale: 1.03 }}
-          transition={{ type: 'spring', stiffness: 300, damping: 22 }}
+          transition={{ type: "spring", stiffness: 300, damping: 22 }}
         >
-          <img
-            src="/Upcodo_logo.webp"
+          <Image
+            src="/upcodo_logo.svg"
             alt="UpCodo Digital"
+            width={44}
+            height={44}
             style={{
-              height: 44,
-              width: 'auto',
-              filter: c.isDark ? 'brightness(0) invert(1)' : 'brightness(0)',
+              height: "44px",
+              width: "auto",
+              filter: c.isDark ? "brightness(0) invert(1)" : "brightness(0)",
               opacity: 0.92,
-              transition: 'height 0.45s ease, filter 0.35s ease',
+              transition: "height 0.45s ease, filter 0.35s ease",
             }}
           />
         </motion.a>
 
         {/* ─ Desktop Nav Links ─ */}
         {!isMobile && (
-          <div style={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+          <div style={{ display: "flex", gap: 2, alignItems: "center" }}>
             {NAV_LINKS.map((link, i) => {
-              const isActive = link.label === currentLabel;
-              const isHovered = hoveredLink === link.label;
+              const isActive = link.label === currentLabel
+              const isHovered = hoveredLink === link.label
               return (
                 <div
                   key={link.label}
-                  style={{ position: 'relative' }}
+                  style={{ position: "relative" }}
                   onMouseEnter={() => {
-                    setHoveredLink(link.label);
-                    if (link.mega) openMenu(link.label);
-                    else setActiveMenu(null);
+                    setHoveredLink(link.label)
+                    if (link.mega) openMenu(link.label)
+                    else setActiveMenu(null)
                   }}
                   onMouseLeave={() => {
-                    setHoveredLink(null);
-                    if (link.mega) closeMenu();
+                    setHoveredLink(null)
+                    if (link.mega) closeMenu()
                   }}
                 >
                   <motion.a
                     href={link.href}
                     initial={{ opacity: 0, y: -8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.2 + i * 0.07, ease: E }}
+                    transition={{
+                      duration: 0.5,
+                      delay: 0.2 + i * 0.07,
+                      ease: E,
+                    }}
                     style={{
-                      display: 'flex', alignItems: 'center', gap: 4,
-                      padding: '8px 14px',
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 4,
+                      padding: "8px 14px",
                       fontSize: 13,
                       fontWeight: isActive ? 700 : 600,
-                      color: (c.isDark && !scrolled)
-                        ? (isActive ? '#4ADE80' : isHovered ? '#ffffff' : 'rgba(255,255,255,0.72)')
-                        : (isActive ? c.navTextActive : isHovered ? c.navTextHover : c.navText),
-                      textDecoration: 'none',
-                      letterSpacing: isHovered ? '0.03em' : '0.01em',
-                      position: 'relative',
-                      transition: 'color 0.2s ease, letter-spacing 0.2s ease',
+                      color:
+                        c.isDark && !scrolled
+                          ? isActive
+                            ? "#4ADE80"
+                            : isHovered
+                            ? "#ffffff"
+                            : "rgba(255,255,255,0.72)"
+                          : isActive
+                          ? c.navTextActive
+                          : isHovered
+                          ? c.navTextHover
+                          : c.navText,
+                      textDecoration: "none",
+                      letterSpacing: isHovered ? "0.03em" : "0.01em",
+                      position: "relative",
+                      transition: "color 0.2s ease, letter-spacing 0.2s ease",
                     }}
                   >
                     {link.label}
                     {link.mega && (
                       <svg
-                        width="9" height="9" viewBox="0 0 9 9" fill="none"
+                        width="9"
+                        height="9"
+                        viewBox="0 0 9 9"
+                        fill="none"
                         style={{
                           opacity: 0.5,
-                          transition: 'transform 0.22s ease',
-                          transform: activeMenu === link.label ? 'rotate(180deg)' : 'none',
+                          transition: "transform 0.22s ease",
+                          transform:
+                            activeMenu === link.label
+                              ? "rotate(180deg)"
+                              : "none",
                         }}
                       >
-                        <path d="M1.5 3L4.5 6L7.5 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        <path
+                          d="M1.5 3L4.5 6L7.5 3"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
                       </svg>
                     )}
                     {/* Active indicator */}
                     {isActive && (
-                      <span style={{
-                        position: 'absolute', bottom: 2, left: 14, right: 14,
-                        height: 1.5, background: c.navTextActive, borderRadius: 99,
-                        display: 'block',
-                      }} />
+                      <span
+                        style={{
+                          position: "absolute",
+                          bottom: 2,
+                          left: 14,
+                          right: 14,
+                          height: 1.5,
+                          background: c.navTextActive,
+                          borderRadius: 99,
+                          display: "block",
+                        }}
+                      />
                     )}
                     {/* Hover underline */}
                     {!isActive && (
                       <motion.span
-                        animate={{ scaleX: isHovered ? 1 : 0, opacity: isHovered ? 0.7 : 0 }}
-                        transition={{ duration: 0.22, ease: 'easeOut' }}
+                        animate={{
+                          scaleX: isHovered ? 1 : 0,
+                          opacity: isHovered ? 0.7 : 0,
+                        }}
+                        transition={{ duration: 0.22, ease: "easeOut" }}
                         style={{
-                          position: 'absolute', bottom: 2, left: 14, right: 14,
-                          height: 1, background: c.accent, borderRadius: 99,
-                          transformOrigin: 'left', display: 'block',
+                          position: "absolute",
+                          bottom: 2,
+                          left: 14,
+                          right: 14,
+                          height: 1,
+                          background: c.accent,
+                          borderRadius: 99,
+                          transformOrigin: "left",
+                          display: "block",
                         }}
                       />
                     )}
                   </motion.a>
                 </div>
-              );
+              )
             })}
           </div>
         )}
 
         {/* ─ CTA + Toggle ─ */}
         {!isMobile && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 10,
+              flexShrink: 0,
+            }}
+          >
             <ThemeToggle />
             <motion.a
               href="#contact"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.55, ease: E }}
-              whileHover={{ scale: 1.05, y: -2, boxShadow: '0 0 28px rgba(74,222,128,0.35)' }}
+              whileHover={{
+                scale: 1.05,
+                y: -2,
+                boxShadow: "0 0 28px rgba(74,222,128,0.35)",
+              }}
               style={{
-                padding: '9px 22px',
+                padding: "9px 22px",
                 background: c.accent,
-                color: '#ffffff',
-                fontSize: 12, fontWeight: 700,
-                letterSpacing: '0.05em', textTransform: 'uppercase',
-                textDecoration: 'none',
+                color: "#0a0a0a",
+                fontSize: 12,
+                fontWeight: 700,
+                letterSpacing: "0.05em",
+                textTransform: "uppercase",
+                textDecoration: "none",
                 borderRadius: 99,
-                willChange: 'transform',
+                willChange: "transform",
               }}
             >
               Contact Us
@@ -380,17 +500,22 @@ export default function Navigation({ activePage }: { activePage?: ActivePage }) 
 
         {/* ─ Mobile: Toggle + Hamburger ─ */}
         {isMobile && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <ThemeToggle />
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
               style={{
-                background: 'none', border: 'none', cursor: 'pointer',
-                padding: 8, display: 'flex', flexDirection: 'column', gap: 5,
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                padding: 8,
+                display: "flex",
+                flexDirection: "column",
+                gap: 5,
               }}
               aria-label="Toggle menu"
             >
-              {[0, 1, 2].map(j => (
+              {[0, 1, 2].map((j) => (
                 <motion.span
                   key={j}
                   animate={{
@@ -400,9 +525,12 @@ export default function Navigation({ activePage }: { activePage?: ActivePage }) 
                   }}
                   transition={{ duration: 0.28, ease: E }}
                   style={{
-                    display: 'block', width: 22, height: 1.5,
-                    background: c.text, borderRadius: 99,
-                    transformOrigin: 'center',
+                    display: "block",
+                    width: 22,
+                    height: 1.5,
+                    background: c.text,
+                    borderRadius: 99,
+                    transformOrigin: "center",
                   }}
                 />
               ))}
@@ -412,76 +540,95 @@ export default function Navigation({ activePage }: { activePage?: ActivePage }) 
 
         {/* ─────────────── MEGA MENU ─────────────── */}
         <AnimatePresence>
-          {!isMobile && activeMenu && (() => {
-            const menuData = NAV_LINKS.find(l => l.label === activeMenu)?.mega;
-            if (!menuData) return null;
-            return (
-              <motion.div
-                key="mega"
-                onMouseEnter={() => openMenu(activeMenu)}
-                onMouseLeave={closeMenu}
-                initial={{ opacity: 0, y: -16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.32, ease: E }}
-                style={{
-                  position: 'absolute', top: '100%', left: 0, right: 0,
-                  background: c.megaBg,
-                  backdropFilter: 'blur(28px)',
-                  WebkitBackdropFilter: 'blur(28px)',
-                  borderBottom: `1px solid ${c.border}`,
-                  boxShadow: c.isDark ? 'none' : '0 16px 60px rgba(0,0,0,0.08)',
-                  borderRadius: '0 0 20px 20px',
-                  padding: '44px 48px 52px',
-                  display: 'grid',
-                  gridTemplateColumns: `repeat(${menuData.length}, 1fr)`,
-                  overflow: 'hidden',
-                  willChange: 'transform',
-                }}
-              >
-                {/* Radial accent glow */}
-                <div style={{
-                  position: 'absolute', top: 0, left: '50%',
-                  transform: 'translateX(-50%)',
-                  width: 700, height: 220,
-                  background: `radial-gradient(ellipse at top, rgba(74,222,128,${c.isDark ? '0.07' : '0.04'}) 0%, transparent 70%)`,
-                  pointerEvents: 'none',
-                }} />
-
-                {menuData.map((col, ci) => (
-                  <motion.div
-                    key={col.title}
-                    initial={{ opacity: 0, y: 18 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: ci * 0.06, ease: E }}
+          {!isMobile &&
+            activeMenu &&
+            (() => {
+              const menuData = NAV_LINKS.find(
+                (l) => l.label === activeMenu
+              )?.mega
+              if (!menuData) return null
+              return (
+                <motion.div
+                  key="mega"
+                  onMouseEnter={clearMenuTimeout}
+                  onMouseLeave={closeMenu}
+                  initial={{ opacity: 0, y: -16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.32, ease: E }}
+                  style={{
+                    position: "absolute",
+                    top: "100%",
+                    left: 0,
+                    right: 0,
+                    background: c.megaBg,
+                    backdropFilter: "blur(28px)",
+                    WebkitBackdropFilter: "blur(28px)",
+                    borderBottom: `1px solid ${c.border}`,
+                    boxShadow: c.isDark
+                      ? "none"
+                      : "0 16px 60px rgba(0,0,0,0.08)",
+                    borderRadius: "0 0 20px 20px",
+                    padding: "44px 48px 52px",
+                    display: "grid",
+                    gridTemplateColumns: `repeat(${menuData.length}, 1fr)`,
+                    overflow: "hidden",
+                    willChange: "transform",
+                  }}
+                >
+                  {/* Radial accent glow */}
+                  <div
                     style={{
-                      padding: '0 28px',
-                      borderLeft: ci > 0 ? `1px solid ${c.border}` : 'none',
+                      position: "absolute",
+                      top: 0,
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                      width: 700,
+                      height: 220,
+                      background: `radial-gradient(ellipse at top, rgba(74,222,128,${
+                        c.isDark ? "0.07" : "0.04"
+                      }) 0%, transparent 70%)`,
+                      pointerEvents: "none",
                     }}
-                  >
-                    <div style={{
-                      fontSize: 10, fontWeight: 700,
-                      color: c.accent,
-                      letterSpacing: '0.14em', textTransform: 'uppercase',
-                      marginBottom: 20,
-                    }}>
-                      {col.title}
-                    </div>
-                    {col.items.map((item, ii) => (
-                      <MegaMenuItem
-                        key={item.label}
-                        item={item}
-                        delay={ci * 0.06 + ii * 0.04}
-                      />
-                    ))}
-                  </motion.div>
-                ))}
-              </motion.div>
-            );
-          })()}
+                  />
+
+                  {menuData.map((col, ci) => (
+                    <motion.div
+                      key={col.title}
+                      initial={{ opacity: 0, y: 18 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, delay: ci * 0.06, ease: E }}
+                      style={{
+                        padding: "0 28px",
+                        borderLeft: ci > 0 ? `1px solid ${c.border}` : "none",
+                      }}
+                    >
+                      <div
+                        style={{
+                          fontSize: 10,
+                          fontWeight: 700,
+                          color: c.accent,
+                          letterSpacing: "0.14em",
+                          textTransform: "uppercase",
+                          marginBottom: 20,
+                        }}
+                      >
+                        {col.title}
+                      </div>
+                      {col.items.map((item, ii) => (
+                        <MegaMenuItem
+                          key={item.label}
+                          item={item}
+                          delay={ci * 0.06 + ii * 0.04}
+                        />
+                      ))}
+                    </motion.div>
+                  ))}
+                </motion.div>
+              )
+            })()}
         </AnimatePresence>
       </motion.nav>
-
       {/* ─────────────── MOBILE FULLSCREEN MENU ─────────────── */}
       <AnimatePresence>
         {isMobile && mobileOpen && (
@@ -492,36 +639,51 @@ export default function Navigation({ activePage }: { activePage?: ActivePage }) 
             exit={{ opacity: 0, y: -16 }}
             transition={{ duration: 0.35, ease: E }}
             style={{
-              position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+              position: "fixed",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
               zIndex: 999,
               background: c.overlay,
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
-              display: 'flex', flexDirection: 'column',
-              paddingTop: 76, overflowY: 'auto',
+              backdropFilter: "blur(20px)",
+              WebkitBackdropFilter: "blur(20px)",
+              display: "flex",
+              flexDirection: "column",
+              paddingTop: 76,
+              overflowY: "auto",
             }}
           >
             {NAV_LINKS.map((link, i) => {
-              const isActive = link.label === currentLabel;
-              const isExpanded = mobileExpanded === link.label;
+              const isActive = link.label === currentLabel
+              const isExpanded = mobileExpanded === link.label
               return (
                 <div key={link.label}>
                   <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.4, delay: i * 0.06, ease: E }}
-                    onClick={() => link.mega
-                      ? setMobileExpanded(isExpanded ? null : link.label)
-                      : (window.location.href = link.href)
+                    onClick={() =>
+                      link.mega
+                        ? setMobileExpanded(isExpanded ? null : link.label)
+                        : (window.location.href = link.href)
                     }
                     style={{
-                      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                      padding: '16px 28px',
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      padding: "16px 28px",
                       borderBottom: `1px solid ${c.border}`,
-                      cursor: 'pointer',
+                      cursor: "pointer",
                     }}
                   >
-                    <span style={{ fontSize: 18, fontWeight: 700, color: isActive ? c.navTextActive : c.text }}>
+                    <span
+                      style={{
+                        fontSize: 18,
+                        fontWeight: 700,
+                        color: isActive ? c.navTextActive : c.text,
+                      }}
+                    >
                       {link.label}
                     </span>
                     {link.mega && (
@@ -539,26 +701,43 @@ export default function Navigation({ activePage }: { activePage?: ActivePage }) 
                     {link.mega && isExpanded && (
                       <motion.div
                         initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
+                        animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.28, ease: E }}
-                        style={{ overflow: 'hidden', background: `rgba(74,222,128,${c.isDark ? '0.025' : '0.04'})` }}
+                        style={{
+                          overflow: "hidden",
+                          background: `rgba(74,222,128,${
+                            c.isDark ? "0.025" : "0.04"
+                          })`,
+                        }}
                       >
-                        {link.mega.map(col => (
-                          <div key={col.title} style={{ padding: '12px 28px 10px' }}>
-                            <div style={{
-                              fontSize: 10, fontWeight: 700, color: c.accent,
-                              letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: 8,
-                            }}>
+                        {link.mega.map((col) => (
+                          <div
+                            key={col.title}
+                            style={{ padding: "12px 28px 10px" }}
+                          >
+                            <div
+                              style={{
+                                fontSize: 10,
+                                fontWeight: 700,
+                                color: c.accent,
+                                letterSpacing: "0.14em",
+                                textTransform: "uppercase",
+                                marginBottom: 8,
+                              }}
+                            >
                               {col.title}
                             </div>
-                            {col.items.map(item => (
+                            {col.items.map((item) => (
                               <a
                                 key={item.label}
                                 href={item.href}
                                 style={{
-                                  display: 'block', padding: '6px 0',
-                                  fontSize: 14, color: c.textMuted, textDecoration: 'none',
+                                  display: "block",
+                                  padding: "6px 0",
+                                  fontSize: 14,
+                                  color: c.textMuted,
+                                  textDecoration: "none",
                                 }}
                               >
                                 {item.label}
@@ -570,21 +749,30 @@ export default function Navigation({ activePage }: { activePage?: ActivePage }) 
                     )}
                   </AnimatePresence>
                 </div>
-              );
+              )
             })}
 
             <motion.a
               href="#contact"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: NAV_LINKS.length * 0.06, ease: E }}
+              transition={{
+                duration: 0.4,
+                delay: NAV_LINKS.length * 0.06,
+                ease: E,
+              }}
               style={{
-                margin: '28px 28px 40px',
-                padding: '14px 20px',
-                background: c.accent, color: '#ffffff',
-                textAlign: 'center', textDecoration: 'none',
-                borderRadius: 12, fontSize: 14, fontWeight: 700,
-                letterSpacing: '0.05em', textTransform: 'uppercase',
+                margin: "28px 28px 40px",
+                padding: "14px 20px",
+                background: c.accent,
+                color: "#0a0a0a",
+                textAlign: "center",
+                textDecoration: "none",
+                borderRadius: 12,
+                fontSize: 14,
+                fontWeight: 700,
+                letterSpacing: "0.05em",
+                textTransform: "uppercase",
               }}
             >
               Contact Us
@@ -593,7 +781,7 @@ export default function Navigation({ activePage }: { activePage?: ActivePage }) 
         )}
       </AnimatePresence>
     </>
-  );
+  )
 }
 
 // ─── Mega Menu Item ──────────────────────────────────────────────────────────

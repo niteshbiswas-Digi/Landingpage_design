@@ -66,28 +66,37 @@ const Ctx = createContext<ThemeCtx>({ theme: 'dark', toggle: () => {}, c: COLORS
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>('dark');
+  const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
-    const saved = localStorage.getItem('uc-theme') as Theme | null;
-    const preferred = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-    const initial = saved ?? preferred;
-    apply(initial);
-    setTheme(initial);
-  }, []);
+    const saved = localStorage.getItem("uc-theme") as Theme | null
+    const preferred = window.matchMedia("(prefers-color-scheme: light)").matches
+      ? "light"
+      : "dark"
+    const initial = saved ?? preferred
+    apply(initial)
+    setTheme(initial)
+    setIsMounted(true)
+  }, [])
 
   function apply(t: Theme) {
-    document.documentElement.setAttribute('data-theme', t);
-    document.body.style.background = COLORS[t].bg;
-    document.body.style.color = COLORS[t].text;
-    document.documentElement.style.colorScheme = t;
+    document.documentElement.setAttribute("data-theme", t)
+    document.body.style.background = COLORS[t].bg
+    document.body.style.color = COLORS[t].text
+    document.documentElement.style.colorScheme = t
   }
 
   const toggle = () => {
-    const next: Theme = theme === 'dark' ? 'light' : 'dark';
-    localStorage.setItem('uc-theme', next);
-    apply(next);
-    setTheme(next);
-  };
+    const next: Theme = theme === "dark" ? "light" : "dark"
+    localStorage.setItem("uc-theme", next)
+    apply(next)
+    setTheme(next)
+  }
+
+  // Prevent hydration mismatch by not rendering children until theme is loaded
+  if (!isMounted) {
+    return null
+  }
 
   return <Ctx.Provider value={{ theme, toggle, c: COLORS[theme] }}>{children}</Ctx.Provider>;
 }

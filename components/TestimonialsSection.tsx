@@ -1,5 +1,6 @@
 'use client';
 import { useRef, useState, useEffect } from 'react';
+import Image from 'next/image';
 import { motion, useInView, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { useTheme } from "../context/ThemeContext"
 
@@ -83,10 +84,18 @@ const TESTIMONIALS = [
   },
 ];
 
-const CLIENTS = [
-  'FitTech Solutions', 'HealthCare Plus', 'Corporate Assets', 'Wisterias Tech',
-  'Innovation Labs', 'Digital Ventures', 'VaultDAO', 'SkyBridge',
-  'Meridian Labs', 'CipherStack', 'AeroCom', 'PulseGrid',
+const PROJECT_LOGOS = [
+  { file: '360AI.png',          alt: '360 AI' },
+  { file: 'Aroma of wine.png',  alt: 'Aroma of Wine' },
+  { file: 'Azubi.png',          alt: 'Azubi' },
+  { file: 'Bookforvisa.png',    alt: 'Book For Visa' },
+  { file: 'Carvind.png',        alt: 'Carvind' },
+  { file: 'Dawerlee.png',       alt: 'Dawerlee' },
+  { file: 'JUno.png',           alt: 'JUno' },
+  { file: 'Koor.png',           alt: 'Koor' },
+  { file: 'Six second.png',     alt: 'Six Second' },
+  { file: 'Wisetria.png',       alt: 'Wisetria' },
+  { file: 'denzai.png',         alt: 'Denzai' },
 ];
 
 /* ── Staggered stars ── */
@@ -222,7 +231,7 @@ export default function TestimonialsSection() {
               <motion.span
                 style={{
                   display: "block",
-                  color: stroke ? "transparent" : c.text,
+                  color: stroke ? "transparent" : (c.isDark ? c.text : c.accent),
                   ...(stroke
                     ? {
                         WebkitTextStroke: `1px ${
@@ -600,25 +609,30 @@ export default function TestimonialsSection() {
           overflow: "hidden",
           minHeight: 440,
           background: c.isDark
-            ? "transparent"
-            : `radial-gradient(ellipse at 60% 50%, ${c.accent}0d 0%, transparent 65%), radial-gradient(ellipse at 20% 30%, rgba(167,139,250,0.06) 0%, transparent 55%), ${c.bgSection}`,
+            ? "#000000"
+            : `radial-gradient(ellipse at 65% 80%, ${c.accent}12 0%, transparent 55%), radial-gradient(ellipse at 20% 20%, rgba(167,139,250,0.1) 0%, transparent 50%), radial-gradient(ellipse at 85% 15%, rgba(56,189,248,0.07) 0%, transparent 45%), ${c.bgSection}`,
         }}
       >
-        {/* Spline iframe — fills the lower visual area */}
+        {/* Spline iframe — dark scene for dark mode, transparent scene for light mode */}
         <iframe
-          src="https://my.spline.design/claritystream-A6s6qfCZjwijbspR7VFjfgWO/"
+          src={
+            c.isDark
+              ? "https://my.spline.design/claritystream-Q52ockJWUvSLYG0vmh8aOGBW/"
+              : "https://my.spline.design/claritystream-A6s6qfCZjwijbspR7VFjfgWO/"
+          }
           loading="lazy"
           style={{
             position: "absolute",
             width: "110%",
             height: "720px",
             left: "-5%",
-            bottom: "-220px",
+            bottom: "-340px",
             border: "none",
-            opacity: 0.4,
-            transform: "scale(1.25)",
+            opacity: c.isDark ? 1 : 0.18,
+            transform: c.isDark ? "scale(1.25)" : "scale(1.15)",
             transformOrigin: "center bottom",
             pointerEvents: "none",
+            zIndex: 1,
           }}
         />
 
@@ -629,9 +643,9 @@ export default function TestimonialsSection() {
             left: 0,
             top: 0,
             bottom: 0,
-            width: 100,
-            zIndex: 1,
-            // background: `linear-gradient(90deg, ${c.bgSection} 0%, transparent 100%)`,
+            width: 160,
+            zIndex: 3,
+            background: `linear-gradient(90deg, ${c.isDark ? "#000" : c.bgSection} 0%, transparent 100%)`,
             pointerEvents: "none",
           }}
         />
@@ -641,23 +655,23 @@ export default function TestimonialsSection() {
             right: 0,
             top: 0,
             bottom: 0,
-            width: 100,
-            zIndex: 1,
-            // background: `linear-gradient(270deg, ${c.bgSection} 0%, transparent 100%)`,
+            width: 160,
+            zIndex: 3,
+            background: `linear-gradient(270deg, ${c.isDark ? "#000" : c.bgSection} 0%, transparent 100%)`,
             pointerEvents: "none",
           }}
         />
 
-        {/* Top fade — makes heading sit on clean bg */}
+        {/* Top fade — text sits on a clean surface */}
         <div
           style={{
             position: "absolute",
             top: 0,
             left: 0,
             right: 0,
-            height: 220,
-            zIndex: 1,
-            background: `linear-gradient(to bottom, ${c.bgSection} 30%, transparent 100%)`,
+            height: 240,
+            zIndex: 3,
+            background: `linear-gradient(to bottom, ${c.isDark ? "#000" : c.bgSection} 20%, transparent 100%)`,
             pointerEvents: "none",
           }}
         />
@@ -669,9 +683,9 @@ export default function TestimonialsSection() {
             bottom: 0,
             left: 0,
             right: 0,
-            height: 80,
-            zIndex: 1,
-            background: `linear-gradient(to top, ${c.bgSection} 0%, transparent 100%)`,
+            height: 100,
+            zIndex: 3,
+            background: `linear-gradient(to top, ${c.isDark ? "#000" : c.bgSection} 0%, transparent 100%)`,
             pointerEvents: "none",
           }}
         />
@@ -680,7 +694,7 @@ export default function TestimonialsSection() {
         <div
           style={{
             position: "relative",
-            zIndex: 2,
+            zIndex: 4,
             textAlign: "center",
             paddingTop: 52,
             paddingBottom: 0,
@@ -703,7 +717,7 @@ export default function TestimonialsSection() {
                 width: 28,
                 height: 1,
                 background:
-                  "linear-gradient(90deg, transparent, rgba(26,174,92,0.6))",
+                  `linear-gradient(90deg, transparent, ${c.accent}99)`,
               }}
             />
             <span
@@ -722,7 +736,7 @@ export default function TestimonialsSection() {
                 width: 28,
                 height: 1,
                 background:
-                  "linear-gradient(270deg, transparent, rgba(26,174,92,0.6))",
+                  `linear-gradient(270deg, transparent, ${c.accent}99)`,
               }}
             />
           </motion.div>
@@ -740,7 +754,9 @@ export default function TestimonialsSection() {
               letterSpacing: "-0.055em",
               lineHeight: 1.0,
               margin: "0 0 18px",
-              textShadow: c.isDark ? "0 2px 40px rgba(0,0,0,0.6)" : "none",
+              textShadow: c.isDark
+                ? "0 2px 40px rgba(0,0,0,0.6)"
+                : `0 2px 32px ${c.accent}20`,
             }}
           >
             <span style={{ color: c.text }}>Clarity. </span>
@@ -755,8 +771,8 @@ export default function TestimonialsSection() {
                     ? "1px rgba(255,255,255,0.35)"
                     : "1.5px rgba(255,255,255,0.3)"
                   : isMobile
-                  ? "1px rgba(0,0,0,0.25)"
-                  : "1.5px rgba(0,0,0,0.2)",
+                  ? `1px ${c.accent}70`
+                  : `1.5px ${c.accent}60`,
               }}
             >
               Impact.
@@ -819,30 +835,41 @@ export default function TestimonialsSection() {
         />
 
         <div className="marquee-track" style={{ gap: 0 }}>
-          {[...CLIENTS, ...CLIENTS].map((client, i) => (
+          {[...PROJECT_LOGOS, ...PROJECT_LOGOS].map((logo, i) => (
             <span
               key={i}
               style={{ display: "inline-flex", alignItems: "center" }}
             >
               <span
                 style={{
-                  fontSize: isMobile ? 12 : 14,
-                  fontWeight: 700,
-                  letterSpacing: "0.3em",
-                  textTransform: "uppercase",
-                  color: c.text,
-                  whiteSpace: "nowrap",
-                  padding: isMobile ? "0 20px" : "0 36px",
-                  opacity: 0.85,
+                  padding: isMobile ? "0 24px" : "0 40px",
+                  display: "inline-flex",
+                  alignItems: "center",
                 }}
               >
-                {client}
+                <Image
+                  src={`/project_logos/${logo.file}`}
+                  alt={logo.alt}
+                  width={120}
+                  height={48}
+                  style={{
+                    objectFit: "contain",
+                    width: "auto",
+                    height: isMobile ? 32 : 40,
+                    filter: c.isDark
+                      ? "brightness(0) invert(1)"
+                      : "brightness(0)",
+                    opacity: c.isDark ? 0.55 : 0.4,
+                  }}
+                />
               </span>
               <span
                 style={{
                   width: 1,
-                  height: 10,
-                  background: "rgba(74,222,128,0.25)",
+                  height: 20,
+                  background: c.isDark
+                    ? "rgba(255,255,255,0.08)"
+                    : "rgba(0,0,0,0.08)",
                   flexShrink: 0,
                 }}
               />
