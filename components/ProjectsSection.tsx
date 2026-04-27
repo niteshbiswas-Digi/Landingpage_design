@@ -1,6 +1,7 @@
 'use client';
 import { useRef, useState, useEffect } from 'react';
 import { motion, useInView, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { useTheme } from '../context/ThemeContext';
 
 function useIsMobile() {
   const [isMobile, setIsMobile] = useState(false);
@@ -89,6 +90,7 @@ const itemVariants = {
 function ProjectCard({ project, isMobile }: { project: typeof PROJECTS[0]; isMobile: boolean }) {
   const cardRef  = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState(false);
+  const { c } = useTheme();
 
   const rawX = useMotionValue(0);
   const rawY = useMotionValue(0);
@@ -122,13 +124,11 @@ function ProjectCard({ project, isMobile }: { project: typeof PROJECTS[0]; isMob
         transformStyle: "preserve-3d",
         transformPerspective: 900,
         position: "relative",
-        background: project.bg,
+        background: c.isDark ? project.bg : `linear-gradient(145deg, ${project.accent}08 0%, ${c.bgCard} 100%)`,
         borderRadius: 20,
         padding: isMobile ? "20px" : (project.large ? "40px" : "28px"),
         overflow: "hidden",
-        border: `1px solid ${
-          hovered ? project.accent + "50" : "rgba(255,255,255,0.05)"
-        }`,
+        border: `1px solid ${hovered ? project.accent + "50" : c.border}`,
         height: "100%",
         minHeight: isMobile ? 200 : (project.large ? 360 : 240),
         display: "flex",
@@ -202,7 +202,7 @@ function ProjectCard({ project, isMobile }: { project: typeof PROJECTS[0]; isMob
                   : "clamp(20px, 2.2vw, 30px)",
                 fontWeight: 800,
                 letterSpacing: "-0.04em",
-                color: "#f0f0f0",
+                color: c.isDark ? "#f0f0f0" : c.text,
                 margin: 0,
                 lineHeight: 1,
               }}
@@ -260,7 +260,7 @@ function ProjectCard({ project, isMobile }: { project: typeof PROJECTS[0]; isMob
         <p
           style={{
             fontSize: project.large ? 14 : 13,
-            color: "#666",
+            color: c.textMuted,
             lineHeight: 1.7,
             letterSpacing: "-0.01em",
             maxWidth: 480,
@@ -297,9 +297,9 @@ function ProjectCard({ project, isMobile }: { project: typeof PROJECTS[0]; isMob
                 fontWeight: 600,
                 letterSpacing: "0.06em",
                 textTransform: "uppercase",
-                color: "#777",
-                background: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(255,255,255,0.07)",
+                color: c.isDark ? "#777" : c.textMuted,
+                background: c.isDark ? "rgba(255,255,255,0.04)" : "rgba(0,0,0,0.04)",
+                border: `1px solid ${c.isDark ? "rgba(255,255,255,0.07)" : c.border}`,
                 padding: "4px 10px",
                 borderRadius: 6,
                 transition:
@@ -316,7 +316,7 @@ function ProjectCard({ project, isMobile }: { project: typeof PROJECTS[0]; isMob
             display: "flex",
             alignItems: "baseline",
             gap: 8,
-            borderTop: "1px solid rgba(255,255,255,0.05)",
+            borderTop: `1px solid ${c.border}`,
             paddingTop: 20,
           }}
         >
@@ -336,7 +336,7 @@ function ProjectCard({ project, isMobile }: { project: typeof PROJECTS[0]; isMob
           <span
             style={{
               fontSize: 11,
-              color: "#666",
+              color: c.textMuted,
               letterSpacing: "0.08em",
               textTransform: "uppercase",
               fontWeight: 700,
@@ -390,10 +390,11 @@ function ProjectCard({ project, isMobile }: { project: typeof PROJECTS[0]; isMob
 
 /* ── Section header word-reveal ── */
 function HeaderWord({ text, inView, delay = 0, dim }: { text: string; inView: boolean; delay?: number; dim?: boolean }) {
+  const { c } = useTheme();
   return (
     <span style={{ display: 'inline-block', overflow: 'hidden', verticalAlign: 'bottom' }}>
       <motion.span
-        style={{ display: 'inline-block', color: dim ? '#404040' : '#f0f0f0' }}
+        style={{ display: 'inline-block', color: dim ? c.textMuted : c.text }}
         initial={{ y: '110%', opacity: 0 }}
         animate={inView ? { y: 0, opacity: 1 } : {}}
         transition={{ duration: 0.75, delay, ease: [0.16, 1, 0.3, 1] }}
@@ -407,12 +408,13 @@ function HeaderWord({ text, inView, delay = 0, dim }: { text: string; inView: bo
 export default function ProjectsSection() {
   const ref    = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: '-8%' });
+  const { c } = useTheme();
   const isMobile = useIsMobile();
 
   return (
     <section
       ref={ref}
-      style={{ padding: 'clamp(40px, 5vw, 80px) clamp(24px, 5vw, 80px)', background: '#050505', overflow: 'hidden' }}
+      style={{ padding: 'clamp(40px, 5vw, 80px) clamp(24px, 5vw, 80px)', background: c.bg, overflow: 'hidden' }}
     >
       {/* Header */}
       <div style={{
@@ -424,7 +426,7 @@ export default function ProjectsSection() {
             initial={{ opacity: 0, x: -20 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-            style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.4em', textTransform: 'uppercase', color: '#4ADE80', marginBottom: 16 }}
+            style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.4em', textTransform: 'uppercase', color: c.accent, marginBottom: 16 }}
           >
             Selected Work
           </motion.p>
@@ -446,7 +448,7 @@ export default function ProjectsSection() {
           animate={inView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.65, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
         >
-          <p style={{ fontSize: 13, color: '#777', lineHeight: 1.65, maxWidth: 260, margin: '0 0 20px 0' }}>
+          <p style={{ fontSize: 13, color: c.textSub, lineHeight: 1.65, maxWidth: 260, margin: '0 0 20px 0' }}>
             From seed-stage startups to Fortune 500 infrastructure. Every engagement ships on time.
           </p>
           <motion.button
@@ -455,7 +457,7 @@ export default function ProjectsSection() {
             style={{
               background: 'transparent', border: 'none', padding: 0,
               display: 'flex', alignItems: 'center', gap: 8,
-              color: '#4ADE80', fontSize: 12, fontWeight: 700,
+              color: c.accent, fontSize: 12, fontWeight: 700,
               letterSpacing: '0.12em', textTransform: 'uppercase',
             }}
           >

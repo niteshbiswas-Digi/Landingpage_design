@@ -1,6 +1,7 @@
 'use client';
 import { useRef, useState, useEffect } from 'react';
 import { motion, useInView, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { useTheme } from "../context/ThemeContext"
 
 function useIsMobile() {
   const [isMobile, setIsMobile] = useState(false);
@@ -90,21 +91,29 @@ const CLIENTS = [
 
 /* ── Staggered stars ── */
 function Stars({ count, inView, delay = 0 }: { count: number; inView: boolean; delay?: number }) {
+  const { c } = useTheme()
   return (
-    <div style={{ display: 'flex', gap: 4 }}>
+    <div style={{ display: "flex", gap: 4 }}>
       {Array.from({ length: count }).map((_, i) => (
         <motion.svg
           key={i}
-          width="12" height="12" viewBox="0 0 24 24" fill="#4ADE80"
+          width="12"
+          height="12"
+          viewBox="0 0 24 24"
+          fill={c.accent}
           initial={{ scale: 0, opacity: 0, rotate: -30 }}
           animate={inView ? { scale: 1, opacity: 1, rotate: 0 } : {}}
-          transition={{ duration: 0.35, delay: delay + i * 0.07, ease: [0.16, 1, 0.3, 1] }}
+          transition={{
+            duration: 0.35,
+            delay: delay + i * 0.07,
+            ease: [0.16, 1, 0.3, 1],
+          }}
         >
           <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
         </motion.svg>
       ))}
     </div>
-  );
+  )
 }
 
 /* ── 3-D tilt wrapper (reusable) ── */
@@ -143,6 +152,7 @@ const cardIn = (delay: number) => ({
 export default function TestimonialsSection() {
   const ref        = useRef<HTMLElement>(null);
   const inView     = useInView(ref, { once: true, margin: '-8%' });
+  const { c } = useTheme()
   const isMobile = useIsMobile();
   const featured   = TESTIMONIALS[0];
   const sideCards  = TESTIMONIALS.slice(1, 3);
@@ -152,48 +162,78 @@ export default function TestimonialsSection() {
     <section
       ref={ref}
       style={{
-        padding: 'clamp(40px, 5vw, 80px) clamp(24px, 5vw, 80px)',
-        background: '#080808',
-        borderTop: '1px solid rgba(255,255,255,0.03)',
-        overflow: 'hidden',
+        padding: "clamp(40px, 5vw, 80px) clamp(24px, 5vw, 80px)",
+        background: c.bgSection,
+        borderTop: `1px solid ${c.border}`,
+        overflow: "hidden",
       }}
     >
       {/* Section header */}
-      <div style={{ marginBottom: 'clamp(28px, 3.5vw, 52px)' }}>
+      <div style={{ marginBottom: "clamp(28px, 3.5vw, 52px)" }}>
         <motion.div
           initial={{ opacity: 0, x: -16 }}
           animate={inView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 20 }}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 14,
+            marginBottom: 20,
+          }}
         >
           <motion.div
             initial={{ scaleX: 0 }}
             animate={inView ? { scaleX: 1 } : {}}
             transition={{ duration: 0.5, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-            style={{ width: 28, height: 1, background: '#4ADE80', transformOrigin: 'left' }}
+            style={{
+              width: 28,
+              height: 1,
+              background: c.accent,
+              transformOrigin: "left",
+            }}
           />
-          <p style={{
-            fontSize: 10, fontWeight: 700, letterSpacing: '0.4em',
-            textTransform: 'uppercase', color: '#4ADE80', margin: 0,
-          }}>
+          <p
+            style={{
+              fontSize: 10,
+              fontWeight: 700,
+              letterSpacing: "0.4em",
+              textTransform: "uppercase",
+              color: c.accent,
+              margin: 0,
+            }}
+          >
             Client Testimonials
           </p>
         </motion.div>
-        <h2 style={{
-          fontSize: 'clamp(36px, 5vw, 68px)', fontWeight: 900,
-          letterSpacing: '-0.05em', lineHeight: 0.92, margin: 0,
-        }}>
+        <h2
+          style={{
+            fontSize: "clamp(36px, 5vw, 68px)",
+            fontWeight: 900,
+            letterSpacing: "-0.05em",
+            lineHeight: 0.92,
+            margin: 0,
+          }}
+        >
           {[
-            { text: 'Trusted by teams', color: '#f0f0f0', delay: 0.08 },
-            { text: 'building the future.', color: 'transparent', delay: 0.2, stroke: true },
-          ].map(({ text, color, delay, stroke }) => (
-            <span key={text} style={{ display: 'block', overflow: 'hidden' }}>
+            { text: "Trusted by teams", delay: 0.08 },
+            { text: "building the future.", delay: 0.2, stroke: true },
+          ].map(({ text, delay, stroke }) => (
+            <span key={text} style={{ display: "block", overflow: "hidden" }}>
               <motion.span
                 style={{
-                  display: 'block', color,
-                  ...(stroke ? { WebkitTextStroke: '1px rgba(255,255,255,0.22)' } : {}),
+                  display: "block",
+                  color: stroke ? "transparent" : c.text,
+                  ...(stroke
+                    ? {
+                        WebkitTextStroke: `1px ${
+                          c.isDark
+                            ? "rgba(255,255,255,0.22)"
+                            : "rgba(0,0,0,0.18)"
+                        }`,
+                      }
+                    : {}),
                 }}
-                initial={{ y: '108%' }}
+                initial={{ y: "108%" }}
                 animate={inView ? { y: 0 } : {}}
                 transition={{ duration: 0.92, delay, ease: [0.16, 1, 0.3, 1] }}
               >
@@ -205,66 +245,117 @@ export default function TestimonialsSection() {
       </div>
 
       {/* Top row: featured + 2 side cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1.45fr 1fr', gap: 12, marginBottom: 12 }}>
-
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: isMobile ? "1fr" : "1.45fr 1fr",
+          gap: 12,
+          marginBottom: 12,
+        }}
+      >
         {/* Featured — animated glow border + 3D tilt */}
         <TiltCard strength={4}>
-          <motion.div {...cardIn(0.1)} whileHover={{ y: -6 }} style={{ position: 'relative' }}>
+          <motion.div
+            {...cardIn(0.1)}
+            whileHover={{ y: -6 }}
+            style={{ position: "relative" }}
+          >
             {/* Pulsing gradient border ring */}
             <motion.div
               className="border-glow-anim"
               style={{
-                position: 'absolute', inset: -1, borderRadius: 21,
+                position: "absolute",
+                inset: -1,
+                borderRadius: 21,
                 background: `linear-gradient(135deg, ${featured.color}55 0%, transparent 45%, ${featured.color}33 75%, transparent 100%)`,
-                zIndex: 0, pointerEvents: 'none',
+                zIndex: 0,
+                pointerEvents: "none",
               }}
             />
             {/* Rotating shimmer on border */}
             <div
               className="spin-slow"
               style={{
-                position: 'absolute', inset: -1, borderRadius: 21, overflow: 'hidden',
-                zIndex: 0, pointerEvents: 'none', opacity: 0.35,
+                position: "absolute",
+                inset: -1,
+                borderRadius: 21,
+                overflow: "hidden",
+                zIndex: 0,
+                pointerEvents: "none",
+                opacity: 0.35,
               }}
             >
-              <div style={{
-                position: 'absolute', inset: 0,
-                background: `conic-gradient(from 0deg, transparent 0%, ${featured.color} 10%, transparent 20%)`,
-                borderRadius: 21,
-              }} />
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  background: `conic-gradient(from 0deg, transparent 0%, ${featured.color} 10%, transparent 20%)`,
+                  borderRadius: 21,
+                }}
+              />
             </div>
 
             {/* Card body */}
-            <div style={{
-              position: 'relative', zIndex: 1,
-              background: '#0d0d0d', borderRadius: 20,
-              padding: 'clamp(28px, 3vw, 48px)',
-              display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
-              minHeight: 340, overflow: 'hidden',
-            }}>
+            <div
+              style={{
+                position: "relative",
+                zIndex: 1,
+                background: c.bgCard,
+                borderRadius: 20,
+                padding: "clamp(28px, 3vw, 48px)",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                minHeight: 340,
+                overflow: "hidden",
+              }}
+            >
               {/* Inner radial glow */}
-              <div style={{
-                position: 'absolute', top: -80, right: -80,
-                width: 260, height: 260, borderRadius: '50%',
-                background: `radial-gradient(circle, ${featured.color}18 0%, transparent 70%)`,
-                pointerEvents: 'none',
-              }} />
+              <div
+                style={{
+                  position: "absolute",
+                  top: -80,
+                  right: -80,
+                  width: 260,
+                  height: 260,
+                  borderRadius: "50%",
+                  background: `radial-gradient(circle, ${featured.color}18 0%, transparent 70%)`,
+                  pointerEvents: "none",
+                }}
+              />
 
               <div>
                 <Stars count={featured.rating} inView={inView} delay={0.2} />
                 {/* Quote — word-by-word reveal */}
-                <p style={{
-                  fontSize: 'clamp(17px, 1.8vw, 23px)',
-                  color: '#d0d0d0', lineHeight: 1.6, letterSpacing: '-0.02em',
-                  margin: '24px 0 0', fontWeight: 400, maxWidth: 540,
-                }}>
-                  {featured.quote.split(' ').map((word, wi) => (
-                    <span key={wi} style={{ display: 'inline-block', overflow: 'hidden', verticalAlign: 'bottom' }}>
+                <p
+                  style={{
+                    fontSize: "clamp(17px, 1.8vw, 23px)",
+                    color: c.text,
+                    lineHeight: 1.6,
+                    letterSpacing: "-0.02em",
+                    margin: "24px 0 0",
+                    fontWeight: 400,
+                    maxWidth: 540,
+                  }}
+                >
+                  {featured.quote.split(" ").map((word, wi) => (
+                    <span
+                      key={wi}
+                      style={{
+                        display: "inline-block",
+                        overflow: "hidden",
+                        verticalAlign: "bottom",
+                      }}
+                    >
                       <motion.span
-                        style={{ display: 'inline-block' }}
-                        initial={{ y: '100%', opacity: 0 }}
+                        style={{ display: "inline-block" }}
+                        initial={{ y: "100%", opacity: 0 }}
                         animate={inView ? { y: 0, opacity: 1 } : {}}
-                        transition={{ duration: 0.55, delay: 0.3 + wi * 0.03, ease: [0.16, 1, 0.3, 1] }}
+                        transition={{
+                          duration: 0.55,
+                          delay: 0.3 + wi * 0.03,
+                          ease: [0.16, 1, 0.3, 1],
+                        }}
                       >
                         {word}&nbsp;
                       </motion.span>
@@ -277,24 +368,46 @@ export default function TestimonialsSection() {
                 initial={{ opacity: 0, x: -16 }}
                 animate={inView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.55 }}
-                style={{ display: 'flex', alignItems: 'center', gap: 16, marginTop: 32 }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 16,
+                  marginTop: 32,
+                }}
               >
                 <motion.div
                   whileHover={{ scale: 1.12 }}
                   style={{
-                    width: 44, height: 44, borderRadius: '50%',
-                    background: `${featured.color}1a`, border: `1px solid ${featured.color}3a`,
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: 13, fontWeight: 800, color: featured.color, flexShrink: 0,
+                    width: 44,
+                    height: 44,
+                    borderRadius: "50%",
+                    background: `${featured.color}1a`,
+                    border: `1px solid ${featured.color}3a`,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: 13,
+                    fontWeight: 800,
+                    color: featured.color,
+                    flexShrink: 0,
                   }}
                 >
                   {featured.initials}
                 </motion.div>
                 <div>
-                  <div style={{ fontSize: 14, fontWeight: 700, color: '#e8e8e8', letterSpacing: '-0.02em' }}>
+                  <div
+                    style={{
+                      fontSize: 14,
+                      fontWeight: 700,
+                      color: c.text,
+                      letterSpacing: "-0.02em",
+                    }}
+                  >
                     {featured.name}
                   </div>
-                  <div style={{ fontSize: 11, color: '#666', marginTop: 2 }}>
+                  <div
+                    style={{ fontSize: 11, color: c.textMuted, marginTop: 2 }}
+                  >
                     {featured.role}, {featured.company}
                   </div>
                 </div>
@@ -304,46 +417,87 @@ export default function TestimonialsSection() {
         </TiltCard>
 
         {/* Side stack with 3D tilt */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           {sideCards.map((t, i) => (
             <TiltCard key={t.id} style={{ flex: 1 }}>
               <motion.div
                 {...cardIn(0.2 + i * 0.1)}
-                whileHover={{ y: -6, boxShadow: '0 20px 50px rgba(255,255,255,0.08)' }}
-                transition={{ type: 'spring', stiffness: 280, damping: 20 }}
+                whileHover={{
+                  y: -6,
+                  boxShadow: "0 20px 50px rgba(255,255,255,0.08)",
+                }}
+                transition={{ type: "spring", stiffness: 280, damping: 20 }}
                 style={{
-                  background: '#0d0d0d',
-                  border: '1px solid rgba(255,255,255,0.05)',
-                  borderRadius: 20, padding: 28, height: '100%',
-                  position: 'relative', overflow: 'hidden',
-                  display: 'flex', flexDirection: 'column',
+                  background: c.bgCard,
+                  border: `1px solid ${c.border}`,
+                  borderRadius: 20,
+                  padding: 28,
+                  height: "100%",
+                  position: "relative",
+                  overflow: "hidden",
+                  display: "flex",
+                  flexDirection: "column",
                 }}
               >
-                <div style={{
-                  position: 'absolute', top: -40, right: -40,
-                  width: 140, height: 140, borderRadius: '50%',
-                  background: `radial-gradient(circle, ${t.color}14 0%, transparent 70%)`,
-                  pointerEvents: 'none',
-                }} />
-                <Stars count={t.rating} inView={inView} delay={0.3 + i * 0.15} />
-                <p style={{ fontSize: 13, color: '#777', lineHeight: 1.7, margin: '14px 0 20px', flex: 1 }}>
+                <div
+                  style={{
+                    position: "absolute",
+                    top: -40,
+                    right: -40,
+                    width: 140,
+                    height: 140,
+                    borderRadius: "50%",
+                    background: `radial-gradient(circle, ${t.color}14 0%, transparent 70%)`,
+                    pointerEvents: "none",
+                  }}
+                />
+                <Stars
+                  count={t.rating}
+                  inView={inView}
+                  delay={0.3 + i * 0.15}
+                />
+                <p
+                  style={{
+                    fontSize: 13,
+                    color: c.textSub,
+                    lineHeight: 1.7,
+                    margin: "14px 0 20px",
+                    flex: 1,
+                  }}
+                >
                   &ldquo;{t.quote}&rdquo;
                 </p>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                   <motion.div
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     style={{
-                      width: 36, height: 36, borderRadius: '50%',
-                      background: `${t.color}1a`, border: `1px solid ${t.color}3a`,
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      fontSize: 11, fontWeight: 800, color: t.color, flexShrink: 0,
+                      width: 36,
+                      height: 36,
+                      borderRadius: "50%",
+                      background: `${t.color}1a`,
+                      border: `1px solid ${t.color}3a`,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: 11,
+                      fontWeight: 800,
+                      color: t.color,
+                      flexShrink: 0,
                     }}
                   >
                     {t.initials}
                   </motion.div>
                   <div>
-                    <div style={{ fontSize: 13, fontWeight: 700, color: '#d8d8d8' }}>{t.name}</div>
-                    <div style={{ fontSize: 10, color: '#666', marginTop: 2 }}>{t.role}, {t.company}</div>
+                    <div
+                      style={{ fontSize: 13, fontWeight: 700, color: c.text }}
+                    >
+                      {t.name}
+                    </div>
+                    <div
+                      style={{ fontSize: 10, color: c.textMuted, marginTop: 2 }}
+                    >
+                      {t.role}, {t.company}
+                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -353,45 +507,83 @@ export default function TestimonialsSection() {
       </div>
 
       {/* Bottom row — 3 tilt cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: 12 }}>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)",
+          gap: 12,
+        }}
+      >
         {bottomCards.map((t, i) => (
           <TiltCard key={t.id}>
             <motion.div
               {...cardIn(0.3 + i * 0.09)}
-              whileHover={{ y: -6, boxShadow: '0 20px 50px rgba(255,255,255,0.08)' }}
-              transition={{ type: 'spring', stiffness: 280, damping: 20 }}
+              whileHover={{
+                y: -6,
+                boxShadow: "0 20px 50px rgba(255,255,255,0.08)",
+              }}
+              transition={{ type: "spring", stiffness: 280, damping: 20 }}
               style={{
-                background: '#0d0d0d',
-                border: '1px solid rgba(255,255,255,0.05)',
-                borderRadius: 20, padding: 24,
-                position: 'relative', overflow: 'hidden',
+                background: c.bgCard,
+                border: `1px solid ${c.border}`,
+                borderRadius: 20,
+                padding: 24,
+                position: "relative",
+                overflow: "hidden",
               }}
             >
-              <div style={{
-                position: 'absolute', top: -30, right: -30,
-                width: 110, height: 110, borderRadius: '50%',
-                background: `radial-gradient(circle, ${t.color}12 0%, transparent 70%)`,
-                pointerEvents: 'none',
-              }} />
+              <div
+                style={{
+                  position: "absolute",
+                  top: -30,
+                  right: -30,
+                  width: 110,
+                  height: 110,
+                  borderRadius: "50%",
+                  background: `radial-gradient(circle, ${t.color}12 0%, transparent 70%)`,
+                  pointerEvents: "none",
+                }}
+              />
               <Stars count={t.rating} inView={inView} delay={0.4 + i * 0.12} />
-              <p style={{ fontSize: 13, color: '#666', lineHeight: 1.7, margin: '14px 0 20px' }}>
+              <p
+                style={{
+                  fontSize: 13,
+                  color: c.textSub,
+                  lineHeight: 1.7,
+                  margin: "14px 0 20px",
+                }}
+              >
                 &ldquo;{t.quote}&rdquo;
               </p>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                 <motion.div
                   whileHover={{ scale: 1.1, rotate: -5 }}
                   style={{
-                    width: 32, height: 32, borderRadius: '50%',
-                    background: `${t.color}1a`, border: `1px solid ${t.color}3a`,
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: 10, fontWeight: 800, color: t.color, flexShrink: 0,
+                    width: 32,
+                    height: 32,
+                    borderRadius: "50%",
+                    background: `${t.color}1a`,
+                    border: `1px solid ${t.color}3a`,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: 10,
+                    fontWeight: 800,
+                    color: t.color,
+                    flexShrink: 0,
                   }}
                 >
                   {t.initials}
                 </motion.div>
                 <div>
-                  <div style={{ fontSize: 12, fontWeight: 700, color: '#ccc' }}>{t.name}</div>
-                  <div style={{ fontSize: 10, color: '#666', marginTop: 2 }}>{t.role}, {t.company}</div>
+                  <div style={{ fontSize: 12, fontWeight: 700, color: c.text }}>
+                    {t.name}
+                  </div>
+                  <div
+                    style={{ fontSize: 10, color: c.textMuted, marginTop: 2 }}
+                  >
+                    {t.role}, {t.company}
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -400,88 +592,139 @@ export default function TestimonialsSection() {
       </div>
 
       {/* ── Spline Hero Strip ── */}
-      <div style={{
-        position: 'relative',
-        marginTop: 52,
-        borderTop: '1px solid rgba(255,255,255,0.03)',
-        overflow: 'hidden',
-        minHeight: 440,
-      }}>
+      <div
+        style={{
+          position: "relative",
+          marginTop: 52,
+          borderTop: `1px solid ${c.border}`,
+          overflow: "hidden",
+          minHeight: 440,
+          background: c.isDark
+            ? "transparent"
+            : `radial-gradient(ellipse at 60% 50%, ${c.accent}0d 0%, transparent 65%), radial-gradient(ellipse at 20% 30%, rgba(167,139,250,0.06) 0%, transparent 55%), ${c.bgSection}`,
+        }}
+      >
         {/* Spline iframe — fills the lower visual area */}
         <iframe
           src="https://my.spline.design/claritystream-A6s6qfCZjwijbspR7VFjfgWO/"
           loading="lazy"
           style={{
-            position: 'absolute',
-            width: '110%',
-            height: '720px',
-            left: '-5%',
-            bottom: '-220px',
-            border: 'none',
-            opacity: 0.82,
-            transform: 'scale(1.25)',
-            transformOrigin: 'center bottom',
-            pointerEvents: 'none',
+            position: "absolute",
+            width: "110%",
+            height: "720px",
+            left: "-5%",
+            bottom: "-220px",
+            border: "none",
+            opacity: 0.4,
+            transform: "scale(1.25)",
+            transformOrigin: "center bottom",
+            pointerEvents: "none",
           }}
         />
 
         {/* Left/right side fades */}
-        <div style={{
-          position: 'absolute', left: 0, top: 0, bottom: 0, width: 100, zIndex: 1,
-          background: 'linear-gradient(90deg, #080808 0%, transparent 100%)',
-          pointerEvents: 'none',
-        }} />
-        <div style={{
-          position: 'absolute', right: 0, top: 0, bottom: 0, width: 100, zIndex: 1,
-          background: 'linear-gradient(270deg, #080808 0%, transparent 100%)',
-          pointerEvents: 'none',
-        }} />
+        <div
+          style={{
+            position: "absolute",
+            left: 0,
+            top: 0,
+            bottom: 0,
+            width: 100,
+            zIndex: 1,
+            background: `linear-gradient(90deg, ${c.bgSection} 0%, transparent 100%)`,
+            pointerEvents: "none",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            right: 0,
+            top: 0,
+            bottom: 0,
+            width: 100,
+            zIndex: 1,
+            background: `linear-gradient(270deg, ${c.bgSection} 0%, transparent 100%)`,
+            pointerEvents: "none",
+          }}
+        />
 
-        {/* Top fade — makes heading sit on clean dark bg */}
-        <div style={{
-          position: 'absolute', top: 0, left: 0, right: 0, height: 220, zIndex: 1,
-          background: 'linear-gradient(to bottom, #080808 30%, transparent 100%)',
-          pointerEvents: 'none',
-        }} />
+        {/* Top fade — makes heading sit on clean bg */}
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            height: 220,
+            zIndex: 1,
+            background: `linear-gradient(to bottom, ${c.bgSection} 30%, transparent 100%)`,
+            pointerEvents: "none",
+          }}
+        />
 
         {/* Bottom fade */}
-        <div style={{
-          position: 'absolute', bottom: 0, left: 0, right: 0, height: 80, zIndex: 1,
-          background: 'linear-gradient(to top, #080808 0%, transparent 100%)',
-          pointerEvents: 'none',
-        }} />
+        <div
+          style={{
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height: 80,
+            zIndex: 1,
+            background: `linear-gradient(to top, ${c.bgSection} 0%, transparent 100%)`,
+            pointerEvents: "none",
+          }}
+        />
 
         {/* ── Heading overlay ── */}
-        <div style={{
-          position: 'relative', zIndex: 2,
-          textAlign: 'center',
-          paddingTop: 52,
-          paddingBottom: 0,
-        }}>
+        <div
+          style={{
+            position: "relative",
+            zIndex: 2,
+            textAlign: "center",
+            paddingTop: 52,
+            paddingBottom: 0,
+          }}
+        >
           {/* Small eyebrow */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
             style={{
-              display: 'inline-flex', alignItems: 'center',
-              gap: 12, marginBottom: 20,
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 12,
+              marginBottom: 20,
             }}
           >
-            <div style={{
-              width: 28, height: 1,
-              background: 'linear-gradient(90deg, transparent, rgba(26,174,92,0.6))',
-            }} />
-            <span style={{
-              fontSize: 10, fontWeight: 700, letterSpacing: '0.5em',
-              textTransform: 'uppercase', color: '#4ADE80',
-            }}>
+            <div
+              style={{
+                width: 28,
+                height: 1,
+                background:
+                  "linear-gradient(90deg, transparent, rgba(26,174,92,0.6))",
+              }}
+            />
+            <span
+              style={{
+                fontSize: 10,
+                fontWeight: 700,
+                letterSpacing: "0.5em",
+                textTransform: "uppercase",
+                color: c.accent,
+              }}
+            >
               Trusted by builders at
             </span>
-            <div style={{
-              width: 28, height: 1,
-              background: 'linear-gradient(270deg, transparent, rgba(26,174,92,0.6))',
-            }} />
+            <div
+              style={{
+                width: 28,
+                height: 1,
+                background:
+                  "linear-gradient(270deg, transparent, rgba(26,174,92,0.6))",
+              }}
+            />
           </motion.div>
 
           {/* Large display heading */}
@@ -490,24 +733,32 @@ export default function TestimonialsSection() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.82, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             style={{
-              fontSize: isMobile ? 'clamp(40px, 10vw, 60px)' : 'clamp(56px, 6.5vw, 88px)',
+              fontSize: isMobile
+                ? "clamp(40px, 10vw, 60px)"
+                : "clamp(56px, 6.5vw, 88px)",
               fontWeight: 900,
-              letterSpacing: '-0.055em',
+              letterSpacing: "-0.055em",
               lineHeight: 1.0,
-              margin: '0 0 18px',
-              textShadow: '0 2px 40px rgba(0,0,0,0.6)',
+              margin: "0 0 18px",
+              textShadow: c.isDark ? "0 2px 40px rgba(0,0,0,0.6)" : "none",
             }}
           >
-            <span style={{ color: '#ffffff' }}>Clarity.{' '}</span>
-            <span style={{ color: '#4ADE80' }}>
-              Focus.
-            </span>
+            <span style={{ color: c.text }}>Clarity. </span>
+            <span style={{ color: c.accent }}>Focus.</span>
             {!isMobile && <br />}
-            {isMobile && ' '}
-            <span style={{
-              color: 'transparent',
-              WebkitTextStroke: isMobile ? '1px rgba(255,255,255,0.35)' : '1.5px rgba(255,255,255,0.3)',
-            }}>
+            {isMobile && " "}
+            <span
+              style={{
+                color: "transparent",
+                WebkitTextStroke: c.isDark
+                  ? isMobile
+                    ? "1px rgba(255,255,255,0.35)"
+                    : "1.5px rgba(255,255,255,0.3)"
+                  : isMobile
+                  ? "1px rgba(0,0,0,0.25)"
+                  : "1.5px rgba(0,0,0,0.2)",
+              }}
+            >
               Impact.
             </span>
           </motion.h2>
@@ -518,11 +769,11 @@ export default function TestimonialsSection() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
             style={{
-              fontSize: isMobile ? 13 : 'clamp(13px, 1.2vw, 16px)',
-              color: '#7a7a7a',
-              letterSpacing: '-0.01em',
+              fontSize: isMobile ? 13 : "clamp(13px, 1.2vw, 16px)",
+              color: c.textMuted,
+              letterSpacing: "-0.01em",
               margin: 0,
-              textShadow: '0 1px 16px rgba(0,0,0,0.8)',
+              textShadow: c.isDark ? "0 1px 16px rgba(0,0,0,0.8)" : "none",
             }}
           >
             We turn complex ideas into effortless digital experiences.
@@ -531,50 +782,74 @@ export default function TestimonialsSection() {
       </div>
 
       {/* ── Marquee strip — sits below the Spline wave ── */}
-      <div style={{
-        background: '#080808',
-        borderTop: '1px solid rgba(255,255,255,0.04)',
-        paddingTop: 24,
-        paddingBottom: 24,
-        position: 'relative',
-        overflow: 'hidden',
-      }}>
+      <div
+        style={{
+          background: c.bgSection,
+          borderTop: `1px solid ${c.border}`,
+          paddingTop: 24,
+          paddingBottom: 24,
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
         {/* Edge masks */}
-        <div style={{
-          position: 'absolute', left: 0, top: 0, bottom: 0, width: 120, zIndex: 1,
-          background: 'linear-gradient(90deg, #080808 0%, transparent 100%)',
-          pointerEvents: 'none',
-        }} />
-        <div style={{
-          position: 'absolute', right: 0, top: 0, bottom: 0, width: 120, zIndex: 1,
-          background: 'linear-gradient(270deg, #080808 0%, transparent 100%)',
-          pointerEvents: 'none',
-        }} />
+        <div
+          style={{
+            position: "absolute",
+            left: 0,
+            top: 0,
+            bottom: 0,
+            width: 120,
+            zIndex: 1,
+            background: `linear-gradient(90deg, ${c.bgSection} 0%, transparent 100%)`,
+            pointerEvents: "none",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            right: 0,
+            top: 0,
+            bottom: 0,
+            width: 120,
+            zIndex: 1,
+            background: `linear-gradient(270deg, ${c.bgSection} 0%, transparent 100%)`,
+            pointerEvents: "none",
+          }}
+        />
 
         <div className="marquee-track" style={{ gap: 0 }}>
           {[...CLIENTS, ...CLIENTS].map((client, i) => (
-            <span key={i} style={{ display: 'inline-flex', alignItems: 'center' }}>
-              <span style={{
-                fontSize: isMobile ? 12 : 14,
-                fontWeight: 700,
-                letterSpacing: '0.3em',
-                textTransform: 'uppercase',
-                color: '#ffffff',
-                whiteSpace: 'nowrap',
-                padding: isMobile ? '0 20px' : '0 36px',
-                opacity: 0.85,
-              }}>
+            <span
+              key={i}
+              style={{ display: "inline-flex", alignItems: "center" }}
+            >
+              <span
+                style={{
+                  fontSize: isMobile ? 12 : 14,
+                  fontWeight: 700,
+                  letterSpacing: "0.3em",
+                  textTransform: "uppercase",
+                  color: c.text,
+                  whiteSpace: "nowrap",
+                  padding: isMobile ? "0 20px" : "0 36px",
+                  opacity: 0.85,
+                }}
+              >
                 {client}
               </span>
-              <span style={{
-                width: 1, height: 10,
-                background: 'rgba(74,222,128,0.25)',
-                flexShrink: 0,
-              }} />
+              <span
+                style={{
+                  width: 1,
+                  height: 10,
+                  background: "rgba(74,222,128,0.25)",
+                  flexShrink: 0,
+                }}
+              />
             </span>
           ))}
         </div>
       </div>
     </section>
-  );
+  )
 }

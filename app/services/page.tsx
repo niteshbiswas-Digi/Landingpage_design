@@ -5,6 +5,7 @@ import { motion, useInView, useMotionValue, useSpring, useScroll, useTransform }
 import AnimatedCursor from '../../components/AnimatedCursor';
 import Footer from '../../components/Footer';
 import Navigation from '../../components/Navigation';
+import { useTheme } from '../../context/ThemeContext';
 
 function useIsMobile() {
   const [m, setM] = useState(false);
@@ -48,6 +49,7 @@ function MagneticBtn({ children, primary, href }: { children: React.ReactNode; p
   const sx = useSpring(mx, { stiffness: 180, damping: 14 });
   const sy = useSpring(my, { stiffness: 180, damping: 14 });
   const isMobile = useIsMobile();
+  const { c } = useTheme();
   return (
     <motion.a
       ref={ref} href={href ?? '#'}
@@ -55,11 +57,11 @@ function MagneticBtn({ children, primary, href }: { children: React.ReactNode; p
         x: sx, y: sy,
         padding: isMobile ? '14px 28px' : '17px 44px',
         borderRadius: 10, textDecoration: 'none',
-        background: primary ? '#f0f0f0' : 'transparent',
-        color: primary ? '#050505' : '#555',
+        background: primary ? c.text : 'transparent',
+        color: primary ? c.bg : c.textMuted,
         fontWeight: primary ? 800 : 700,
         fontSize: isMobile ? 13 : 14, letterSpacing: '-0.01em',
-        border: primary ? 'none' : '1px solid rgba(255,255,255,0.09)',
+        border: primary ? 'none' : `1px solid ${c.border}`,
         fontFamily: 'var(--font-outfit)',
         position: 'relative', overflow: 'hidden', display: 'inline-block',
         width: isMobile ? '100%' : 'auto', textAlign: 'center' as const,
@@ -71,7 +73,7 @@ function MagneticBtn({ children, primary, href }: { children: React.ReactNode; p
         my.set((e.clientY - (r.top + r.height / 2)) * 0.28);
       }}
       onMouseLeave={() => { mx.set(0); my.set(0); }}
-      whileHover={primary ? { boxShadow: '0 16px 50px rgba(74,222,128,0.3)', scale: 1.03 } : { borderColor: 'rgba(74,222,128,0.4)', color: '#e0e0e0' }}
+      whileHover={primary ? { boxShadow: '0 16px 50px rgba(74,222,128,0.3)', scale: 1.03 } : { borderColor: `${c.accent}66`, color: c.text }}
       whileTap={{ scale: 0.95 }}
     >
       {primary && (
@@ -104,17 +106,18 @@ const STATS = [
 // ─── Hero Section ─────────────────────────────────────────────────────────────
 function HeroSection() {
   const isMobile = useIsMobile();
+  const { c } = useTheme();
 
   return (
     <section style={{
       position: 'relative', minHeight: '100vh',
       display: 'flex', alignItems: 'center',
-      overflow: 'hidden', background: '#050505',
+      overflow: 'hidden', background: c.bg,
     }}>
       {/* Multi-layer background */}
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 3 }}
         style={{ position: 'absolute', top: '-20%', left: '50%', transform: 'translateX(-50%)', width: 1100, height: 800, background: 'radial-gradient(ellipse, rgba(74,222,128,0.08) 0%, transparent 60%)', pointerEvents: 'none' }} />
-      <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.025) 1px, transparent 1px)', backgroundSize: '48px 48px' }} />
+      <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', backgroundImage: `radial-gradient(circle, ${c.dotGrid} 1px, transparent 1px)`, backgroundSize: '48px 48px' }} />
 
       {/* Ghost watermark */}
       <motion.div
@@ -122,7 +125,7 @@ function HeroSection() {
         style={{
           position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)',
           fontSize: 'clamp(80px,20vw,280px)', fontWeight: 900, letterSpacing: '-0.06em',
-          color: 'transparent', WebkitTextStroke: '1px rgba(255,255,255,0.018)',
+          color: 'transparent', WebkitTextStroke: c.isDark ? '1px rgba(255,255,255,0.018)' : '1px rgba(0,0,0,0.025)',
           fontFamily: 'var(--font-outfit)', userSelect: 'none', pointerEvents: 'none', whiteSpace: 'nowrap',
         }}
       >
@@ -147,16 +150,16 @@ function HeroSection() {
             style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 36 }}
           >
             <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.5, delay: 0.4, ease: E }}
-              style={{ width: 36, height: 1, background: '#4ADE80', transformOrigin: 'left' }} />
-            <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.44em', textTransform: 'uppercase', color: '#4ADE80' }}>What We Build</span>
+              style={{ width: 36, height: 1, background: c.accent, transformOrigin: 'left' }} />
+            <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.44em', textTransform: 'uppercase', color: c.accent }}>What We Build</span>
           </motion.div>
 
           {/* Title */}
           <h1 style={{ fontSize: isMobile ? 'clamp(46px,11vw,72px)' : 'clamp(56px,7.5vw,96px)', fontWeight: 900, letterSpacing: '-0.055em', lineHeight: 0.87, margin: '0 0 32px' }}>
             {[
               { text: 'Premium',    style: {} },
-              { text: 'Digital',    style: { color: 'transparent', WebkitTextStroke: '1px rgba(255,255,255,0.3)' } },
-              { text: 'Services.',  style: { color: '#4ADE80' } },
+              { text: 'Digital',    style: { color: 'transparent', WebkitTextStroke: c.isDark ? '1px rgba(255,255,255,0.3)' : '1px rgba(0,0,0,0.35)' } },
+              { text: 'Services.',  style: { color: c.accent } },
             ].map((line, i) => (
               <div key={i} style={{ display: 'block', overflow: 'hidden' }}>
                 <motion.div
@@ -174,7 +177,7 @@ function HeroSection() {
           <motion.p
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.9, ease: E }}
-            style={{ color: '#606060', fontSize: isMobile ? 14 : 15.5, lineHeight: 1.78, maxWidth: 460, letterSpacing: '-0.01em', marginBottom: 44 }}
+            style={{ color: c.textSub, fontSize: isMobile ? 14 : 15.5, lineHeight: 1.78, maxWidth: 460, letterSpacing: '-0.01em', marginBottom: 44 }}
           >
             From web and mobile applications to cloud infrastructure and SEO — end-to-end
             digital solutions built with precision, speed, and a relentless focus on quality.
@@ -198,22 +201,22 @@ function HeroSection() {
               display: 'grid',
               gridTemplateColumns: `repeat(${isMobile ? 2 : 4}, 1fr)`,
               gap: '1px',
-              background: 'rgba(255,255,255,0.05)',
+              background: c.border,
               borderRadius: 16,
               overflow: 'hidden',
-              border: '1px solid rgba(255,255,255,0.05)',
+              border: `1px solid ${c.border}`,
             }}
           >
             {STATS.map((s, i) => (
               <div key={i} style={{
                 padding: isMobile ? '16px 14px' : '20px 20px',
-                background: '#080808',
+                background: c.bgSection,
                 textAlign: 'center',
               }}>
-                <div style={{ fontSize: isMobile ? 22 : 26, fontWeight: 900, color: '#4ADE80', letterSpacing: '-0.05em', lineHeight: 1, fontFamily: 'var(--font-outfit)', marginBottom: 5 }}>
+                <div style={{ fontSize: isMobile ? 22 : 26, fontWeight: 900, color: c.accent, letterSpacing: '-0.05em', lineHeight: 1, fontFamily: 'var(--font-outfit)', marginBottom: 5 }}>
                   {s.value}
                 </div>
-                <div style={{ fontSize: 9.5, fontWeight: 600, color: '#3a3a3a', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+                <div style={{ fontSize: 9.5, fontWeight: 600, color: c.textMuted, letterSpacing: '0.1em', textTransform: 'uppercase' }}>
                   {s.label}
                 </div>
               </div>
@@ -241,7 +244,7 @@ function HeroSection() {
                   transition={{ duration: 0.8, delay: 0.6 + i * 0.12, ease: E }}
                   whileHover={{ y: -8, scale: 1.02 }}
                   style={{
-                    background: 'linear-gradient(145deg, #0e0e0e, #0a0a0a)',
+                    background: c.bgCard,
                     border: `1px solid ${card.accent}28`,
                     borderRadius: 20,
                     padding: '28px 24px',
@@ -275,10 +278,10 @@ function HeroSection() {
                     {card.icon}
                   </div>
 
-                  <div style={{ fontSize: 15, fontWeight: 800, color: '#e2e2e2', letterSpacing: '-0.03em', marginBottom: 8, lineHeight: 1.2 }}>
+                  <div style={{ fontSize: 15, fontWeight: 800, color: c.text, letterSpacing: '-0.03em', marginBottom: 8, lineHeight: 1.2 }}>
                     {card.title}
                   </div>
-                  <div style={{ fontSize: 11, color: '#484848', letterSpacing: '-0.01em', lineHeight: 1.5 }}>
+                  <div style={{ fontSize: 11, color: c.textMuted, letterSpacing: '-0.01em', lineHeight: 1.5 }}>
                     {card.sub}
                   </div>
 
@@ -307,8 +310,8 @@ function HeroSection() {
                 zIndex: 2,
               }}
             >
-              <div style={{ fontSize: 26, fontWeight: 900, color: '#4ADE80', letterSpacing: '-0.05em', lineHeight: 1 }}>150+</div>
-              <div style={{ fontSize: 9, fontWeight: 700, color: '#444', letterSpacing: '0.22em', textTransform: 'uppercase', marginTop: 5 }}>Happy Clients</div>
+              <div style={{ fontSize: 26, fontWeight: 900, color: c.accent, letterSpacing: '-0.05em', lineHeight: 1 }}>150+</div>
+              <div style={{ fontSize: 9, fontWeight: 700, color: c.textMuted, letterSpacing: '0.22em', textTransform: 'uppercase', marginTop: 5 }}>Happy Clients</div>
             </motion.div>
           </div>
         )}
@@ -319,9 +322,9 @@ function HeroSection() {
         initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6, delay: 1.8 }}
         style={{ position: 'absolute', bottom: 40, left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, zIndex: 10 }}
       >
-        <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.32em', color: '#333', textTransform: 'uppercase' }}>Scroll</span>
+        <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.32em', color: c.textMuted, textTransform: 'uppercase' }}>Scroll</span>
         <motion.div animate={{ y: [0, 9, 0] }} transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-          style={{ width: 1, height: 36, background: 'linear-gradient(to bottom, #4ADE80, transparent)' }} />
+          style={{ width: 1, height: 36, background: `linear-gradient(to bottom, ${c.accent}, transparent)` }} />
       </motion.div>
     </section>
   );
@@ -329,15 +332,16 @@ function HeroSection() {
 
 // ─── Section Label ─────────────────────────────────────────────────────────────
 function SectionLabel({ text, inView, center = false }: { text: string; inView: boolean; center?: boolean }) {
+  const { c } = useTheme();
   return (
     <motion.div
       initial={{ opacity: 0, y: 14 }} animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, ease: E }}
       style={{ display: 'flex', alignItems: 'center', justifyContent: center ? 'center' : 'flex-start', gap: 14, marginBottom: 22 }}
     >
-      {center && <motion.div initial={{ scaleX: 0 }} animate={inView ? { scaleX: 1 } : {}} transition={{ duration: 0.5, ease: E }} style={{ width: 32, height: 1, background: '#4ADE80', transformOrigin: 'right' }} />}
-      <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.44em', textTransform: 'uppercase', color: '#4ADE80' }}>{text}</span>
-      <motion.div initial={{ scaleX: 0 }} animate={inView ? { scaleX: 1 } : {}} transition={{ duration: 0.5, ease: E }} style={{ width: 32, height: 1, background: '#4ADE80', transformOrigin: 'left' }} />
+      {center && <motion.div initial={{ scaleX: 0 }} animate={inView ? { scaleX: 1 } : {}} transition={{ duration: 0.5, ease: E }} style={{ width: 32, height: 1, background: c.accent, transformOrigin: 'right' }} />}
+      <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.44em', textTransform: 'uppercase', color: c.accent }}>{text}</span>
+      <motion.div initial={{ scaleX: 0 }} animate={inView ? { scaleX: 1 } : {}} transition={{ duration: 0.5, ease: E }} style={{ width: 32, height: 1, background: c.accent, transformOrigin: 'left' }} />
     </motion.div>
   );
 }
@@ -415,6 +419,7 @@ function ServiceCard({ iconKey, title, body, accent, index, inView, cols = 3 }: 
   const cardRef = useRef<HTMLDivElement>(null);
   const glowRef = useRef<HTMLDivElement>(null);
   const delay = Math.floor(index / cols) * 0.08 + (index % cols) * 0.07;
+  const { c } = useTheme();
 
   return (
     <motion.div
@@ -435,7 +440,7 @@ function ServiceCard({ iconKey, title, body, accent, index, inView, cols = 3 }: 
           glowRef.current.style.opacity = '1';
         }}
         style={{
-          background: 'linear-gradient(150deg, #0f0f0f 0%, #0a0a0a 100%)',
+          background: c.bgCard,
           border: `1px solid ${accent}22`,
           borderRadius: 22, padding: '32px 28px 32px',
           position: 'relative', overflow: 'hidden', height: '100%',
@@ -477,10 +482,10 @@ function ServiceCard({ iconKey, title, body, accent, index, inView, cols = 3 }: 
           {SERVICE_ICONS[iconKey]}
         </div>
 
-        <h3 style={{ fontSize: 17, fontWeight: 800, color: '#e2e2e2', letterSpacing: '-0.038em', marginBottom: 12, lineHeight: 1.2, position: 'relative', zIndex: 1 }}>
+        <h3 style={{ fontSize: 17, fontWeight: 800, color: c.text, letterSpacing: '-0.038em', marginBottom: 12, lineHeight: 1.2, position: 'relative', zIndex: 1 }}>
           {title}
         </h3>
-        <p style={{ fontSize: 13.5, color: '#545454', lineHeight: 1.8, letterSpacing: '-0.01em', position: 'relative', zIndex: 1 }}>
+        <p style={{ fontSize: 13.5, color: c.textMuted, lineHeight: 1.8, letterSpacing: '-0.01em', position: 'relative', zIndex: 1 }}>
           {body}
         </p>
 
@@ -509,13 +514,14 @@ function WebSection() {
   const ref    = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: '-8%' });
   const isMobile = useIsMobile();
+  const { c } = useTheme();
 
   return (
     <section id="web" ref={ref} style={{
-      background: '#080808',
+      background: c.bgSection,
       padding: 'clamp(60px,6vw,96px) clamp(24px,6vw,96px)',
       position: 'relative', overflow: 'hidden',
-      borderTop: '1px solid rgba(255,255,255,0.04)',
+      borderTop: `1px solid ${c.border}`,
     }}>
       <div className="orb-a" style={{ position: 'absolute', top: '-12%', right: '-6%', width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(74,222,128,0.05) 0%, transparent 65%)', filter: 'blur(60px)', pointerEvents: 'none' }} />
 
@@ -525,12 +531,12 @@ function WebSection() {
           <h2 style={{ fontSize: 'clamp(36px,5vw,64px)', fontWeight: 900, letterSpacing: '-0.055em', lineHeight: 0.95, margin: '0 0 24px' }}>
             <WordReveal text="Custom Web Application" inView={inView} delay={0.08} />
             <br />
-            <WordReveal text="Development" inView={inView} delay={0.24} style={{ color: 'transparent', WebkitTextStroke: '1px rgba(255,255,255,0.28)' }} />
+            <WordReveal text="Development" inView={inView} delay={0.24} style={{ color: 'transparent', WebkitTextStroke: c.isDark ? '1px rgba(255,255,255,0.28)' : '1px rgba(0,0,0,0.35)' }} />
           </h2>
           <motion.p
             initial={{ opacity: 0, y: 10 }} animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4, ease: E }}
-            style={{ color: '#545454', fontSize: 'clamp(13px,1.3vw,15px)', lineHeight: 1.82, maxWidth: 600, margin: '0 auto', letterSpacing: '-0.01em' }}
+            style={{ color: c.textMuted, fontSize: 'clamp(13px,1.3vw,15px)', lineHeight: 1.82, maxWidth: 600, margin: '0 auto', letterSpacing: '-0.01em' }}
           >
             Bespoke web applications tailored to automate and streamline your business operations — from SaaS platforms and automation products to MVPs that let you test and validate your ideas fast.
           </motion.p>
@@ -563,13 +569,14 @@ function MobileSection() {
   const ref    = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: '-8%' });
   const isMobile = useIsMobile();
+  const { c } = useTheme();
 
   return (
     <section id="mobile" ref={ref} style={{
-      background: '#050505',
+      background: c.bg,
       padding: 'clamp(60px,6vw,96px) clamp(24px,6vw,96px)',
       position: 'relative', overflow: 'hidden',
-      borderTop: '1px solid rgba(255,255,255,0.04)',
+      borderTop: `1px solid ${c.border}`,
     }}>
       <div className="orb-b" style={{ position: 'absolute', bottom: '-12%', left: '-8%', width: 650, height: 650, borderRadius: '50%', background: 'radial-gradient(circle, rgba(56,189,248,0.04) 0%, transparent 65%)', filter: 'blur(65px)', pointerEvents: 'none' }} />
 
@@ -579,12 +586,12 @@ function MobileSection() {
           <h2 style={{ fontSize: 'clamp(36px,5vw,64px)', fontWeight: 900, letterSpacing: '-0.055em', lineHeight: 0.95, margin: '0 0 24px' }}>
             <WordReveal text="Mobile Application" inView={inView} delay={0.08} />
             <br />
-            <WordReveal text="Development" inView={inView} delay={0.24} style={{ color: 'transparent', WebkitTextStroke: '1px rgba(255,255,255,0.28)' }} />
+            <WordReveal text="Development" inView={inView} delay={0.24} style={{ color: 'transparent', WebkitTextStroke: c.isDark ? '1px rgba(255,255,255,0.28)' : '1px rgba(0,0,0,0.35)' }} />
           </h2>
           <motion.p
             initial={{ opacity: 0, y: 10 }} animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4, ease: E }}
-            style={{ color: '#545454', fontSize: 'clamp(13px,1.3vw,15px)', lineHeight: 1.82, maxWidth: 580, margin: '0 auto', letterSpacing: '-0.01em' }}
+            style={{ color: c.textMuted, fontSize: 'clamp(13px,1.3vw,15px)', lineHeight: 1.82, maxWidth: 580, margin: '0 auto', letterSpacing: '-0.01em' }}
           >
             Specializing in mobile applications for iOS and Android — ensuring optimal performance, seamless user experience, and scalable architecture across every platform and device.
           </motion.p>
@@ -632,13 +639,14 @@ function TechStackSection() {
   const ref    = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: '-8%' });
   const isMobile = useIsMobile();
+  const { c } = useTheme();
 
   return (
     <section ref={ref} style={{
-      background: '#080808',
+      background: c.bgSection,
       padding: 'clamp(60px,6vw,96px) clamp(24px,6vw,96px)',
       position: 'relative', overflow: 'hidden',
-      borderTop: '1px solid rgba(255,255,255,0.04)',
+      borderTop: `1px solid ${c.border}`,
     }}>
       <div className="orb-a" style={{ position: 'absolute', top: '5%', right: '-6%', width: 550, height: 550, borderRadius: '50%', background: 'radial-gradient(circle, rgba(74,222,128,0.045) 0%, transparent 65%)', filter: 'blur(60px)', pointerEvents: 'none' }} />
 
@@ -649,12 +657,12 @@ function TechStackSection() {
           <h2 style={{ fontSize: 'clamp(36px,5vw,64px)', fontWeight: 900, letterSpacing: '-0.055em', lineHeight: 0.95, margin: '0 0 24px' }}>
             <WordReveal text="Our Expertise" inView={inView} delay={0.08} />
             {' '}
-            <WordReveal text="Tech Stacks" inView={inView} delay={0.22} style={{ color: 'transparent', WebkitTextStroke: '1px rgba(255,255,255,0.28)' }} />
+            <WordReveal text="Tech Stacks" inView={inView} delay={0.22} style={{ color: 'transparent', WebkitTextStroke: c.isDark ? '1px rgba(255,255,255,0.28)' : '1px rgba(0,0,0,0.35)' }} />
           </h2>
           <motion.p
             initial={{ opacity: 0, y: 10 }} animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.38, ease: E }}
-            style={{ color: '#545454', fontSize: 'clamp(13px,1.3vw,15px)', lineHeight: 1.82, maxWidth: 540, margin: '0 auto', letterSpacing: '-0.01em' }}
+            style={{ color: c.textMuted, fontSize: 'clamp(13px,1.3vw,15px)', lineHeight: 1.82, maxWidth: 540, margin: '0 auto', letterSpacing: '-0.01em' }}
           >
             Our proficiency spans a comprehensive range of modern technology stacks — giving you full-coverage solutions from pixel to server.
           </motion.p>
@@ -676,7 +684,7 @@ function TechStackSection() {
                 animate={inView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.65, delay: 0.12 + i * 0.1, ease: E }}
                 style={{
-                  background: 'linear-gradient(145deg, #0d0d0d, #0a0a0a)',
+                  background: c.bgCard,
                   border: `1px solid ${stack.accent}1e`,
                   borderRadius: 16, padding: '18px 20px',
                   position: 'relative', overflow: 'hidden',
@@ -690,9 +698,9 @@ function TechStackSection() {
                 <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', paddingLeft: 14 }}>
                   {stack.items.map((item, j) => (
                     <span key={j} style={{
-                      fontSize: 11.5, fontWeight: 600, color: '#5e5e5e',
-                      background: 'rgba(255,255,255,0.035)',
-                      border: '1px solid rgba(255,255,255,0.07)',
+                      fontSize: 11.5, fontWeight: 600, color: c.textMuted,
+                      background: c.isDark ? 'rgba(255,255,255,0.035)' : 'rgba(0,0,0,0.04)',
+                      border: `1px solid ${c.border}`,
                       borderRadius: 7, padding: '4px 10px',
                       letterSpacing: '-0.01em',
                     }}>
@@ -771,13 +779,14 @@ function ExtraServicesSection() {
   const ref    = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: '-8%' });
   const isMobile = useIsMobile();
+  const { c } = useTheme();
 
   return (
     <section ref={ref} style={{
-      background: '#050505',
+      background: c.bg,
       padding: 'clamp(60px,6vw,96px) clamp(24px,6vw,96px)',
       position: 'relative', overflow: 'hidden',
-      borderTop: '1px solid rgba(255,255,255,0.04)',
+      borderTop: `1px solid ${c.border}`,
     }}>
       <div className="orb-b" style={{ position: 'absolute', bottom: '-10%', right: '-5%', width: 550, height: 550, borderRadius: '50%', background: 'radial-gradient(circle, rgba(167,139,250,0.05) 0%, transparent 65%)', filter: 'blur(60px)', pointerEvents: 'none' }} />
 
@@ -787,12 +796,12 @@ function ExtraServicesSection() {
           <h2 style={{ fontSize: 'clamp(36px,5vw,64px)', fontWeight: 900, letterSpacing: '-0.055em', lineHeight: 0.95, margin: '0 0 24px' }}>
             <WordReveal text="Beyond" inView={inView} delay={0.08} />
             {' '}
-            <WordReveal text="Development" inView={inView} delay={0.2} style={{ color: 'transparent', WebkitTextStroke: '1px rgba(255,255,255,0.28)' }} />
+            <WordReveal text="Development" inView={inView} delay={0.2} style={{ color: 'transparent', WebkitTextStroke: c.isDark ? '1px rgba(255,255,255,0.28)' : '1px rgba(0,0,0,0.35)' }} />
           </h2>
           <motion.p
             initial={{ opacity: 0, y: 10 }} animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.38, ease: E }}
-            style={{ color: '#545454', fontSize: 'clamp(13px,1.3vw,15px)', lineHeight: 1.82, maxWidth: 520, margin: '0 auto', letterSpacing: '-0.01em' }}
+            style={{ color: c.textMuted, fontSize: 'clamp(13px,1.3vw,15px)', lineHeight: 1.82, maxWidth: 520, margin: '0 auto', letterSpacing: '-0.01em' }}
           >
             From pixel-perfect design to cloud infrastructure and organic growth — we cover the full spectrum of digital needs.
           </motion.p>
@@ -818,6 +827,7 @@ function CTASection() {
   const ref    = useRef<HTMLElement>(null);
   const inView = useInView(ref, { margin: '-10%' });
   const isMobile = useIsMobile();
+  const { c } = useTheme();
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
   const yParallax = useTransform(scrollYProgress, [0, 1], ['-6%', '6%']);
 
@@ -825,8 +835,8 @@ function CTASection() {
     <section id="contact" ref={ref} style={{
       position: 'relative', width: '100%',
       padding: 'clamp(60px,6vw,96px) clamp(24px,6vw,96px)',
-      background: '#080808',
-      borderTop: '1px solid rgba(255,255,255,0.04)',
+      background: c.bgSection,
+      borderTop: `1px solid ${c.border}`,
       overflow: 'hidden',
     }}>
       {/* Orbs */}
@@ -834,7 +844,7 @@ function CTASection() {
       <div className="orb-b" style={{ position: 'absolute', bottom: '-18%', right: '-10%', width: 500, height: 500, borderRadius: '50%', background: 'radial-gradient(circle, rgba(167,139,250,0.07) 0%, transparent 65%)', filter: 'blur(55px)', pointerEvents: 'none', zIndex: 0 }} />
 
       {/* Dot grid */}
-      <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.022) 1px, transparent 1px)', backgroundSize: '48px 48px', opacity: 0.6 }} />
+      <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', backgroundImage: `radial-gradient(circle, ${c.dotGrid} 1px, transparent 1px)`, backgroundSize: '48px 48px', opacity: 0.6 }} />
 
       {/* Parallax ghost text */}
       {!isMobile && (
@@ -847,7 +857,7 @@ function CTASection() {
             position: 'absolute', right: '-2%', bottom: '2%',
             fontSize: 'clamp(80px,16vw,220px)', fontWeight: 900,
             letterSpacing: '-0.07em', color: 'transparent',
-            WebkitTextStroke: '1px rgba(255,255,255,0.025)',
+            WebkitTextStroke: c.isDark ? '1px rgba(255,255,255,0.025)' : '1px rgba(0,0,0,0.03)',
             userSelect: 'none', pointerEvents: 'none', zIndex: 1,
             fontFamily: 'var(--font-outfit)',
           }}>
@@ -864,30 +874,30 @@ function CTASection() {
           style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 14, marginBottom: 40 }}
         >
           <motion.div initial={{ scaleX: 0 }} animate={inView ? { scaleX: 1 } : {}} transition={{ duration: 0.5, delay: 0.08, ease: E }}
-            style={{ width: 40, height: 1, background: '#4ADE80', transformOrigin: 'right' }} />
-          <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.44em', textTransform: 'uppercase', color: '#4ADE80' }}>Ready to innovate?</span>
+            style={{ width: 40, height: 1, background: c.accent, transformOrigin: 'right' }} />
+          <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.44em', textTransform: 'uppercase', color: c.accent }}>Ready to innovate?</span>
           <motion.div initial={{ scaleX: 0 }} animate={inView ? { scaleX: 1 } : {}} transition={{ duration: 0.5, delay: 0.08, ease: E }}
-            style={{ width: 40, height: 1, background: '#4ADE80', transformOrigin: 'left' }} />
+            style={{ width: 40, height: 1, background: c.accent, transformOrigin: 'left' }} />
         </motion.div>
 
         {/* Title */}
         <h2 style={{ fontSize: isMobile ? 'clamp(38px,9vw,56px)' : 'clamp(48px,7vw,84px)', fontWeight: 900, letterSpacing: '-0.055em', lineHeight: 0.9, margin: '0 0 36px' }}>
           <WordReveal text="Innovate with" inView={inView} delay={0.05} />
           <br />
-          <WordReveal text="UpCodo" inView={inView} delay={0.22} style={{ color: '#4ADE80' }} />
+          <WordReveal text="UpCodo" inView={inView} delay={0.22} style={{ color: c.accent }} />
         </h2>
 
         {/* Gold divider */}
         <motion.div
           initial={{ scaleX: 0 }} animate={inView ? { scaleX: 1 } : {}}
           transition={{ duration: 0.9, delay: 0.42, ease: E }}
-          style={{ height: 1, maxWidth: 420, margin: '0 auto 40px', background: 'linear-gradient(90deg, transparent, rgba(74,222,128,0.5), transparent)', transformOrigin: 'center' }}
+          style={{ height: 1, maxWidth: 420, margin: '0 auto 40px', background: `linear-gradient(90deg, transparent, ${c.accent}80, transparent)`, transformOrigin: 'center' }}
         />
 
         <motion.p
           initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.65, delay: 0.5, ease: E }}
-          style={{ color: '#5e5e5e', fontSize: 'clamp(13px,1.3vw,15.5px)', lineHeight: 1.85, letterSpacing: '-0.01em', marginBottom: 48 }}
+          style={{ color: c.textSub, fontSize: 'clamp(13px,1.3vw,15.5px)', lineHeight: 1.85, letterSpacing: '-0.01em', marginBottom: 48 }}
         >
           Transform your business ideas into reality with our cutting-edge mobile and web applications. Leverage expert development services tailored to your unique needs.
         </motion.p>
@@ -907,8 +917,9 @@ function CTASection() {
 
 // ─── Page ──────────────────────────────────────────────────────────────────────
 export default function ServicesPage() {
+  const { c } = useTheme();
   return (
-    <main style={{ background: '#050505', minHeight: '100dvh', width: '100%', color: '#f0f0f0' }}>
+    <main style={{ background: c.bg, minHeight: '100dvh', width: '100%', color: c.text }}>
       <AnimatedCursor />
       <Navigation activePage="services" />
       <HeroSection />

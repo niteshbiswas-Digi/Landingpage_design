@@ -2,6 +2,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useAnimationFrame } from 'framer-motion';
 import { Smartphone, Globe, PenTool, Activity, LucideIcon } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 
 function useIsMobile() {
   const [isMobile, setIsMobile] = useState(false);
@@ -139,6 +140,7 @@ function ServiceCard({
   const Icon = service.icon;
   const cardRef = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState(false);
+  const { c } = useTheme();
 
   /* Mouse-tracked inner glow */
   const rawX = useMotionValue(0);
@@ -167,18 +169,18 @@ function ServiceCard({
       style={{
         position: 'relative',
         background: hovered
-          ? 'linear-gradient(135deg, rgba(255,255,255,0.055) 0%, rgba(26,174,92,0.03) 100%)'
-          : 'linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%)',
+          ? (c.isDark ? 'linear-gradient(135deg, rgba(255,255,255,0.055) 0%, rgba(26,174,92,0.03) 100%)' : 'linear-gradient(135deg, #ffffff 0%, rgba(74,222,128,0.04) 100%)')
+          : (c.isDark ? 'linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%)' : '#FFFFFF'),
         borderWidth: 1,
         borderStyle: 'solid',
-        borderColor: hovered ? 'rgba(26,174,92,0.5)' : 'rgba(255,255,255,0.07)',
+        borderColor: hovered ? 'rgba(26,174,92,0.5)' : c.border,
         borderRadius: 20,
         padding: 'clamp(28px, 3vw, 40px)',
         overflow: 'hidden',
         cursor: 'default',
         boxShadow: hovered
-          ? '0 0 60px rgba(26,174,92,0.12), 0 30px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.06)'
-          : '0 4px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04)',
+          ? (c.isDark ? '0 0 60px rgba(26,174,92,0.12), 0 30px 80px rgba(0,0,0,0.6)' : '0 8px 40px rgba(74,222,128,0.12), 0 2px 16px rgba(0,0,0,0.07)')
+          : c.cardShadow,
         transition: 'border-color 0.35s ease, box-shadow 0.35s ease, background 0.35s ease',
         transformStyle: 'preserve-3d',
         perspective: 1000,
@@ -242,7 +244,7 @@ function ServiceCard({
           letterSpacing: '-0.06em',
           lineHeight: 1,
           color: 'transparent',
-          WebkitTextStroke: `1px rgba(255,255,255,${hovered ? 0.08 : 0.04})`,
+          WebkitTextStroke: `1px ${c.isDark ? `rgba(255,255,255,${hovered ? 0.08 : 0.04})` : `rgba(0,0,0,${hovered ? 0.07 : 0.04})`}`,
           userSelect: 'none',
           pointerEvents: 'none',
           transition: 'all 0.4s ease',
@@ -270,7 +272,7 @@ function ServiceCard({
           transition: 'all 0.38s ease',
         }}
       >
-        <Icon size={22} color="#4ADE80" strokeWidth={1.6} />
+        <Icon size={22} color={c.accent} strokeWidth={1.6} />
       </motion.div>
 
       {/* Separator */}
@@ -291,7 +293,7 @@ function ServiceCard({
           fontWeight: 700,
           letterSpacing: '-0.03em',
           lineHeight: 1.2,
-          color: hovered ? '#ffffff' : '#e2e2e2',
+          color: hovered ? (c.isDark ? '#ffffff' : '#0A0A0A') : c.text,
           marginBottom: 12,
           transition: 'color 0.3s ease',
         }}
@@ -302,7 +304,7 @@ function ServiceCard({
       <p
         style={{
           fontSize: 'clamp(13px, 1.1vw, 15px)',
-          color: '#636363',
+          color: c.textSub,
           lineHeight: 1.8,
           letterSpacing: '-0.01em',
           margin: 0,
@@ -336,6 +338,7 @@ export default function ServicesSection() {
   const isMobile = useIsMobile();
   const sectionRef = useRef<HTMLElement>(null);
   const [sectionInView, setSectionInView] = useState(false);
+  const { c } = useTheme();
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -353,11 +356,11 @@ export default function ServicesSection() {
       ref={sectionRef}
       style={{
         position: 'relative',
-        background: '#080808',
+        background: c.bgSection,
         padding: isMobile
           ? '60px 20px 70px'
           : 'clamp(72px, 7vw, 100px) clamp(32px, 5vw, 80px)',
-        borderTop: '1px solid rgba(255,255,255,0.04)',
+        borderTop: `1px solid ${c.border}`,
         overflow: 'hidden',
       }}
     >
@@ -399,7 +402,7 @@ export default function ServicesSection() {
       {/* Dot grid */}
       <div style={{
         position: 'absolute', inset: 0,
-        backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.016) 1px, transparent 1px)',
+        backgroundImage: `radial-gradient(circle, ${c.dotGrid} 1px, transparent 1px)`,
         backgroundSize: '44px 44px',
         pointerEvents: 'none', opacity: 0.55,
       }} />
@@ -422,7 +425,7 @@ export default function ServicesSection() {
           style={{
             position: 'absolute', ...dot.style,
             width: dot.size, height: dot.size, borderRadius: '50%',
-            background: '#4ADE80',
+            background: c.accent,
             boxShadow: `0 0 ${dot.size * 3}px rgba(26,174,92,0.7)`,
             pointerEvents: 'none',
           }}
@@ -473,7 +476,7 @@ export default function ServicesSection() {
             <span style={{
               fontSize: 11, fontWeight: 700,
               letterSpacing: '0.52em', textTransform: 'uppercase',
-              color: '#4ADE80',
+              color: c.accent,
             }}>
               Our Services
             </span>
@@ -506,16 +509,16 @@ export default function ServicesSection() {
               margin: '0 0 20px',
             }}
           >
-            <span style={{ color: '#ffffff' }}>Strategic{' '}</span>
-            <span style={{ color: '#4ADE80' }}>
+            <span style={{ color: c.text }}>Strategic{' '}</span>
+            <span style={{ color: c.accent }}>
               App Development
             </span>
             <br />
             <span style={{
               color: 'transparent',
               WebkitTextStroke: isMobile
-                ? '1px rgba(255,255,255,0.18)'
-                : '1px rgba(255,255,255,0.22)',
+                ? `1px ${c.isDark ? 'rgba(255,255,255,0.18)' : 'rgba(0,0,0,0.14)'}`
+                : `1px ${c.isDark ? 'rgba(255,255,255,0.22)' : 'rgba(0,0,0,0.18)'}`,
             }}>
               for Business Growth.
             </span>
@@ -529,7 +532,7 @@ export default function ServicesSection() {
             transition={{ duration: 0.7, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
             style={{
               width: 60, height: 2,
-              background: 'linear-gradient(90deg, transparent, #4ADE80 30%, #6EE7B0 50%, #4ADE80 70%, transparent)',
+              background: `linear-gradient(90deg, transparent, ${c.accent} 30%, #6EE7B0 50%, ${c.accent} 70%, transparent)`,
               margin: '0 auto',
               borderRadius: 2,
               transformOrigin: 'center',

@@ -1,6 +1,7 @@
 'use client';
 import { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { useTheme } from '../context/ThemeContext';
 
 function useIsMobile() {
   const [isMobile, setIsMobile] = useState(false);
@@ -89,6 +90,7 @@ export default function CustomerReviewsSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const inView = useInView(sectionRef, { once: false, margin: '-8%' });
   const isMobile = useIsMobile();
+  const { c } = useTheme();
 
   const [active, setActive] = useState(0);
   const [dir, setDir] = useState(1);
@@ -129,8 +131,8 @@ export default function CustomerReviewsSection() {
     <section
       ref={sectionRef}
       style={{
-        background: '#080808',
-        borderTop: '1px solid rgba(255,255,255,0.04)',
+        background: c.bgSection,
+        borderTop: `1px solid ${c.border}`,
         padding: 'clamp(60px, 7vw, 100px) clamp(24px, 5vw, 80px)',
         overflow: 'hidden',
         position: 'relative',
@@ -165,11 +167,11 @@ export default function CustomerReviewsSection() {
             initial={{ scaleX: 0 }}
             animate={inView ? { scaleX: 1 } : {}}
             transition={{ duration: 0.5, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-            style={{ width: 28, height: 1, background: '#4ADE80', transformOrigin: 'left' }}
+            style={{ width: 28, height: 1, background: c.accent, transformOrigin: 'left' }}
           />
           <p style={{
             fontSize: 10, fontWeight: 700, letterSpacing: '0.4em',
-            textTransform: 'uppercase', color: '#4ADE80', margin: 0,
+            textTransform: 'uppercase', color: c.accent, margin: 0,
           }}>
             Our Customer Reviews
           </p>
@@ -180,15 +182,15 @@ export default function CustomerReviewsSection() {
           letterSpacing: '-0.05em', lineHeight: 0.92, margin: 0,
         }}>
           {[
-            { text: 'Clients who', color: '#f0f0f0', delay: 0.08 },
+            { text: 'Clients who', delay: 0.08 },
             { text: 'trust us.', delay: 0.2, stroke: true },
-          ].map(({ text, color, delay, stroke }) => (
+          ].map(({ text, delay, stroke }) => (
             <span key={text} style={{ display: 'block', overflow: 'hidden' }}>
               <motion.span
                 style={{
                   display: 'block',
-                  color: color ?? 'transparent',
-                  ...(stroke ? { WebkitTextStroke: '1px rgba(255,255,255,0.22)' } : {}),
+                  color: stroke ? 'transparent' : c.text,
+                  ...(stroke ? { WebkitTextStroke: `1px ${c.isDark ? 'rgba(255,255,255,0.22)' : 'rgba(0,0,0,0.18)'}` } : {}),
                 }}
                 initial={{ y: '108%' }}
                 animate={inView ? { y: 0 } : {}}
@@ -340,7 +342,7 @@ export default function CustomerReviewsSection() {
             >
               <div style={{ display: 'flex', gap: 3, marginBottom: 4 }}>
                 {[...Array(5)].map((_, i) => (
-                  <svg key={i} width="10" height="10" viewBox="0 0 24 24" fill="#4ADE80">
+                  <svg key={i} width="10" height="10" viewBox="0 0 24 24" fill={c.accent}>
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                   </svg>
                 ))}
@@ -377,8 +379,8 @@ export default function CustomerReviewsSection() {
                 0{active + 1}
               </motion.span>
             </AnimatePresence>
-            <span style={{ fontSize: 14, color: '#3a3a3a', fontWeight: 700 }}>/</span>
-            <span style={{ fontSize: 14, color: '#3a3a3a', fontWeight: 700 }}>0{VIDEOS.length}</span>
+            <span style={{ fontSize: 14, color: c.textMuted, fontWeight: 700 }}>/</span>
+            <span style={{ fontSize: 14, color: c.textMuted, fontWeight: 700 }}>0{VIDEOS.length}</span>
           </motion.div>
 
           {/* Animated client details */}
@@ -415,7 +417,7 @@ export default function CustomerReviewsSection() {
               {/* Name */}
               <h3 style={{
                 fontSize: 'clamp(30px, 4vw, 56px)', fontWeight: 900,
-                color: '#f0f0f0', letterSpacing: '-0.055em', lineHeight: 1.05,
+                color: c.text, letterSpacing: '-0.055em', lineHeight: 1.05,
                 margin: '0 0 10px',
               }}>
                 {video.name}
@@ -423,16 +425,16 @@ export default function CustomerReviewsSection() {
 
               {/* Role · Company */}
               <p style={{
-                fontSize: 'clamp(13px, 1.4vw, 16px)', color: '#666',
+                fontSize: 'clamp(13px, 1.4vw, 16px)', color: c.textMuted,
                 margin: '0 0 8px', letterSpacing: '-0.015em',
               }}>
                 {video.person}
-                <span style={{ color: '#2e2e2e', margin: '0 8px' }}>·</span>
-                <span style={{ color: '#999' }}>{video.company}</span>
+                <span style={{ color: c.border, margin: '0 8px' }}>·</span>
+                <span style={{ color: c.textSub }}>{video.company}</span>
               </p>
 
               {/* Country */}
-              <p style={{ fontSize: 13, color: '#444', margin: '0 0 36px', letterSpacing: '-0.01em' }}>
+              <p style={{ fontSize: 13, color: c.textMuted, margin: '0 0 36px', letterSpacing: '-0.01em' }}>
                 {video.country}
               </p>
             </motion.div>
@@ -440,7 +442,7 @@ export default function CustomerReviewsSection() {
 
           {/* Progress bar */}
           <div style={{
-            height: 2, background: 'rgba(255,255,255,0.05)',
+            height: 2, background: c.isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.06)',
             borderRadius: 2, marginBottom: 28, overflow: 'hidden',
           }}>
             <motion.div
@@ -459,13 +461,13 @@ export default function CustomerReviewsSection() {
           <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
             <motion.button
               onClick={prev}
-              whileHover={{ scale: 1.1, borderColor: 'rgba(255,255,255,0.18)' }}
+              whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.88 }}
               style={{
                 width: 44, height: 44, borderRadius: '50%',
-                border: '1px solid rgba(255,255,255,0.08)',
+                border: `1px solid ${c.border}`,
                 background: 'transparent', cursor: 'pointer',
-                display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#666',
+                display: 'flex', alignItems: 'center', justifyContent: 'center', color: c.textMuted,
               }}
             >
               <ChevronLeft />
@@ -480,7 +482,7 @@ export default function CustomerReviewsSection() {
                   whileTap={{ scale: 0.8 }}
                   animate={{
                     width: i === active ? 26 : 8,
-                    background: i === active ? video.color : 'rgba(255,255,255,0.15)',
+                    background: i === active ? video.color : c.isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.15)',
                   }}
                   transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
                   style={{
@@ -530,14 +532,14 @@ export default function CustomerReviewsSection() {
             whileHover={{ y: -4 }}
             whileTap={{ scale: 0.97 }}
             animate={{
-              borderColor: i === active ? v.color : 'rgba(255,255,255,0.06)',
-              background: i === active ? `${v.color}0e` : '#0d0d0d',
+              borderColor: i === active ? v.color : c.border,
+              background: i === active ? `${v.color}0e` : c.bgCard,
             }}
             transition={{ duration: 0.32 }}
             style={{
               borderRadius: 14, padding: '14px 16px',
-              cursor: 'pointer', border: '1px solid rgba(255,255,255,0.06)',
-              background: '#0d0d0d', textAlign: 'left',
+              cursor: 'pointer', border: `1px solid ${c.border}`,
+              background: c.bgCard, textAlign: 'left',
               position: 'relative', overflow: 'hidden',
             }}
           >
@@ -565,18 +567,18 @@ export default function CustomerReviewsSection() {
               <div>
                 <div style={{
                   fontSize: 12, fontWeight: 700,
-                  color: i === active ? '#e8e8e8' : '#666',
+                  color: i === active ? c.text : c.textMuted,
                   letterSpacing: '-0.02em',
                 }}>
                   {v.name}
                 </div>
-                <div style={{ fontSize: 9, color: '#444', marginTop: 2 }}>{v.person}</div>
+                <div style={{ fontSize: 9, color: c.textMuted, marginTop: 2 }}>{v.person}</div>
               </div>
             </div>
             <div style={{
               fontSize: 8, fontWeight: 700, letterSpacing: '0.2em',
               textTransform: 'uppercase',
-              color: i === active ? v.color : '#3a3a3a',
+              color: i === active ? v.color : c.textMuted,
             }}>
               {v.tag}
             </div>

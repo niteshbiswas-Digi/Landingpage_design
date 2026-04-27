@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Outfit, Montserrat } from 'next/font/google';
 import './globals.css';
+import { ThemeProvider } from '../context/ThemeContext';
 
 const outfit = Outfit({
   subsets: ['latin'],
@@ -24,9 +25,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" style={{ colorScheme: 'dark' }}>
-      <body className={`${outfit.variable} ${montserrat.variable}`} style={{ background: '#050505', color: '#f0f0f0', margin: 0, padding: 0, fontFamily: 'var(--font-montserrat), sans-serif' }}>
-        {children}
+    <html lang="en" data-theme="dark">
+      <body className={`${outfit.variable} ${montserrat.variable}`} style={{ margin: 0, padding: 0, fontFamily: 'var(--font-montserrat), sans-serif' }}>
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );

@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { useTheme } from '../context/ThemeContext';
 
 const AWARDS = [
   { src: '/Awards/itfirms-top-app-developers-badge-2023.png', alt: 'IT Firms Top App Developers 2023' },
@@ -9,15 +10,17 @@ const AWARDS = [
 ];
 
 export default function AwardsMarquee() {
+  const { c } = useTheme();
   return (
     <div
       style={{
-        background: 'rgba(0,0,0,0.5)',
+        background: c.isDark ? 'rgba(0,0,0,0.5)' : c.bgSection,
         backdropFilter: 'blur(10px)',
         WebkitBackdropFilter: 'blur(10px)',
         overflow: 'hidden',
         padding: '6px 0',
-        borderTop: '1px solid rgba(255,255,255,0.06)',
+        borderTop: `1px solid ${c.border}`,
+        borderBottom: `1px solid ${c.border}`,
       }}
     >
       <div
@@ -29,9 +32,9 @@ export default function AwardsMarquee() {
             key={i}
             style={{
               flexShrink: 0,
-              background: 'rgba(14,12,8,0.9)',
-              borderLeft: '1px solid rgba(255,255,255,0.05)',
-              borderRight: '1px solid rgba(255,255,255,0.05)',
+              background: c.isDark ? 'rgba(14,12,8,0.9)' : c.bgCard,
+              borderLeft: `1px solid ${c.border}`,
+              borderRight: `1px solid ${c.border}`,
               padding: '6px 18px',
               display: 'flex',
               alignItems: 'center',

@@ -2,8 +2,10 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTheme } from '../context/ThemeContext';
+import ThemeToggle from './ThemeToggle';
 
-export type ActivePage = 'home' | 'about' | 'services' | 'portfolio';
+export type ActivePage = 'services' | 'solutions' | 'industries' | 'partners' | 'success-stories' | 'corporate-info';
 
 interface MegaItem { label: string; href: string }
 interface MegaColumn { title: string; items: MegaItem[] }
@@ -12,8 +14,6 @@ interface NavLink { label: string; href: string; mega?: MegaColumn[] }
 const E = [0.16, 1, 0.3, 1] as const;
 
 const NAV_LINKS: NavLink[] = [
-  { label: 'Home', href: '/' },
-  { label: 'About Us', href: '/about' },
   {
     label: 'Services', href: '/services',
     mega: [
@@ -51,15 +51,148 @@ const NAV_LINKS: NavLink[] = [
       },
     ],
   },
-  { label: 'Portfolio', href: '/portfolio' },
-  { label: 'Blog', href: '#' },
+  {
+    label: 'Solutions', href: '#solutions',
+    mega: [
+      {
+        title: 'Microsoft', items: [
+          { label: 'Dynamics 365 Business Central', href: '#solutions' },
+          { label: 'Dynamics F&O', href: '#solutions' },
+          { label: 'Dynamics CRM', href: '#solutions' },
+          { label: 'SharePoint', href: '#solutions' },
+          { label: 'Power Automate', href: '#solutions' },
+          { label: 'Power Apps', href: '#solutions' },
+          { label: 'Power BI', href: '#solutions' },
+        ],
+      },
+      {
+        title: 'Salesforce', items: [
+          { label: 'Sales Cloud', href: '#solutions' },
+          { label: 'Service Cloud', href: '#solutions' },
+          { label: 'Marketing Cloud', href: '#solutions' },
+          { label: 'Commerce Cloud', href: '#solutions' },
+          { label: 'Salesforce CPQ', href: '#solutions' },
+        ],
+      },
+      {
+        title: 'SAP', items: [
+          { label: 'SAP S/4HANA', href: '#solutions' },
+          { label: 'SAP ERP', href: '#solutions' },
+          { label: 'SAP CRM', href: '#solutions' },
+          { label: 'SAP Analytics Cloud', href: '#solutions' },
+          { label: 'SAP SuccessFactors', href: '#solutions' },
+        ],
+      },
+      {
+        title: 'Other Platforms', items: [
+          { label: 'Odoo ERP', href: '#solutions' },
+          { label: 'NetSuite ERP', href: '#solutions' },
+          { label: 'ServiceNow', href: '#solutions' },
+          { label: 'Zoho CRM', href: '#solutions' },
+          { label: 'HubSpot', href: '#solutions' },
+        ],
+      },
+    ],
+  },
+  {
+    label: 'Industries', href: '#industries',
+    mega: [
+      {
+        title: 'Industries', items: [
+          { label: 'Banking & Financial Services', href: '#industries' },
+          { label: 'Industrial & Manufacturing', href: '#industries' },
+          { label: 'Education & eLearning', href: '#industries' },
+          { label: 'Energy', href: '#industries' },
+        ],
+      },
+      {
+        title: 'More Industries', items: [
+          { label: 'Software & Hi-Tech', href: '#industries' },
+          { label: 'Healthcare & Life Science', href: '#industries' },
+          { label: 'Travel & Hospitality', href: '#industries' },
+          { label: 'Retail & Commerce', href: '#industries' },
+        ],
+      },
+    ],
+  },
+  {
+    label: 'Partners', href: '#partners',
+    mega: [
+      {
+        title: 'Our Partners', items: [
+          { label: 'Microsoft', href: '#partners' },
+          { label: 'Salesforce', href: '#partners' },
+          { label: 'AWS Partner', href: '#partners' },
+          { label: 'Automation Anywhere', href: '#partners' },
+        ],
+      },
+      {
+        title: 'More Partners', items: [
+          { label: 'Hyperledger', href: '#partners' },
+          { label: 'Hedera', href: '#partners' },
+          { label: 'ADOBE', href: '#partners' },
+          { label: 'Google Premier Partner', href: '#partners' },
+        ],
+      },
+    ],
+  },
+  {
+    label: 'Success Stories', href: '#success-stories',
+    mega: [
+      {
+        title: 'Our Work', items: [
+          { label: 'Case Studies', href: '#success-stories' },
+          { label: 'Clients', href: '#success-stories' },
+          { label: 'Client Speaks', href: '#success-stories' },
+        ],
+      },
+      {
+        title: 'Recognition', items: [
+          { label: 'Awards', href: '#success-stories' },
+          { label: 'Testimonials', href: '#success-stories' },
+          { label: 'Press Coverage', href: '#success-stories' },
+          { label: 'Industry Recognition', href: '#success-stories' },
+        ],
+      },
+    ],
+  },
+  {
+    label: 'Corporate Info', href: '#corporate-info',
+    mega: [
+      {
+        title: 'Corporate Info', items: [
+          { label: 'Company', href: '#corporate-info' },
+          { label: 'Awards & Accreditations', href: '#corporate-info' },
+          { label: 'Methods & Practices', href: '#corporate-info' },
+          { label: 'Security & IP Protection', href: '#corporate-info' },
+          { label: 'Blog', href: '#corporate-info' },
+          { label: 'Careers', href: '#corporate-info' },
+        ],
+      },
+      {
+        title: 'More Info', items: [
+          { label: 'Leadership', href: '#corporate-info' },
+          { label: 'News & Insights', href: '#corporate-info' },
+          { label: 'Privacy Policy', href: '#corporate-info' },
+          { label: 'CSR Initiatives', href: '#corporate-info' },
+          { label: 'Global Locations', href: '#corporate-info' },
+        ],
+      },
+    ],
+  },
 ];
 
 const PAGE_LABEL: Record<ActivePage, string> = {
-  home: 'Home', about: 'About Us', services: 'Services', portfolio: 'Portfolio',
+  services: 'Services',
+  solutions: 'Solutions',
+  industries: 'Industries',
+  partners: 'Partners',
+  'success-stories': 'Success Stories',
+  'corporate-info': 'Corporate Info',
 };
 
 export default function Navigation({ activePage }: { activePage?: ActivePage }) {
+  const { c } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
@@ -109,11 +242,14 @@ export default function Navigation({ activePage }: { activePage?: ActivePage }) 
           position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000,
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
           padding: isMobile ? '14px 20px' : '20px 48px',
-          background: scrolled ? 'rgba(5,5,5,0.88)' : 'transparent',
-          backdropFilter: scrolled ? 'blur(24px)' : 'none',
-          WebkitBackdropFilter: scrolled ? 'blur(24px)' : 'none',
-          borderBottom: scrolled ? '1px solid rgba(255,255,255,0.05)' : '1px solid transparent',
-          transition: 'padding 0.45s ease, background 0.45s ease, border-color 0.45s ease',
+          background: (scrolled || !c.isDark) ? c.navBgScrolled : 'transparent',
+          backdropFilter: (scrolled || !c.isDark) ? 'blur(24px)' : 'none',
+          WebkitBackdropFilter: (scrolled || !c.isDark) ? 'blur(24px)' : 'none',
+          borderBottom: (scrolled || !c.isDark)
+            ? `1px solid ${c.border}`
+            : '1px solid transparent',
+          boxShadow: !c.isDark ? '0 1px 20px rgba(0,0,0,0.06)' : 'none',
+          transition: 'padding 0.45s ease, background 0.45s ease, border-color 0.45s ease, box-shadow 0.45s ease',
           willChange: 'transform',
         }}
       >
@@ -130,9 +266,9 @@ export default function Navigation({ activePage }: { activePage?: ActivePage }) 
             style={{
               height: 44,
               width: 'auto',
-              filter: 'brightness(0) invert(1)',
+              filter: c.isDark ? 'brightness(0) invert(1)' : 'brightness(0)',
               opacity: 0.92,
-              transition: 'height 0.45s ease',
+              transition: 'height 0.45s ease, filter 0.35s ease',
             }}
           />
         </motion.a>
@@ -167,7 +303,9 @@ export default function Navigation({ activePage }: { activePage?: ActivePage }) 
                       padding: '8px 14px',
                       fontSize: 13,
                       fontWeight: isActive ? 700 : 600,
-                      color: isActive ? '#4ADE80' : isHovered ? '#f0f0f0' : '#a0a0a0',
+                      color: (c.isDark && !scrolled)
+                        ? (isActive ? '#4ADE80' : isHovered ? '#ffffff' : 'rgba(255,255,255,0.72)')
+                        : (isActive ? c.navTextActive : isHovered ? c.navTextHover : c.navText),
                       textDecoration: 'none',
                       letterSpacing: isHovered ? '0.03em' : '0.01em',
                       position: 'relative',
@@ -191,18 +329,18 @@ export default function Navigation({ activePage }: { activePage?: ActivePage }) 
                     {isActive && (
                       <span style={{
                         position: 'absolute', bottom: 2, left: 14, right: 14,
-                        height: 1.5, background: '#4ADE80', borderRadius: 99,
+                        height: 1.5, background: c.navTextActive, borderRadius: 99,
                         display: 'block',
                       }} />
                     )}
-                    {/* Hover underline — grows left → right */}
+                    {/* Hover underline */}
                     {!isActive && (
                       <motion.span
                         animate={{ scaleX: isHovered ? 1 : 0, opacity: isHovered ? 0.7 : 0 }}
                         transition={{ duration: 0.22, ease: 'easeOut' }}
                         style={{
                           position: 'absolute', bottom: 2, left: 14, right: 14,
-                          height: 1, background: '#4ADE80', borderRadius: 99,
+                          height: 1, background: c.accent, borderRadius: 99,
                           transformOrigin: 'left', display: 'block',
                         }}
                       />
@@ -214,57 +352,62 @@ export default function Navigation({ activePage }: { activePage?: ActivePage }) 
           </div>
         )}
 
-        {/* ─ CTA ─ */}
+        {/* ─ CTA + Toggle ─ */}
         {!isMobile && (
-          <motion.a
-            href="#contact"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.55, ease: E }}
-            whileHover={{ scale: 1.05, y: -2, boxShadow: '0 0 28px rgba(74,222,128,0.35)' }}
-            style={{
-              padding: '9px 22px',
-              background: '#4ADE80',
-              color: '#050505',
-              fontSize: 12, fontWeight: 700,
-              letterSpacing: '0.05em', textTransform: 'uppercase',
-              textDecoration: 'none',
-              borderRadius: 99,
-              willChange: 'transform',
-              flexShrink: 0,
-            }}
-          >
-            Contact Us
-          </motion.a>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
+            <ThemeToggle />
+            <motion.a
+              href="#contact"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.55, ease: E }}
+              whileHover={{ scale: 1.05, y: -2, boxShadow: '0 0 28px rgba(74,222,128,0.35)' }}
+              style={{
+                padding: '9px 22px',
+                background: c.accent,
+                color: '#ffffff',
+                fontSize: 12, fontWeight: 700,
+                letterSpacing: '0.05em', textTransform: 'uppercase',
+                textDecoration: 'none',
+                borderRadius: 99,
+                willChange: 'transform',
+              }}
+            >
+              Contact Us
+            </motion.a>
+          </div>
         )}
 
-        {/* ─ Mobile Hamburger ─ */}
+        {/* ─ Mobile: Toggle + Hamburger ─ */}
         {isMobile && (
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            style={{
-              background: 'none', border: 'none', cursor: 'pointer',
-              padding: 8, display: 'flex', flexDirection: 'column', gap: 5,
-            }}
-            aria-label="Toggle menu"
-          >
-            {[0, 1, 2].map(j => (
-              <motion.span
-                key={j}
-                animate={{
-                  rotate: mobileOpen ? (j === 0 ? 45 : j === 2 ? -45 : 0) : 0,
-                  y: mobileOpen ? (j === 0 ? 9 : j === 2 ? -9 : 0) : 0,
-                  opacity: mobileOpen && j === 1 ? 0 : 1,
-                }}
-                transition={{ duration: 0.28, ease: E }}
-                style={{
-                  display: 'block', width: 22, height: 1.5,
-                  background: '#f0f0f0', borderRadius: 99,
-                  transformOrigin: 'center',
-                }}
-              />
-            ))}
-          </button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <ThemeToggle />
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              style={{
+                background: 'none', border: 'none', cursor: 'pointer',
+                padding: 8, display: 'flex', flexDirection: 'column', gap: 5,
+              }}
+              aria-label="Toggle menu"
+            >
+              {[0, 1, 2].map(j => (
+                <motion.span
+                  key={j}
+                  animate={{
+                    rotate: mobileOpen ? (j === 0 ? 45 : j === 2 ? -45 : 0) : 0,
+                    y: mobileOpen ? (j === 0 ? 9 : j === 2 ? -9 : 0) : 0,
+                    opacity: mobileOpen && j === 1 ? 0 : 1,
+                  }}
+                  transition={{ duration: 0.28, ease: E }}
+                  style={{
+                    display: 'block', width: 22, height: 1.5,
+                    background: c.text, borderRadius: 99,
+                    transformOrigin: 'center',
+                  }}
+                />
+              ))}
+            </button>
+          </div>
         )}
 
         {/* ─────────────── MEGA MENU ─────────────── */}
@@ -283,10 +426,11 @@ export default function Navigation({ activePage }: { activePage?: ActivePage }) 
                 transition={{ duration: 0.32, ease: E }}
                 style={{
                   position: 'absolute', top: '100%', left: 0, right: 0,
-                  background: 'rgba(7,7,7,0.97)',
+                  background: c.megaBg,
                   backdropFilter: 'blur(28px)',
                   WebkitBackdropFilter: 'blur(28px)',
-                  borderBottom: '1px solid rgba(255,255,255,0.05)',
+                  borderBottom: `1px solid ${c.border}`,
+                  boxShadow: c.isDark ? 'none' : '0 16px 60px rgba(0,0,0,0.08)',
                   borderRadius: '0 0 20px 20px',
                   padding: '44px 48px 52px',
                   display: 'grid',
@@ -295,12 +439,12 @@ export default function Navigation({ activePage }: { activePage?: ActivePage }) 
                   willChange: 'transform',
                 }}
               >
-                {/* Radial green glow */}
+                {/* Radial accent glow */}
                 <div style={{
                   position: 'absolute', top: 0, left: '50%',
                   transform: 'translateX(-50%)',
                   width: 700, height: 220,
-                  background: 'radial-gradient(ellipse at top, rgba(74,222,128,0.07) 0%, transparent 70%)',
+                  background: `radial-gradient(ellipse at top, rgba(74,222,128,${c.isDark ? '0.07' : '0.04'}) 0%, transparent 70%)`,
                   pointerEvents: 'none',
                 }} />
 
@@ -312,12 +456,12 @@ export default function Navigation({ activePage }: { activePage?: ActivePage }) 
                     transition={{ duration: 0.3, delay: ci * 0.06, ease: E }}
                     style={{
                       padding: '0 28px',
-                      borderLeft: ci > 0 ? '1px solid rgba(255,255,255,0.04)' : 'none',
+                      borderLeft: ci > 0 ? `1px solid ${c.border}` : 'none',
                     }}
                   >
                     <div style={{
                       fontSize: 10, fontWeight: 700,
-                      color: '#4ADE80',
+                      color: c.accent,
                       letterSpacing: '0.14em', textTransform: 'uppercase',
                       marginBottom: 20,
                     }}>
@@ -350,7 +494,7 @@ export default function Navigation({ activePage }: { activePage?: ActivePage }) 
             style={{
               position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
               zIndex: 999,
-              background: 'rgba(5,5,5,0.97)',
+              background: c.overlay,
               backdropFilter: 'blur(20px)',
               WebkitBackdropFilter: 'blur(20px)',
               display: 'flex', flexDirection: 'column',
@@ -373,18 +517,18 @@ export default function Navigation({ activePage }: { activePage?: ActivePage }) 
                     style={{
                       display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                       padding: '16px 28px',
-                      borderBottom: '1px solid rgba(255,255,255,0.04)',
+                      borderBottom: `1px solid ${c.border}`,
                       cursor: 'pointer',
                     }}
                   >
-                    <span style={{ fontSize: 18, fontWeight: 700, color: isActive ? '#4ADE80' : '#e0e0e0' }}>
+                    <span style={{ fontSize: 18, fontWeight: 700, color: isActive ? c.navTextActive : c.text }}>
                       {link.label}
                     </span>
                     {link.mega && (
                       <motion.span
                         animate={{ rotate: isExpanded ? 180 : 0 }}
                         transition={{ duration: 0.22 }}
-                        style={{ color: '#4ADE80', opacity: 0.7, fontSize: 18 }}
+                        style={{ color: c.accent, opacity: 0.7, fontSize: 18 }}
                       >
                         ↓
                       </motion.span>
@@ -398,12 +542,12 @@ export default function Navigation({ activePage }: { activePage?: ActivePage }) 
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.28, ease: E }}
-                        style={{ overflow: 'hidden', background: 'rgba(74,222,128,0.025)' }}
+                        style={{ overflow: 'hidden', background: `rgba(74,222,128,${c.isDark ? '0.025' : '0.04'})` }}
                       >
                         {link.mega.map(col => (
                           <div key={col.title} style={{ padding: '12px 28px 10px' }}>
                             <div style={{
-                              fontSize: 10, fontWeight: 700, color: '#4ADE80',
+                              fontSize: 10, fontWeight: 700, color: c.accent,
                               letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: 8,
                             }}>
                               {col.title}
@@ -414,7 +558,7 @@ export default function Navigation({ activePage }: { activePage?: ActivePage }) 
                                 href={item.href}
                                 style={{
                                   display: 'block', padding: '6px 0',
-                                  fontSize: 14, color: '#888', textDecoration: 'none',
+                                  fontSize: 14, color: c.textMuted, textDecoration: 'none',
                                 }}
                               >
                                 {item.label}
@@ -437,7 +581,7 @@ export default function Navigation({ activePage }: { activePage?: ActivePage }) 
               style={{
                 margin: '28px 28px 40px',
                 padding: '14px 20px',
-                background: '#4ADE80', color: '#050505',
+                background: c.accent, color: '#ffffff',
                 textAlign: 'center', textDecoration: 'none',
                 borderRadius: 12, fontSize: 14, fontWeight: 700,
                 letterSpacing: '0.05em', textTransform: 'uppercase',
@@ -454,6 +598,7 @@ export default function Navigation({ activePage }: { activePage?: ActivePage }) 
 
 // ─── Mega Menu Item ──────────────────────────────────────────────────────────
 function MegaMenuItem({ item, delay }: { item: MegaItem; delay: number }) {
+  const { c } = useTheme();
   const [hovered, setHovered] = useState(false);
   return (
     <motion.a
@@ -467,14 +612,14 @@ function MegaMenuItem({ item, delay }: { item: MegaItem; delay: number }) {
         display: 'flex', alignItems: 'center', gap: 9,
         padding: '7px 0',
         fontSize: 13.5, fontWeight: 500,
-        color: hovered ? '#f0f0f0' : '#888',
+        color: hovered ? c.text : c.textMuted,
         textDecoration: 'none',
         transform: hovered ? 'translateX(5px)' : 'translateX(0)',
         transition: 'color 0.18s ease, transform 0.18s ease',
       }}
     >
       <span style={{
-        color: '#4ADE80', fontSize: 14,
+        color: c.accent, fontSize: 14,
         opacity: hovered ? 1 : 0.45,
         transition: 'opacity 0.18s, transform 0.18s',
         transform: hovered ? 'translateX(2px)' : 'translateX(0)',

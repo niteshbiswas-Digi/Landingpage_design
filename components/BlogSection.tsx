@@ -1,6 +1,7 @@
 'use client';
 import { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { useTheme } from '../context/ThemeContext';
 
 function useIsMobile() {
   const [isMobile, setIsMobile] = useState(false);
@@ -18,15 +19,16 @@ function useIsMobile() {
 ───────────────────────────────────────────── */
 
 function ChatbotThumbnail() {
+  const { c } = useTheme();
   return (
     <div style={{
       width: '100%', height: '100%', position: 'relative', overflow: 'hidden',
-      background: 'radial-gradient(ellipse at 30% 35%, rgba(167,139,250,0.18) 0%, #080808 65%)',
+      background: c.isDark ? 'radial-gradient(ellipse at 30% 35%, rgba(167,139,250,0.18) 0%, #080808 65%)' : 'radial-gradient(ellipse at 30% 35%, rgba(167,139,250,0.12) 0%, #f5f3f0 65%)',
     }}>
       {/* Dot grid */}
       <div style={{
         position: 'absolute', inset: 0, pointerEvents: 'none',
-        backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.022) 1px, transparent 1px)',
+        backgroundImage: c.isDark ? 'radial-gradient(circle, rgba(255,255,255,0.022) 1px, transparent 1px)' : 'radial-gradient(circle, rgba(0,0,0,0.06) 1px, transparent 1px)',
         backgroundSize: '28px 28px',
       }} />
 
@@ -134,14 +136,15 @@ function ChatbotThumbnail() {
 }
 
 function MonorepoThumbnail() {
+  const { c } = useTheme();
   return (
     <div style={{
       width: '100%', height: '100%', position: 'relative', overflow: 'hidden',
-      background: 'radial-gradient(ellipse at 70% 25%, rgba(56,189,248,0.15) 0%, #080808 65%)',
+      background: c.isDark ? 'radial-gradient(ellipse at 70% 25%, rgba(56,189,248,0.15) 0%, #080808 65%)' : 'radial-gradient(ellipse at 70% 25%, rgba(56,189,248,0.1) 0%, #f5f3f0 65%)',
     }}>
       <div style={{
         position: 'absolute', inset: 0, pointerEvents: 'none',
-        backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.022) 1px, transparent 1px)',
+        backgroundImage: c.isDark ? 'radial-gradient(circle, rgba(255,255,255,0.022) 1px, transparent 1px)' : 'radial-gradient(circle, rgba(0,0,0,0.06) 1px, transparent 1px)',
         backgroundSize: '28px 28px',
       }} />
 
@@ -203,14 +206,15 @@ function MonorepoThumbnail() {
 }
 
 function PWAThumbnail() {
+  const { c } = useTheme();
   return (
     <div style={{
       width: '100%', height: '100%', position: 'relative', overflow: 'hidden',
-      background: 'radial-gradient(ellipse at 55% 30%, rgba(74,222,128,0.15) 0%, #080808 65%)',
+      background: c.isDark ? 'radial-gradient(ellipse at 55% 30%, rgba(74,222,128,0.15) 0%, #080808 65%)' : 'radial-gradient(ellipse at 55% 30%, rgba(74,222,128,0.1) 0%, #f5f3f0 65%)',
     }}>
       <div style={{
         position: 'absolute', inset: 0, pointerEvents: 'none',
-        backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.022) 1px, transparent 1px)',
+        backgroundImage: c.isDark ? 'radial-gradient(circle, rgba(255,255,255,0.022) 1px, transparent 1px)' : 'radial-gradient(circle, rgba(0,0,0,0.06) 1px, transparent 1px)',
         backgroundSize: '28px 28px',
       }} />
 
@@ -266,18 +270,20 @@ function PWAThumbnail() {
       {/* Browser address bar — bottom */}
       <div style={{
         position: 'absolute', bottom: 14, left: 14, right: 14,
-        background: 'rgba(0,0,0,0.5)', border: '1px solid rgba(255,255,255,0.07)',
+        background: c.isDark ? 'rgba(0,0,0,0.5)' : 'rgba(0,0,0,0.06)',
+        border: c.isDark ? '1px solid rgba(255,255,255,0.07)' : '1px solid rgba(0,0,0,0.1)',
         borderRadius: 9, padding: '7px 12px',
         display: 'flex', alignItems: 'center', gap: 8,
       }}>
         <div style={{ display: 'flex', gap: 4 }}>
-          {['#f43f5e','#4ADE80','#4ade80'].map(c => (
-            <div key={c} style={{ width: 6, height: 6, borderRadius: '50%', background: c, opacity: 0.7 }} />
+          {['#f43f5e','#4ADE80','#4ade80'].map(col => (
+            <div key={col} style={{ width: 6, height: 6, borderRadius: '50%', background: col, opacity: 0.7 }} />
           ))}
         </div>
         <div style={{
           flex: 1, height: 16,
-          background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)',
+          background: c.isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.04)',
+          border: c.isDark ? '1px solid rgba(255,255,255,0.06)' : '1px solid rgba(0,0,0,0.08)',
           borderRadius: 4, display: 'flex', alignItems: 'center', padding: '0 8px',
         }}>
           <span style={{ fontSize: 8, color: '#444' }}>🔒 app.pwa / react.js</span>
@@ -347,13 +353,14 @@ export default function BlogSection() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: false, margin: '-8%' });
   const isMobile = useIsMobile();
+  const { c } = useTheme();
   const featured = POSTS[0];
   const rest = POSTS.slice(1);
 
   return (
     <section ref={ref} style={{
-      background: '#050505',
-      borderTop: '1px solid rgba(255,255,255,0.04)',
+      background: c.bg,
+      borderTop: `1px solid ${c.border}`,
       padding: 'clamp(60px, 7vw, 100px) clamp(24px, 5vw, 80px)',
       overflow: 'hidden',
       position: 'relative',
@@ -393,11 +400,11 @@ export default function BlogSection() {
               initial={{ scaleX: 0 }}
               animate={inView ? { scaleX: 1 } : {}}
               transition={{ duration: 0.5, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-              style={{ width: 28, height: 1, background: '#4ADE80', transformOrigin: 'left' }}
+              style={{ width: 28, height: 1, background: c.accent, transformOrigin: 'left' }}
             />
             <p style={{
               fontSize: 10, fontWeight: 700, letterSpacing: '0.4em',
-              textTransform: 'uppercase', color: '#4ADE80', margin: 0,
+              textTransform: 'uppercase', color: c.accent, margin: 0,
             }}>
               From the Desk
             </p>
@@ -408,14 +415,15 @@ export default function BlogSection() {
             letterSpacing: '-0.05em', lineHeight: 0.92, margin: 0,
           }}>
             {[
-              { text: 'Recent blog', color: '#f0f0f0', delay: 0.08 },
-              { text: 'posts.', color: 'transparent', delay: 0.2, stroke: true },
-            ].map(({ text, color, delay, stroke }) => (
+              { text: 'Recent blog', delay: 0.08 },
+              { text: 'posts.', delay: 0.2, stroke: true },
+            ].map(({ text, delay, stroke }) => (
               <span key={text} style={{ display: 'block', overflow: 'hidden' }}>
                 <motion.span
                   style={{
-                    display: 'block', color,
-                    ...(stroke ? { WebkitTextStroke: '1px rgba(255,255,255,0.22)' } : {}),
+                    display: 'block',
+                    color: stroke ? 'transparent' : c.text,
+                    ...(stroke ? { WebkitTextStroke: `1px ${c.isDark ? 'rgba(255,255,255,0.22)' : 'rgba(0,0,0,0.18)'}` } : {}),
                   }}
                   initial={{ y: '108%' }}
                   animate={inView ? { y: 0 } : {}}
@@ -435,10 +443,10 @@ export default function BlogSection() {
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
-          whileHover={{ x: 5, color: '#4ADE80' }}
+          whileHover={{ x: 5, color: c.accent }}
           style={{
             display: 'flex', alignItems: 'center', gap: 9,
-            fontSize: 11, fontWeight: 700, color: '#666',
+            fontSize: 11, fontWeight: 700, color: c.textMuted,
             textDecoration: 'none', letterSpacing: '0.1em', textTransform: 'uppercase',
           }}
         >
@@ -467,11 +475,12 @@ export default function BlogSection() {
           whileHover={{ y: -7 }}
           style={{
             gridRow: isMobile ? 'auto' : '1 / 3',
-            background: '#0d0d0d',
-            border: `1px solid rgba(255,255,255,0.05)`,
+            background: c.bgCard,
+            border: `1px solid ${c.border}`,
             borderRadius: 22, overflow: 'hidden',
             cursor: 'pointer', position: 'relative',
             textDecoration: 'none', display: 'block',
+            boxShadow: c.cardShadow,
           }}
         >
           {/* Thumbnail */}
@@ -504,7 +513,7 @@ export default function BlogSection() {
             {/* Bottom fade into card */}
             <div style={{
               position: 'absolute', bottom: 0, left: 0, right: 0, height: 70,
-              background: 'linear-gradient(to top, #0d0d0d 0%, transparent 100%)',
+              background: `linear-gradient(to top, ${c.bgCard} 0%, transparent 100%)`,
               pointerEvents: 'none',
             }} />
           </div>
@@ -513,24 +522,24 @@ export default function BlogSection() {
           <div style={{ padding: 30 }}>
             <div style={{
               display: 'flex', gap: 10, marginBottom: 16,
-              fontSize: 11, color: '#666', letterSpacing: '0.08em',
+              fontSize: 11, color: c.textMuted, letterSpacing: '0.08em',
               textTransform: 'uppercase', fontWeight: 600,
             }}>
               <span>{featured.date}</span>
-              <span style={{ color: '#333' }}>·</span>
+              <span style={{ color: c.textMuted }}>·</span>
               <span>{featured.readTime}</span>
             </div>
 
             <h3 style={{
               fontSize: 'clamp(19px, 2.2vw, 26px)', fontWeight: 800,
-              color: '#e8e8e8', letterSpacing: '-0.03em', lineHeight: 1.22,
+              color: c.text, letterSpacing: '-0.03em', lineHeight: 1.22,
               margin: '0 0 14px',
             }}>
               {featured.title}
             </h3>
 
             <p style={{
-              fontSize: 13, color: '#666', lineHeight: 1.8,
+              fontSize: 13, color: c.textMuted, lineHeight: 1.8,
               margin: '0 0 28px', letterSpacing: '-0.01em',
             }}>
               {featured.excerpt}
@@ -542,7 +551,7 @@ export default function BlogSection() {
               transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
               style={{
                 height: 1, marginBottom: 24, transformOrigin: 'left',
-                background: 'linear-gradient(90deg, rgba(255,255,255,0.06) 0%, transparent 100%)',
+                background: `linear-gradient(90deg, ${c.border} 0%, transparent 100%)`,
               }}
             />
 
@@ -550,7 +559,7 @@ export default function BlogSection() {
               whileHover={{ gap: '14px' }}
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: 8,
-                fontSize: 12, fontWeight: 700, color: '#4ADE80',
+                fontSize: 12, fontWeight: 700, color: c.accent,
               }}
             >
               Read full article <ArrowIcon />
@@ -570,11 +579,12 @@ export default function BlogSection() {
             transition={{ duration: 0.72, delay: 0.18 + i * 0.12, ease: [0.16, 1, 0.3, 1] }}
             whileHover={{ y: -5 }}
             style={{
-              background: '#0d0d0d',
-              border: '1px solid rgba(255,255,255,0.05)',
+              background: c.bgCard,
+              border: `1px solid ${c.border}`,
               borderRadius: 18, overflow: 'hidden',
               cursor: 'pointer', position: 'relative',
               textDecoration: 'none', display: 'block',
+              boxShadow: c.cardShadow,
             }}
           >
             {/* Thumbnail strip */}
@@ -608,7 +618,7 @@ export default function BlogSection() {
               {/* Bottom fade */}
               <div style={{
                 position: 'absolute', bottom: 0, left: 0, right: 0, height: 48,
-                background: 'linear-gradient(to top, #0d0d0d 0%, transparent 100%)',
+                background: `linear-gradient(to top, ${c.bgCard} 0%, transparent 100%)`,
                 pointerEvents: 'none',
               }} />
             </div>
@@ -617,20 +627,20 @@ export default function BlogSection() {
             <div style={{ padding: '16px 20px 20px' }}>
               <h3 style={{
                 fontSize: 'clamp(14px, 1.5vw, 16px)', fontWeight: 700,
-                color: '#ddd', letterSpacing: '-0.025em', lineHeight: 1.35,
+                color: c.text, letterSpacing: '-0.025em', lineHeight: 1.35,
                 margin: '0 0 9px',
               }}>
                 {post.title}
               </h3>
               <p style={{
-                fontSize: 12, color: '#666', lineHeight: 1.72,
+                fontSize: 12, color: c.textMuted, lineHeight: 1.72,
                 margin: '0 0 16px', letterSpacing: '-0.01em',
               }}>
                 {post.excerpt}
               </p>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span style={{
-                  fontSize: 11, color: '#555', letterSpacing: '0.06em',
+                  fontSize: 11, color: c.textMuted, letterSpacing: '0.06em',
                   textTransform: 'uppercase', fontWeight: 600,
                 }}>
                   {post.date} · {post.readTime}
@@ -639,7 +649,7 @@ export default function BlogSection() {
                   whileHover={{ x: 4 }}
                   style={{
                     display: 'flex', alignItems: 'center', gap: 6,
-                    fontSize: 11, fontWeight: 700, color: '#4ADE80',
+                    fontSize: 11, fontWeight: 700, color: c.accent,
                   }}
                 >
                   Read <ArrowIcon />

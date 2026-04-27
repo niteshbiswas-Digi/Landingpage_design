@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { useTheme } from '../context/ThemeContext';
 
 function useIsMobile() {
   const [m, setM] = useState(false);
@@ -18,11 +19,18 @@ const ease = [0.16, 1, 0.3, 1] as const;
 
 const COLUMNS = [
   {
+    heading: 'Navigate',
+    links: [
+      { label: 'Home',            href: '/' },
+      { label: 'About Us',        href: '/about' },
+      { label: 'Portfolio',       href: '/portfolio' },
+      { label: 'Blog',            href: '#' },
+    ],
+  },
+  {
     heading: 'Who We Are',
     links: [
-      { label: 'About Us',        href: '/about' },
       { label: 'Leadership',      href: '#' },
-      { label: 'Partners',        href: '#' },
       { label: 'Awards',          href: '#' },
       { label: 'Media Coverage',  href: '#' },
       { label: 'Events',          href: '#' },
@@ -35,20 +43,19 @@ const COLUMNS = [
     links: [
       { label: 'Services',           href: '/services' },
       { label: 'Technologies',       href: '#' },
-      { label: 'Solutions',          href: '#' },
-      { label: 'Industries',         href: '#' },
-      { label: 'Portfolio',          href: '/portfolio' },
+      { label: 'Solutions',          href: '#solutions' },
+      { label: 'Industries',         href: '#industries' },
     ],
   },
   {
     heading: 'Insights',
     links: [
-      { label: 'Blog',            href: '#' },
-      { label: 'Case Studies',    href: '#' },
-      { label: 'Whitepapers',     href: '#' },
-      { label: 'Newsletter',      href: '#' },
-      { label: 'Podcasts',        href: '#' },
-      { label: 'Testimonials',    href: '#' },
+      { label: 'Success Stories',  href: '#success-stories' },
+      { label: 'Case Studies',     href: '#' },
+      { label: 'Whitepapers',      href: '#' },
+      { label: 'Newsletter',       href: '#' },
+      { label: 'Podcasts',         href: '#' },
+      { label: 'Testimonials',     href: '#' },
     ],
   },
   {
@@ -111,9 +118,10 @@ const SOCIALS = [
 ];
 
 function ColHeading({ children }: { children: React.ReactNode }) {
+  const { c } = useTheme();
   return (
     <p style={{
-      fontSize: 15, fontWeight: 700, color: '#4ADE80',
+      fontSize: 15, fontWeight: 700, color: c.accent,
       marginBottom: 22, letterSpacing: '0.01em',
       fontFamily: 'var(--font-outfit)',
     }}>
@@ -123,20 +131,21 @@ function ColHeading({ children }: { children: React.ReactNode }) {
 }
 
 function FooterLink({ label, href }: { label: string; href: string }) {
+  const { c } = useTheme();
   return (
     <a
       href={href}
       style={{
         display: 'block',
-        fontSize: 13.5, color: '#555', fontWeight: 400,
+        fontSize: 13.5, color: c.textMuted, fontWeight: 400,
         textDecoration: 'none', letterSpacing: '-0.01em',
         padding: '5px 0',
         transition: 'color 0.2s ease',
         fontFamily: 'var(--font-outfit)',
         lineHeight: 1.5,
       }}
-      onMouseEnter={e => { e.currentTarget.style.color = '#4ADE80'; }}
-      onMouseLeave={e => { e.currentTarget.style.color = '#555'; }}
+      onMouseEnter={e => { e.currentTarget.style.color = c.accent; }}
+      onMouseLeave={e => { e.currentTarget.style.color = c.textMuted; }}
     >
       {label}
     </a>
@@ -144,6 +153,7 @@ function FooterLink({ label, href }: { label: string; href: string }) {
 }
 
 function SubscribeForm() {
+  const { c } = useTheme();
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -151,8 +161,8 @@ function SubscribeForm() {
   const inputStyle: React.CSSProperties = {
     background: 'transparent',
     border: 'none',
-    borderBottom: '1px solid rgba(255,255,255,0.12)',
-    color: '#aaa',
+    borderBottom: `1px solid ${c.inputBorder}`,
+    color: c.textSub,
     fontSize: 13,
     padding: '8px 0',
     width: '100%',
@@ -171,16 +181,16 @@ function SubscribeForm() {
           value={firstName}
           onChange={e => setFirstName(e.target.value)}
           style={inputStyle}
-          onFocus={e => { e.currentTarget.style.borderBottomColor = '#4ADE80'; }}
-          onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(255,255,255,0.12)'; }}
+          onFocus={e => { e.currentTarget.style.borderBottomColor = c.accent; }}
+          onBlur={e => { e.currentTarget.style.borderBottomColor = c.inputBorder; }}
         />
         <input
           placeholder="Last name"
           value={lastName}
           onChange={e => setLastName(e.target.value)}
           style={inputStyle}
-          onFocus={e => { e.currentTarget.style.borderBottomColor = '#4ADE80'; }}
-          onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(255,255,255,0.12)'; }}
+          onFocus={e => { e.currentTarget.style.borderBottomColor = c.accent; }}
+          onBlur={e => { e.currentTarget.style.borderBottomColor = c.inputBorder; }}
         />
       </div>
 
@@ -191,19 +201,19 @@ function SubscribeForm() {
           value={email}
           onChange={e => setEmail(e.target.value)}
           style={{ ...inputStyle, paddingRight: 36 }}
-          onFocus={e => { e.currentTarget.style.borderBottomColor = '#4ADE80'; }}
-          onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(255,255,255,0.12)'; }}
+          onFocus={e => { e.currentTarget.style.borderBottomColor = c.accent; }}
+          onBlur={e => { e.currentTarget.style.borderBottomColor = c.inputBorder; }}
         />
         <button
           type="button"
           style={{
             position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%)',
             background: 'none', border: 'none', cursor: 'pointer',
-            color: '#555', padding: 4,
+            color: c.textMuted, padding: 4,
             transition: 'color 0.2s ease',
           }}
-          onMouseEnter={e => { e.currentTarget.style.color = '#4ADE80'; }}
-          onMouseLeave={e => { e.currentTarget.style.color = '#555'; }}
+          onMouseEnter={e => { e.currentTarget.style.color = c.accent; }}
+          onMouseLeave={e => { e.currentTarget.style.color = c.textMuted; }}
           aria-label="Subscribe"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -217,10 +227,10 @@ function SubscribeForm() {
         <img
           src="/Upcodo_logo.webp"
           alt="UpCodo Digital"
-          style={{ height: 52, width: 'auto', filter: 'brightness(0) invert(1)', opacity: 1, display: 'block', marginBottom: 14 }}
+          style={{ height: 52, width: 'auto', filter: c.isDark ? 'brightness(0) invert(1)' : 'brightness(0)', opacity: 0.9, display: 'block', marginBottom: 14 }}
         />
         <span style={{
-          fontSize: 11, color: '#333', fontWeight: 500,
+          fontSize: 11, color: c.textMuted, fontWeight: 500,
           letterSpacing: '0.04em', fontFamily: 'var(--font-outfit)',
         }}>
           © 2026 UpCodo Digital
@@ -234,6 +244,7 @@ export default function Footer() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: '-60px' });
   const isMobile = useIsMobile();
+  const { c } = useTheme();
 
   return (
     <motion.footer
@@ -241,12 +252,12 @@ export default function Footer() {
       initial={{ opacity: 0 }}
       animate={inView ? { opacity: 1 } : {}}
       transition={{ duration: 0.9, ease }}
-      style={{ background: '#050505', position: 'relative', overflow: 'hidden' }}
+      style={{ background: c.bgSection, position: 'relative', overflow: 'hidden' }}
     >
       {/* Subtle background texture */}
       <div style={{
         position: 'absolute', inset: 0, pointerEvents: 'none',
-        backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.022) 1px, transparent 1px)',
+        backgroundImage: `radial-gradient(circle, ${c.dotGrid} 1px, transparent 1px)`,
         backgroundSize: '32px 32px',
         maskImage: 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.25) 30%, rgba(0,0,0,0.25) 70%, transparent 100%)',
       }} />
@@ -269,10 +280,10 @@ export default function Footer() {
         padding: 'clamp(48px, 5.5vw, 80px) clamp(24px, 5vw, 80px) clamp(32px, 4vw, 52px)',
       }}>
 
-        {/* Top: 5-column grid */}
+        {/* Top: 6-column grid */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : '1fr 1fr 1fr 1fr 1.4fr',
+          gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : '1fr 1fr 1fr 1fr 1fr 1.4fr',
           gap: isMobile ? '40px 24px' : 'clamp(24px, 3.5vw, 56px)',
           marginBottom: 'clamp(44px, 5vw, 64px)',
           alignItems: 'start',
@@ -312,25 +323,25 @@ export default function Footer() {
                   style={{
                     width: 36, height: 36,
                     borderRadius: 8,
-                    border: '1px solid rgba(255,255,255,0.08)',
-                    background: 'rgba(255,255,255,0.03)',
+                    border: `1px solid ${c.border}`,
+                    background: c.isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.03)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    color: '#555',
+                    color: c.textMuted,
                     textDecoration: 'none',
                     transition: 'color 0.22s, border-color 0.22s, background 0.22s, box-shadow 0.22s',
                   }}
                   onMouseEnter={e => {
                     const el = e.currentTarget;
-                    el.style.color = '#4ADE80';
+                    el.style.color = c.accent;
                     el.style.borderColor = 'rgba(74,222,128,0.35)';
                     el.style.background = 'rgba(74,222,128,0.07)';
                     el.style.boxShadow = '0 0 18px rgba(74,222,128,0.18)';
                   }}
                   onMouseLeave={e => {
                     const el = e.currentTarget;
-                    el.style.color = '#555';
-                    el.style.borderColor = 'rgba(255,255,255,0.08)';
-                    el.style.background = 'rgba(255,255,255,0.03)';
+                    el.style.color = c.textMuted;
+                    el.style.borderColor = c.border;
+                    el.style.background = c.isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.03)';
                     el.style.boxShadow = 'none';
                   }}
                 >
@@ -350,7 +361,7 @@ export default function Footer() {
           transition={{ duration: 1.0, ease, delay: 0.55 }}
           style={{
             height: 1,
-            background: 'rgba(255,255,255,0.05)',
+            background: c.border,
             transformOrigin: 'left',
             marginBottom: 'clamp(16px, 2vw, 24px)',
           }}
@@ -370,12 +381,12 @@ export default function Footer() {
           }}
         >
           <span style={{
-            fontSize: 11, color: '#333', fontWeight: 500,
+            fontSize: 11, color: c.textMuted, fontWeight: 500,
             letterSpacing: '0.04em',
             fontFamily: 'var(--font-outfit)',
           }}>
             a sister company of{' '}
-            <span style={{ color: '#444', fontWeight: 600 }}>Digimonk Technologies</span>
+            <span style={{ color: c.textSub, fontWeight: 600 }}>Digimonk Technologies</span>
             {' '}— dedicated to high-end application development.
           </span>
           <div style={{ display: 'flex', gap: 20, alignItems: 'center' }}>
@@ -384,13 +395,13 @@ export default function Footer() {
                 key={link}
                 href="#"
                 style={{
-                  fontSize: 11, color: '#333', fontWeight: 600,
+                  fontSize: 11, color: c.textMuted, fontWeight: 600,
                   letterSpacing: '0.1em', textTransform: 'uppercase',
                   textDecoration: 'none', transition: 'color 0.2s ease',
                   fontFamily: 'var(--font-outfit)',
                 }}
-                onMouseEnter={e => { e.currentTarget.style.color = '#4ADE80'; }}
-                onMouseLeave={e => { e.currentTarget.style.color = '#333'; }}
+                onMouseEnter={e => { e.currentTarget.style.color = c.accent; }}
+                onMouseLeave={e => { e.currentTarget.style.color = c.textMuted; }}
               >
                 {link}
               </a>

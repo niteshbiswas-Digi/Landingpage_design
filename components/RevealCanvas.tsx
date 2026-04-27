@@ -8,6 +8,7 @@ import {
   MotionValue,
   useSpring,
 } from "framer-motion"
+import { useTheme } from '../context/ThemeContext'
 
 const FRAME_COUNT = 120;
 
@@ -90,16 +91,21 @@ function useIsMobile() {
   return isMobile;
 }
 
-export default function RevealCanvas() {
+export default function RevealCanvas({ onComplete }: { onComplete?: () => void } = {}) {
   const containerRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const imagesRef = useRef<HTMLImageElement[]>([])
   const isMobile = useIsMobile()
+  const { c } = useTheme()
 
   const [loadedCount, setLoadedCount] = useState(0)
   const [isLoaded, setIsLoaded] = useState(false)
   const [progress, setProgress] = useState(0)
   const [animationComplete, setAnimationComplete] = useState(false)
+
+  useEffect(() => {
+    if (animationComplete) onComplete?.()
+  }, [animationComplete, onComplete])
 
   const cumulativeScrollRef = useRef(0)
   const animationProgress = useMemo(() => new MotionValue(0), [])
@@ -419,7 +425,7 @@ export default function RevealCanvas() {
                   key={i}
                   animate={{
                     width: i === activeBeat ? 24 : 6,
-                    background: i === activeBeat ? "#4ADE80" : "#1a1a1c",
+                    background: i === activeBeat ? c.accent : "#1a1a1c",
                   }}
                   transition={{ duration: 0.5 }}
                   style={{
@@ -522,7 +528,7 @@ export default function RevealCanvas() {
                           width: 4,
                           height: 4,
                           borderRadius: "50%",
-                          background: "#4ADE80",
+                          background: c.accent,
                           flexShrink: 0,
                         }}
                       />
@@ -532,7 +538,7 @@ export default function RevealCanvas() {
                           fontWeight: 700,
                           letterSpacing: "0.4em",
                           textTransform: "uppercase",
-                          color: "#4ADE80",
+                          color: c.accent,
                         }}
                       >
                         {beat.eyebrow}
@@ -546,7 +552,7 @@ export default function RevealCanvas() {
                           fontWeight: 700,
                           letterSpacing: "0.4em",
                           textTransform: "uppercase",
-                          color: "#4ADE80",
+                          color: c.accent,
                         }}
                       >
                         {beat.eyebrow}
@@ -555,7 +561,7 @@ export default function RevealCanvas() {
                         style={{
                           flex: 1,
                           height: 1,
-                          background: "rgba(74,222,128,0.2)",
+                          background: `${c.accent}33`,
                         }}
                       />
                     </>
@@ -601,7 +607,7 @@ export default function RevealCanvas() {
                     style={{
                       padding: isMobile ? "13px 28px" : "16px 40px",
                       borderRadius: 12,
-                      background: "#4ADE80",
+                      background: c.accent,
                       color: "#000",
                       fontWeight: 800,
                       fontSize: isMobile ? 13 : 15,
@@ -646,7 +652,7 @@ export default function RevealCanvas() {
                 right: 0,
                 height: 2,
                 background:
-                  "linear-gradient(90deg, #4ADE80 0%, rgba(74,222,128,0.3) 100%)",
+                  `linear-gradient(90deg, ${c.accent} 0%, ${c.accent}4d 100%)`,
                 width: `${progress * 100}%`,
                 transition: "width 0.1s linear",
                 zIndex: 10,
