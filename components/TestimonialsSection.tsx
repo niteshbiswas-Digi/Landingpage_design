@@ -631,7 +631,7 @@ export default function TestimonialsSection() {
             bottom: 0,
             width: 100,
             zIndex: 1,
-            background: `linear-gradient(90deg, ${c.bgSection} 0%, transparent 100%)`,
+            // background: `linear-gradient(90deg, ${c.bgSection} 0%, transparent 100%)`,
             pointerEvents: "none",
           }}
         />
@@ -643,7 +643,7 @@ export default function TestimonialsSection() {
             bottom: 0,
             width: 100,
             zIndex: 1,
-            background: `linear-gradient(270deg, ${c.bgSection} 0%, transparent 100%)`,
+            // background: `linear-gradient(270deg, ${c.bgSection} 0%, transparent 100%)`,
             pointerEvents: "none",
           }}
         />
